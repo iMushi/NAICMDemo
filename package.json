@@ -44,6 +44,9 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.3.3"
+    "typescript": "~2.3.3",
+    "jquery" : "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "webrtc-adapter": "^5.0.6"
   }
 }
