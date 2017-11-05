@@ -1,0 +1,74 @@
+<nav class="navbar navbar-default navBarAddon">
+	<div class="container-fluid">
+
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="navbar-brand sidenavBtn" data-toggle="dropdown" aria-expanded="false" (click)="openNav()">
+				<span class="glyphicon glyphicon-th-list"></span>
+			</a>
+
+			<a class="navbar-brand navbar-brandC">NAICM</a>
+
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" aria-expanded="true" style="">
+			<ul class="nav navbar-nav">
+				<li class="dropdown dropdownBtn">
+
+					<a class="dropdown-toggle dropdownBtn" data-toggle="dropdown" role="button"
+					   aria-expanded="false">Men&uacute;<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a [routerLink]="['/main']" (click)="closeNav()" [routerLinkActive]="['active']">Action</a>
+						</li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-control-header">
+					<input type="text" class="" placeholder="Búsqueda">
+				</div>
+				<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>
+				</button>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a (click)="openNav()" style="display: inline-block">Admin
+						<span class="caret"></span>
+					</a>
+					<button type="button" class="btn btn-primary navbar-btn"><i class="glyphicon glyphicon-user"></i>
+					</button>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</nav>
+<ol class="breadcrumb">
+	<li><a href="#">Home</a></li>
+	<li><a href="#">Library</a></li>
+	<li class="active">Data</li>
+</ol>
+
+<div id="mySidenav" class="sidenav">
+	<a (click)="closeNav()" class="closebtn">&times;</a>
+	<a [routerLink]="['/main']" (click)="closeNav()">Enrolamiento</a>
+	<a>Eventuales</a>
+	<a>B&uacute;squeda</a>
+</div>
+
+
