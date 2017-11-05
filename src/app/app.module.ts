@@ -7,13 +7,12 @@ import { AppRoutingModule } from './app-routing';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { AuthGuard } from "./auth/auth.guard";
-import { MenuComponent } from './layout/menu/menu.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MenuComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

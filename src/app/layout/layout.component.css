@@ -1,0 +1,13 @@
+
+.main-container{
+  padding: 15px;
+  -ms-overflow-x: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  overflow: hidden;
+}
+
+#mainDiv {
+  transition: margin-left .5s;
+}

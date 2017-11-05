@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MenuComponent } from "./menu.component";
-
+import { BlankPageComponent} from "./blank-page.component";
 
 const routes: Routes = [
-  { path: '', component: MenuComponent }
+  { path: '', component: BlankPageComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class BlankPageRouting { }
