@@ -1,6 +1,5 @@
 <nav class="navbar navbar-default navBarAddon">
 	<div class="container-fluid">
-
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -9,13 +8,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-
 			<a class="navbar-brand sidenavBtn" data-toggle="dropdown" aria-expanded="false" (click)="openNav()">
 				<span class="glyphicon glyphicon-th-list"></span>
 			</a>
-
 			<a class="navbar-brand navbar-brandC">NAICM</a>
-
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" aria-expanded="true" style="">
@@ -44,7 +40,6 @@
 				<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>
 				</button>
 			</form>
-
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a (click)="openNav()" style="display: inline-block">Admin
@@ -58,17 +53,18 @@
 		</div>
 	</div>
 </nav>
+
 <ol class="breadcrumb">
-	<li><a href="#">Home</a></li>
-	<li><a href="#">Library</a></li>
-	<li class="active">Data</li>
+	<li><a [routerLink]="['/enrolamiento']" (click)="closeNav()">NAICM</a></li>
+	<li><a>Enrolamiento</a></li>
+	<li class="active">{{breadTitle}}Datos Personales</li>
 </ol>
 
 <div id="mySidenav" class="sidenav">
 	<a (click)="closeNav()" class="closebtn">&times;</a>
-	<a [routerLink]="['/main']" (click)="closeNav()">Enrolamiento</a>
-	<a>Eventuales</a>
-	<a>B&uacute;squeda</a>
+	<a [routerLink]="['/main']" (click)="closeNav()">B&uacute;squeda</a>
+	<a [routerLink]="['/main']" (click)="closeNav()">Eventuales</a>
+	<a [routerLink]="['/enrolamiento']" (click)="closeNav()">Enrolamiento</a>
 </div>
 
 

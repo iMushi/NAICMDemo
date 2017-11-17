@@ -90,6 +90,12 @@
 	color: white !important;
 }
 
+input {
+	border: 0 !important;
+	outline: 0 !important;
+	background: transparent !important;
+	color: white;
+}
 
 .form-control-header {
 	width: 100%;

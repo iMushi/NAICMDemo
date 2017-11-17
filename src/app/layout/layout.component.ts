@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+	selector: 'app-layout',
+	templateUrl: './layout.component.html',
+	styleUrls: ['./layout.component.css']
 })
 
 export class LayoutComponent implements OnInit {
 
-  constructor() {
-    console.log("Constructor Layout");
-  }
+	public breadTitle:string;
 
-  ngOnInit() {
-    console.log("Cargando Layout");
-  }
+	constructor() {
+		console.log("Constructor Layout");
+	}
+
+	ngOnInit() {
+		this.breadTitle = '';
+		console.log("Cargando Layout");
+	}
+
+	receiveBreadTitle(ev){
+		console.log("Recibiendo");
+		console.log(ev);
+	}
 
 }

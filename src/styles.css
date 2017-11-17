@@ -1,12 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-input {
-  border: 0 !important;
-  outline: 0 !important;
-  background: transparent !important;
-  color: white;
-}
-
 /* Estilos para botones redondos */
 .btn-circle {
   width: 30px !important;

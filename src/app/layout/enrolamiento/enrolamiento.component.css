@@ -1,0 +1,32 @@
+
+#mainEnrolamiento .jumbotron{
+	padding: 50px;
+	border-radius: 20px;
+}
+
+video {
+	width: 100%;
+	border-radius: 20px;
+}
+
+#photoCanvas{
+	display: none;
+}
+
+
+
+.form-control-en {
+	width: 100%;
+	height: 40px;
+	font-size: 15px;
+	line-height: 1.42857143;
+	color: black;
+	background-color: transparent;
+	border-bottom: 2px solid black !important;
+	border-radius: 2px;
+	/*  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); */
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out;
+	display: inline-block;
+	width: auto;
+	vertical-align: middle;
+}
