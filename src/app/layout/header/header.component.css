@@ -13,6 +13,7 @@
 	transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 	border-top-right-radius: 25px;
 	border-bottom-right-radius: 25px;
+	margin-top: 115px;
 }
 
 /* The navigation menu links */
@@ -98,7 +99,7 @@ input {
 }
 
 .form-control-header {
-	width: 100%;
+	width: 250px !important;
 	height: 40px;
 	padding: 5px 5px;
 	font-size: 15px;
@@ -114,9 +115,14 @@ input {
 	vertical-align: middle;
 }
 
-.form-control-header input {
+.form-control-header > input {
 	padding-top: 5px;
+	width: 100%;
 }
 
+#appBread{
+	margin-top: 62px;
+	z-index: 1029 !important;
+}
 
 

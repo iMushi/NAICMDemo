@@ -1,0 +1,9 @@
+#modalEnrolResult .modal-dialog{
+	width:auto;
+}
+
+@media screen and (min-width:768px) {
+	#modalEnrolResult .modal-dialog{
+		width:80%;
+	}
+}

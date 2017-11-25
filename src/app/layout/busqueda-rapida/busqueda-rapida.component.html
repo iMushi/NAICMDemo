@@ -1,0 +1,61 @@
+<div class="modal" id="modalEnrolResult">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Resultado B&uacute;squeda R&aacute;pida</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped table-hover ">
+					<thead>
+					<tr class="info">
+						<th>#</th>
+						<th></th>
+						<th></th>
+						<th>Nombre</th>
+						<th>RFC</th>
+						<th>Empresa - Contrato</th>
+
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let res of results">
+						<td>{{res.id}}</td>
+						<td>
+							<button class="btn btn-sm btn-circle btn-info"
+									data-toggle="tooltip" data-placement="top" title=""
+									data-original-title="Terminar Enrolamiento" (click)="setPersonEnrolamiento(res.id)">
+								<i class="glyphicon glyphicon-camera"></i>
+							</button>
+						</td>
+						<td>
+							<button class="btn btn-sm btn-circle btn-info"
+									data-toggle="tooltip" data-placement="top" title=""
+									data-original-title="Imprimir Credencial">
+								<i class="glyphicon glyphicon-print"></i>
+							</button>
+						</td>
+						<td>{{res.nombre}} {{res.apellidoPaterno}} {{res.apellidoMaterno}}</td>
+						<td>{{res.rfc}}</td>
+						<td>
+							<ul>
+								<li *ngFor="let emp of res.empresas">
+									{{emp.nombreEmpresa}} - {{emp.fechaContrato}}
+								</li>
+							</ul>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button class="btn  btn-info" data-dismiss="modal" aria-hidden="true">
+					<i class="glyphicon glyphicon-stop"></i>&nbsp;Cerrar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

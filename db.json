@@ -1,0 +1,132 @@
+{
+	"enrolamiento": [
+		{
+			"id": 1,
+			"nombre": "Gabriel",
+			"apellidoPaterno": "Lopez",
+			"apellidoMaterno": "Sosa",
+			"fechaNacimiento": "07/03/1984",
+			"lugarNacimiento": "CDMX",
+			"sexo": "M",
+			"codigoPostal": "09300",
+			"telefono": "5556941696",
+			"telefonoEmergencia": "5556941696",
+			"contactoEmergencia": "Jose Gabriel Lopez Garcia",
+			"nss": "2233445566",
+			"rfc": "LOSG840307UC1",
+			"estadoCivil": "Soltero",
+			"tipoSangre": "O",
+			"registroPatronal": "N/D",
+			"accesoOtorgado": "Maximus",
+			"motivoAcceso": "Para chalanear",
+			"ocupacion": "Consultor Sr"
+		},
+		{
+			"id": 2,
+			"nombre": "Juan",
+			"apellidoPaterno": "Perez",
+			"apellidoMaterno": "Mercado",
+			"fechaNacimiento": "12/12/1980",
+			"lugarNacimiento": "Puebla MX",
+			"sexo": "M",
+			"codigoPostal": "00666",
+			"telefono": "5512345678",
+			"telefonoEmergencia": "5587654321",
+			"contactoEmergencia": "Desconocido",
+			"nss": "99887766",
+			"rfc": "ABCD801212UA1",
+			"estadoCivil": "Soltero",
+			"tipoSangre": "A",
+			"registroPatronal": "N/D",
+			"accesoOtorgado": "Jesus Salgado",
+			"motivoAcceso": "Consultor Sr.",
+			"ocupacion": "Consultoria de TI"
+		},
+		{
+			"id": 3,
+			"nombre": "Socorro",
+			"apellidoPaterno": "Barajas",
+			"apellidoMaterno": "Galvan",
+			"fechaNacimiento": "12/12/1981",
+			"lugarNacimiento": "CDMX",
+			"sexo": "F",
+			"codigoPostal": "04567",
+			"telefono": "22334455",
+			"telefonoEmergencia": "33445566",
+			"contactoEmergencia": "Desconocido",
+			"nss": "77665544",
+			"rfc": "112233445566U",
+			"estadoCivil": "Soltero",
+			"tipoSangre": "O",
+			"registroPatronal": "No Aplica",
+			"accesoOtorgado": "Direccion",
+			"motivoAcceso": "Implementacion Control",
+			"ocupacion": "Consultoria"
+		},
+		{
+			"id": 4,
+			"nombre": "Juan",
+			"apellidoPaterno": "Perez",
+			"apellidoMaterno": "Ramirez",
+			"fechaNacimiento": "12/12/1980",
+			"lugarNacimiento": "Puebla MX",
+			"sexo": "M",
+			"codigoPostal": "00666",
+			"telefono": "5512345678",
+			"telefonoEmergencia": "5587654321",
+			"contactoEmergencia": "Desconocido",
+			"nss": "99887766",
+			"rfc": "ABCD801212UA1",
+			"estadoCivil": "Soltero",
+			"tipoSangre": "A",
+			"registroPatronal": "N/D",
+			"accesoOtorgado": "Jesus Salgado",
+			"motivoAcceso": "Consultor Sr.",
+			"ocupacion": "Consultoria de TI"
+		}
+	],
+	"empresas": [
+		{
+			"id": 1,
+			"nombreEmpresa" : "Constructora No Se Cae",
+			"fechaContrato" : "12/12/2018",
+			"ocupacion" : "Consultor Estructura",
+			"enrolamientoId" : 1
+		},
+		{
+			"id": 2,
+			"nombreEmpresa" : "Empresa Consultora",
+			"fechaContrato" : "12/12/2018",
+			"ocupacion" : "Consultor Sr",
+			"enrolamientoId" : 2
+		},
+		{
+			"id": 3,
+			"nombreEmpresa" : "Empresa Consultora",
+			"fechaContrato" : "12/12/2018",
+			"ocupacion" : "Consultor Jr",
+			"enrolamientoId" : 3
+		},
+		{
+			"id": 4,
+			"nombreEmpresa" : "Empresa Consultora Otros",
+			"fechaContrato" : "12/12/2018",
+			"ocupacion" : "Socio",
+			"enrolamientoId" : 3
+		},
+		{
+			"id": 5,
+			"nombreEmpresa" : "Empresa Consultora Segundo Turno",
+			"fechaContrato" : "12/12/2019",
+			"ocupacion" : "Cajero OXXO",
+			"enrolamientoId" : 1
+		},
+		{
+			"id": 6,
+			"nombreEmpresa" : "Empresa Consultora Turno",
+			"fechaContrato" : "12/12/2019",
+			"ocupacion" : "Consultorillo",
+			"enrolamientoId" : 4
+		}
+	]
+}

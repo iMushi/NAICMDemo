@@ -1,8 +1,9 @@
-<div  id="mainDiv">
-  <app-header [breadTitle] = 'breadTitle' ></app-header>
-  <div class="main-container" id="mainContainer">
-    <router-outlet></router-outlet>
-  </div>
+<div id="mainDiv">
+	<app-header [breadTitle]='breadTitle'></app-header>
+	<app-busqueda-rapida></app-busqueda-rapida>
+	<div class="main-container" id="mainContainer">
+		<router-outlet></router-outlet>
+	</div>
 </div>
 
 

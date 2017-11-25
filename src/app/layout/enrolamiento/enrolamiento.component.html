@@ -7,28 +7,72 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<button type="button" (click)="changeBread(this,{'title':'Datos Personales'})"
-							data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo"
-							class="btn btn-primary btn-circle">
+							data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo" class="btn btn-primary btn-circle">
 						<i class=" glyphicon glyphicon-user"></i>
 					</button>
 					Datos Personales
 				</div>
 				<div class="panel-body panel-collapse in" id="collapseInactivo">
 					<div class="row">
+						<!-- Foto y Camara -->
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 							<div class="row">
-								<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-									<video #hardwareVideo id="hardwareVideo" autoplay></video>
-									<canvas #photoCanvas id="photoCanvas"></canvas>
+								<div id='pictureContainer' class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+
+									<div [style.display]=" isStreaming ? 'block' : 'none' ">
+										<video #hardwareVideo id="hardwareVideo" autoplay></video>
+										<canvas #photoCanvas id="photoCanvas"></canvas>
+									</div>
+
+
+									<div [style.display]=" !isStreaming ? 'block' : 'none' ">
+										<div class="containerCred">
+											<div class="header">
+											</div>
+											<div class="mainbody">
+												<img [ngStyle]="{'background-image': 'url(' + currImgPhoto + ')'}">
+											</div>
+											<div class="dataBody">
+												<table>
+													<tr>
+														<td>
+															<h3>{{personEnrolar.nombre}} {{personEnrolar.apellidoPaterno}}</h3></td>
+													</tr>
+													<tr class="trSeparador">
+														<td>
+															<hr>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<h4>{{credEmpresa}}</h4>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<h5>{{credOcupacion}}</h5>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<ngx-qrcode [qrc-element-type]="elementTypeQR" [qrc-value]="valueQR" qrc-version="3"
+																		qrc-errorCorrectionLevel="L">
+															</ngx-qrcode>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6
 									col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
-
-									<div *ngIf="isStreaming">
+									<div class="form-group" *ngIf="isStreaming">
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-											<button *ngIf="isStreaming" class="btn btn-sm btn-success">
+											<button (click)="tomarFoto()" class="btn btn-sm btn-success">
 												<span class="glyphicon glyphicon-camera"></span> Captuar Foto
 											</button>
 										</div>
@@ -37,75 +81,241 @@
 												<span class="glyphicon glyphicon-stop"></span> Parar Camara
 											</button>
 										</div>
+
 									</div>
+									<div class="form-group" *ngIf="!isStreaming">
+										<br>
 
-									<button *ngIf="!isStreaming" (click)="iniciaStream()" class="btn btn-sm btn-info">
-										<span class="glyphicon glyphicon-camera"></span> Iniciar Camara
-									</button>
+										<button (click)="iniciaStream()" class="btn btn-sm btn-info center-block">
+											<span class="glyphicon glyphicon-camera"></span> Iniciar Camara
+										</button>
 
+
+									</div>
 								</div>
 							</div>
-
 						</div>
-
-
+						<!-- Termina Foto y Camara -->
+						<!-- Datos Personales -->
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Nombre</span>
+										<input type="text" class="form-control" id="enNombre" placeholder="Nombre"
+											   [(ngModel)]="personEnrolar.nombre" #nombre name="enNombre"
+											   (ngModelChange)="qrModelChange($event)">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Apellido Paterno</span>
+										<input type="text" class="form-control" id="enApPaterno"
+											   placeholder="Apellido Paterno"
+											   [(ngModel)]="personEnrolar.apellidoPaterno" name="enApPaterno">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Apellido Materno</span>
+										<input type="text" class="form-control" id="enApMaterno"
+											   placeholder="Apellido Materno"
+											   [(ngModel)]="personEnrolar.apellidoMaterno" name="enApMaterno">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Fecha de Nacimiento</span>
+										<input type="text" class="form-control" id="enFechaNacimiento"
+											   placeholder="dd/mm/YYYY"
+											   [(ngModel)]="personEnrolar.fechaNacimiento" name="enFechaNacimiento">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Lugar de Nacimiento</span>
+										<input type="text" class="form-control" id="enLugarNacimiento"
+											   placeholder="Lugar de Nacimiento"
+											   [(ngModel)]="personEnrolar.lugarNacimiento" name="enLugarNacimiento">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-8">
+									<div class="input-group">
+										<span class="input-group-addon">Sexo</span>
+										<select class="form-control" name="enCmbSexo" id="enCmbSexo" #enCmbSexo
+												(change)="cmbSexoChange(enCmbSexo.value)"
+												[(ngModel)]="personEnrolar.sexo" name="enCmbSexo">
+											<option value="M">Masculino</option>
+											<option value="F">Femenino</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-5">
+									<div class="input-group">
+										<span class="input-group-addon">C.P.</span>
+										<input type="text" class="form-control" id="enCodigoPostal"
+											   placeholder="C&oacute;digo Postal"
+											   [(ngModel)]="personEnrolar.codigoPostal" name="enCodigoPostal">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-12">
+									<div class="input-group">
+										<span class="input-group-addon">Tel&eacute;fono</span>
+										<input type="text" class="form-control" id="enTelefono"
+											   placeholder="Tel&eacute;fono"
+											   [(ngModel)]="personEnrolar.telefono" name="enTelefono">
+										<span class="input-group-addon">Emergencias</span>
+										<input type="text" class="form-control" id="enTelefonoEmergencias"
+											   placeholder="Emergencias"
+											   [(ngModel)]="personEnrolar.telefonoEmergencia" name="enTelefonoEmergencias">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Contacto Emergencias</span>
+										<input type="text" class="form-control" id="enContactoEmergencias"
+											   placeholder="Contacto Emergencias"
+											   [(ngModel)]="personEnrolar.contactoEmergencia" name="enContactoEmergencias">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Termina Datos Personales -->
+					</div>
+					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-							<fieldset>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Acceso Otorgado</span>
+										<input type="text" class="form-control" id="enAccesoOtorgado"
+											   placeholder="Acceso Otorgado ..."
+											   [(ngModel)]="personEnrolar.accesoOtorgado" name="enAccesoOtorgado">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Motivo de Acceso</span>
+										<input type="text" class="form-control" id="enMotivoAcceso"
+											   placeholder="Motivo de Acceso"
+											   [(ngModel)]="personEnrolar.motivoAcceso" name="enMotivoAcceso">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Registro Patronal</span>
+										<input type="text" class="form-control" id="enRegistroPatronal"
+											   placeholder="Registro Patronal"
+											   [(ngModel)]="personEnrolar.registroPatronal" name="enRegistroPatronal">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">NSS</span>
+										<input type="text" class="form-control" id="enNSS"
+											   placeholder="NSS"
+											   [(ngModel)]="personEnrolar.nss" name="enNSS">
+										<span class="input-group-addon">RFC</span>
+										<input type="text" class="form-control" id="enRFC"
+											   placeholder="RFC"
+											   [(ngModel)]="personEnrolar.rfc" name="enRFC">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Estado Civil</span>
+										<input type="text" class="form-control" id="enEstadoCivil"
+											   placeholder="Estado Civil"
+											   [(ngModel)]="personEnrolar.estadoCivil" name="enEstadoCivil">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-10">
+									<div class="input-group">
+										<span class="input-group-addon">Tipo de Sangre</span>
+										<input type="text" class="form-control" id="enTipoSangre"
+											   placeholder="Tipo de Sangre"
+											   [(ngModel)]="personEnrolar.tipoSangre" name="enTipoSangre">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10
+							col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">Empresas para las que labora</h3>
+								</div>
+								<div class="panel-body">
 
-								<div class="form-group">
-									<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-									<div class="col-lg-10">
-										<div class="input-group">
-											<span class="input-group-addon">Email</span>
-											<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+									<div class="row" *ngFor="let empresa of personEnrolar.empresas ; let iEmpresa = index;">
+
+										<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-top: 45px;">
+											<div style="display:block;">
+												<div class="divRadioEmprea">
+													<input type="radio" name="radioEmpresa"
+														   [checked]="iEmpresa === 0"
+														   [value]="empresa.id"
+														   (change)="onEmpresaChange(empresa)">
+												</div>
+											</div>
+										</div>
+
+										<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+											<blockquote>
+												<div class="form-group">
+													<div class="col-lg-11">
+														<p>{{empresa.nombreEmpresa}}</p>
+														<div class="input-group">
+															<span class="input-group-addon">Ocupaci&oacute;n</span>
+															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}"
+																   placeholder="Ocupaci&oacute;n"
+																   [(ngModel)]="empresa.ocupacion" name="enOcupacion{{iEmpresa}}">
+															<span class="input-group-addon">Fecha de Contrato</span>
+															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}"
+																   placeholder="Nombre Empresa"
+																   [(ngModel)]="empresa.fechaContrato" name="enEmpresaFC{{iEmpresa}}">
+														</div>
+													</div>
+												</div>
+											</blockquote>
+
+
 										</div>
 									</div>
+
 								</div>
-
-								<div class="form-group">
-									<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" id="inputEmail" placeholder="Email">
-									</div>
-								</div>
-
-							</fieldset>
-
-							<div class="row">
-								<label>Apellido Paterno</label>
 							</div>
-
-							<div class='row'>
-								<label>Apellido Materno</label>
-							</div>
-
-							<div class="row">
-								<label for="">Fecha de Nacimiento</label>
-							</div>
-
-							<div class="row">
-								<label for="">Lugar de Nacimiento</label>
-							</div>
-
-							<div class="row">
-								<label for="">Genero</label>
-							</div>
-
-							<div class="row">
-								<label for="">Direcci&oacute;n</label>
-								<label for="">C&oacute;digo Postal</label>
-							</div>
-
-							<div class="row">
-								<label for="">Tel&eacute;fono</label>
-								<label for="">Tel&eacute;fono Emergencias</label>
-							</div>
-							<div class="row">
-								<label for="">Contacto Emergencias</label>
-							</div>
-
-
 						</div>
 
 					</div>

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {PrestoService} from "../common/presto.service";
 
 @Component({
 	selector: 'app-layout',
@@ -8,9 +9,9 @@ import {Component, OnInit} from '@angular/core';
 
 export class LayoutComponent implements OnInit {
 
-	public breadTitle:string;
+	public breadTitle: string;
 
-	constructor() {
+	constructor(private prestoService: PrestoService) {
 		console.log("Constructor Layout");
 	}
 
@@ -19,7 +20,7 @@ export class LayoutComponent implements OnInit {
 		console.log("Cargando Layout");
 	}
 
-	receiveBreadTitle(ev){
+	receiveBreadTitle(ev) {
 		console.log("Recibiendo");
 		console.log(ev);
 	}

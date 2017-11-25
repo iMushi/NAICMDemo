@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navBarAddon">
+<nav class="navbar navbar-default navBarAddon navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -24,20 +24,23 @@
 						<li><a [routerLink]="['/main']" (click)="closeNav()" [routerLinkActive]="['active']">Action</a>
 						</li>
 						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
+						<li><a href="#"></a></li>
 						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
+						<li><a href="#"></a></li>
 						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
+						<li><a href="#"></a></li>
 					</ul>
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-left" role="search">
+			<form class="navbar-form navbar-left col-lg-5" role="search" onsubmit="return false;">
 				<div class="form-control-header">
-					<input type="text" class="" placeholder="Búsqueda">
+					<input #inputBuscar (keyup)="keyPressBuscar($event,inputBuscar)" type="text"
+						   placeholder="Buscar (Nombre, Apellido)">
 				</div>
-				<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>
+				<button type="button" class="btn btn-primary" (click)="buscarPorNombre(inputBuscar.value)"
+						data-toggle="modal" data-target="#modalEnrolResult">
+					<i class="glyphicon glyphicon-search"></i>
 				</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
@@ -49,16 +52,16 @@
 					</button>
 				</li>
 			</ul>
-
 		</div>
 	</div>
 </nav>
 
-<ol class="breadcrumb">
+<ol id="appBread" class="breadcrumb navbar-fixed-top">
 	<li><a [routerLink]="['/enrolamiento']" (click)="closeNav()">NAICM</a></li>
 	<li><a>Enrolamiento</a></li>
 	<li class="active">{{breadTitle}}Datos Personales</li>
 </ol>
+
 
 <div id="mySidenav" class="sidenav">
 	<a (click)="closeNav()" class="closebtn">&times;</a>

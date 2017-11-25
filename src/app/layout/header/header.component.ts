@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {PrestoService} from "../../common/presto.service";
+
 
 @Component({
 	selector: 'app-header',
@@ -9,11 +11,15 @@ export class HeaderComponent implements OnInit {
 
 	@Input() breadTitle : string;
 
-	constructor() {
-
-	}
+	constructor(
+		private _prestoService : PrestoService
+	) {}
 
 	ngOnInit() {
+
+		let presto : string = this._prestoService.getPrestoService();
+
+		console.log('Init de header : ' + presto);
 
 	}
 
@@ -29,6 +35,18 @@ export class HeaderComponent implements OnInit {
 		document.getElementById("mySidenav").style.width = "0";
 		document.getElementById("mainDiv").style.marginLeft = "0";
 		document.body.style.backgroundColor = "white";
+	}
+
+	keyPressBuscar(...eve){
+
+		if(eve[0].keyCode === 13){
+			this.buscarPorNombre(eve[1].value);
+		}
+	}
+
+	buscarPorNombre(value){
+		this._prestoService.getEnrolamientoByName(value.split(",")
+			.map(val => val.trim()));
 	}
 
 }

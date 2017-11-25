@@ -25,13 +25,16 @@ export class WebRTCService {
 		console.log("start");
 	}
 
-	takePicture(hardwareVideo: any, photoCanvas: any) {
+	takePicture(hardwareVideo: any, photoCanvas: any) : HTMLImageElement {
 
 		let pc: any = document.querySelector('#photoCanvas');
 		let video: any = document.querySelector('#hardwareVideo');
 
-		pc.setAttribute('width', hardwareVideo.videoWidth);
-		pc.setAttribute('height', hardwareVideo.videoHeight);
+
+
+
+		pc.setAttribute('width', video.videoWidth);
+		pc.setAttribute('height', video.videoHeight);
 
 		pc.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
@@ -39,7 +42,8 @@ export class WebRTCService {
 		let photoEle = document.createElement('img');
 
 		photoEle.src = data;
-		document.body.appendChild(photoEle);
+		//document.body.appendChild(photoEle);
+		return photoEle;
 	}
 
 	stopStream() {
