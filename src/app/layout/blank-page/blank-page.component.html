@@ -1,3 +1,44 @@
-<p>
-  blank-page works!
-</p>
+<div class="container">
+	<div class="jumbotron">
+		<div style="text-align: center">
+			<h1>Sistema de Enrolamiento</h1>
+			<br>
+			<h2>NAICM</h2>
+		</div>
+		<hr>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
+				<button class="btn  btn-default"   [routerLink]="['/busqueda']" >
+					<span class="glyphicon glyphicon-search"></span>
+					Buscar Persona
+				</button>
+
+			</div>
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
+				<button class="btn btn-info" [routerLink]="['/imprimir']">
+					<span class="glyphicon glyphicon-print"></span>
+					Imprimir Acceso
+				</button>
+			</div>
+
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
+				<button class="btn  btn-success" [routerLink]="['/eventuales']">
+					<span class="glyphicon glyphicon-tags"></span>
+					Acceso Eventual
+				</button>
+
+			</div>
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
+				<button class="btn  btn-primary" [routerLink]="['/cargamasiva']">
+					<span class="glyphicon glyphicon-hdd"></span>
+					Carga Masiva
+				</button>
+			</div>
+		</div>
+
+		<p>&nbsp;</p>
+
+	</div>
+
+
+</div>

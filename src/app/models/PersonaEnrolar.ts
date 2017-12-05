@@ -2,7 +2,7 @@ import {IEmpresa, TEmpresa} from "./interface";
 
 export class PersonaEnrolar implements IEmpresa {
 
-	id: number;
+	_id: number;
 	name: string;
 	fechaContrato: string;
 	nombre: string;
@@ -22,13 +22,13 @@ export class PersonaEnrolar implements IEmpresa {
 	registroPatronal: string;
 	accesoOtorgado: string;
 	motivoAcceso: string;
-	empresas: Array<TEmpresa>;
+	empresa: Array<TEmpresa>;
 
 	constructor(values?: IEmpresa) {
 
 
 		if (values) {
-			this.id = values.id;
+			this._id = values._id;
 			this.nombre = values.nombre;
 			this.apellidoPaterno = values.apellidoPaterno;
 			this.apellidoMaterno = values.apellidoMaterno;
@@ -46,15 +46,15 @@ export class PersonaEnrolar implements IEmpresa {
 			this.registroPatronal = values.registroPatronal;
 			this.accesoOtorgado = values.accesoOtorgado;
 			this.motivoAcceso = values.motivoAcceso;
-			this.empresas = values.empresas;
+			this.empresa = values.empresa;
 
 		} else {
-			this.id = undefined;
+			this._id = undefined;
 			this.nombre = '';
 			this.apellidoPaterno = '';
 			this.sexo = '';
-			this.empresas = [{
-				id: undefined,
+			this.empresa = [{
+				_id: undefined,
 				nombreEmpresa: '',
 				fechaContrato: '',
 				ocupacion: ''

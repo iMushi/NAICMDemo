@@ -11,18 +11,10 @@ export class LayoutComponent implements OnInit {
 
 	public breadTitle: string;
 
-	constructor(private prestoService: PrestoService) {
-		console.log("Constructor Layout");
-	}
+	constructor() {}
 
 	ngOnInit() {
 		this.breadTitle = '';
-		console.log("Cargando Layout");
-	}
-
-	receiveBreadTitle(ev) {
-		console.log("Recibiendo");
-		console.log(ev);
 	}
 
 }

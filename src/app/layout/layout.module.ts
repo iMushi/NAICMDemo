@@ -9,7 +9,7 @@ import { BusquedaRapidaComponent } from './busqueda-rapida/busqueda-rapida.compo
 @NgModule({
 	imports: [
 		CommonModule,
-		LayoutRoutingModule,
+		LayoutRoutingModule
 	],
 	declarations: [
 		LayoutComponent,

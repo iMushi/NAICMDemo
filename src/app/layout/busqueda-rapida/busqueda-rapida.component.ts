@@ -22,8 +22,9 @@ export class BusquedaRapidaComponent implements OnInit {
 			res => {
 				this.results = res;
 				if (this.results.length) {
-					$('#modalEnrolResult').modal('show');
+
 					setTimeout(_ => {
+						$('#modalEnrolResult').modal('show');
 						$('#modalEnrolResult [data-toggle="tooltip"]').tooltip();
 					}, 100);
 				}
@@ -32,12 +33,14 @@ export class BusquedaRapidaComponent implements OnInit {
 		);
 	}
 
-	setPersonEnrolamiento(personId: number) {
+	setPersonEnrolamiento(personId: string) {
+
+		console.log(personId);
+
 		this.prestoService.setPersonEnrolamiento(personId);
 
 
 		if (this._router.url !== '/enrolamiento') {
-			console.log("navegnado");
 			this._router.navigate(['/enrolamiento']).then();
 		}
 

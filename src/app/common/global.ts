@@ -12,6 +12,8 @@ export const GLOBAL = {
 
 	DEFAULTPERSON : {empresas:[{}]},
 
+	RESTAPINJS : 'http://localhost:3789/api/',
+
 	checkToArray: (obj: any): Array<any> => {
 		if (!isArray(obj)) {
 			if (obj) {

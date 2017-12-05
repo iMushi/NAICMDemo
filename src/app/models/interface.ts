@@ -1,5 +1,5 @@
 export interface IEmpresa {
-	id: number
+	_id: number
 	name?:string
 	fechaContrato?: string
 	nombre?: string
@@ -20,12 +20,32 @@ export interface IEmpresa {
 	accesoOtorgado?: string
 	motivoAcceso?: string
 	ocupacion?: string
-	empresas ?: Array<TEmpresa>
+	empresa ?: Array<TEmpresa>
 }
 
 export type TEmpresa = {
-	id : number,
+	_id : number,
 	nombreEmpresa : string,
 	fechaContrato : string,
 	ocupacion : string
+}
+
+export type TBreaCrumb = {
+	routerLink: string,
+	txt : string,
+	class: string
+}
+
+export interface IUserResponse{
+	user : IUsuario;
+	token : string;
+}
+
+export interface IUsuario{
+	_id : string;
+	password: string;
+	role:string;
+	email : string;
+	name:string ;
+	surname : string;
 }

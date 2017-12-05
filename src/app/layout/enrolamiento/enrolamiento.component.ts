@@ -2,9 +2,8 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {WebRTCService} from "../../common/webRTC.service";
 import {PrestoService} from "../../common/presto.service";
 import {GLOBAL} from "../../common/global";
-import {IEmpresa} from "../../common/interface";
 import {Router} from "@angular/router";
-import {PersonaEnrolar} from "../../common/PersonaEnrolar";
+import {PersonaEnrolar} from "../../models/PersonaEnrolar";
 
 
 declare var jQuery: any;
@@ -47,15 +46,10 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.isStreaming = false;
 		this.photoInfo = null;
 
-		console.log("Constructor Enrolamiento ===> ");
-
 	}
 
 
 	ngOnInit() {
-
-
-		console.log("ngOnInits Enrolamiento ===> ");
 
 		this.cmbSexoChange(GLOBAL.MALE);
 
@@ -63,15 +57,22 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			res => {
 
 				this.personEnrolar = new PersonaEnrolar(res);
-
-
 				this.cmbSexoChange(this.personEnrolar.sexo);
 				this.qrModelChange();
-				this.onEmpresaChange(this.personEnrolar.empresas[0]);
-
-
+				this.onEmpresaChange(this.personEnrolar.empresa[0]);
 			},
 			error => console.log(error)
+		);
+
+		this._prestoService.setBreadCrumb([{
+				routerLink: "/enrolamiento",
+				txt: "Enrolamiento",
+				class:""
+			}, {
+				routerLink: "/enrolamiento",
+				txt: "Finalizar Enrolamiento",
+				class: "active"
+			}]
 		);
 
 	}
@@ -83,7 +84,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		}
 		this.subscriber.unsubscribe();
 		this._prestoService.resetPerson();
-
 	}
 
 	iniciaStream() {
@@ -114,11 +114,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 
 	onEmpresaChange(empresa: any) {
-
 		this.credEmpresa = empresa.nombreEmpresa;
 		this.credOcupacion = empresa.ocupacion;
 		this.credIdEmpresa = empresa.id;
-
 	}
 
 

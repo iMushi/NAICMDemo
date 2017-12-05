@@ -7,7 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  constructor(){
-    console.log("Cargando ====> App Component");
-  }
+  constructor(){ }
 }

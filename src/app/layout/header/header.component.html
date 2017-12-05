@@ -2,72 +2,84 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false" *ngIf="identity">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand sidenavBtn" data-toggle="dropdown" aria-expanded="false" (click)="openNav()">
+			<a class="navbar-brand sidenavBtn" data-toggle="dropdown" aria-expanded="false" (click)="openNav()" *ngIf="identity">
 				<span class="glyphicon glyphicon-th-list"></span>
 			</a>
-			<a class="navbar-brand navbar-brandC">NAICM</a>
+			<a class="navbar-brand navbar-brandC" [routerLink]="['/']" (click)="closeNav()">NAICM</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" aria-expanded="true" style="">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" *ngIf="identity">
 				<li class="dropdown dropdownBtn">
-
 					<a class="dropdown-toggle dropdownBtn" data-toggle="dropdown" role="button"
 					   aria-expanded="false">Men&uacute;<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a [routerLink]="['/main']" (click)="closeNav()" [routerLinkActive]="['active']">Action</a>
-						</li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#"></a></li>
+						<li><a [routerLink]="['/busqueda']" (click)="closeNav()" >B&uacute;squeda</a></li>
 						<li class="divider"></li>
-						<li><a href="#"></a></li>
+						<li><a [routerLink]="['/imprimir']" (click)="closeNav()" >Imprimir</a></li>
 						<li class="divider"></li>
-						<li><a href="#"></a></li>
+						<li><a [routerLink]="['/eventuales']" (click)="closeNav()" >Eventuales</a></li>
+						<li class="divider"></li>
+						<li><a [routerLink]="['/cargamasiva']" (click)="closeNav()" >Carga Masiva</a></li>
 					</ul>
 				</li>
 			</ul>
-
-			<form class="navbar-form navbar-left col-lg-5" role="search" onsubmit="return false;">
+			<form class="navbar-form navbar-left col-lg-5" role="search" onsubmit="return false;" *ngIf="identity">
 				<div class="form-control-header">
 					<input #inputBuscar (keyup)="keyPressBuscar($event,inputBuscar)" type="text"
 						   placeholder="Buscar (Nombre, Apellido)">
 				</div>
-				<button type="button" class="btn btn-primary" (click)="buscarPorNombre(inputBuscar.value)"
-						data-toggle="modal" data-target="#modalEnrolResult">
+				<button type="button" class="btn btn-primary" (click)="buscarPorNombre(inputBuscar.value)">
 					<i class="glyphicon glyphicon-search"></i>
 				</button>
 			</form>
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" *ngIf="!identity">
 				<li>
-					<a (click)="openNav()" style="display: inline-block">Admin
-						<span class="caret"></span>
+					<a style="display: inline-block" [routerLink] = "['/login']" >
+						<span class="glyphicon glyphicon-log-in">&nbsp;</span>
+						Login
 					</a>
-					<button type="button" class="btn btn-primary navbar-btn"><i class="glyphicon glyphicon-user"></i>
-					</button>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right"  *ngIf="identity">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+					   aria-expanded="true">{{identity.user.name}}<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a (click)="logout()">
+							<span class="glyphicon glyphicon-log-out">&nbsp;</span>
+							Logout</a>
+					</ul>
 				</li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
-<ol id="appBread" class="breadcrumb navbar-fixed-top">
-	<li><a [routerLink]="['/enrolamiento']" (click)="closeNav()">NAICM</a></li>
-	<li><a>Enrolamiento</a></li>
-	<li class="active">{{breadTitle}}Datos Personales</li>
+<ol id="appBread"  class="breadcrumb navbar-fixed-top">
+	<ng-container #appBread></ng-container>
+
+	<ng-template #breadTpl let-options>
+		<li class="{{options.class}}">
+			<a *ngIf="options.class === '' " [routerLink]="[options.routerLink]" (click)="closeNav()">{{options.txt}}</a>
+			<span *ngIf="options.class !==''" >{{options.txt}}</span>
+		</li>
+	</ng-template>
 </ol>
 
 
 <div id="mySidenav" class="sidenav">
 	<a (click)="closeNav()" class="closebtn">&times;</a>
-	<a [routerLink]="['/main']" (click)="closeNav()">B&uacute;squeda</a>
-	<a [routerLink]="['/main']" (click)="closeNav()">Eventuales</a>
-	<a [routerLink]="['/enrolamiento']" (click)="closeNav()">Enrolamiento</a>
+	<a [routerLink]="['/busqueda']" (click)="closeNav()">B&uacute;squeda</a>
+	<a [routerLink]="['/imprimir']" (click)="closeNav()">Imprimir Acceso</a>
+	<a [routerLink]="['/eventuales']" (click)="closeNav()">Eventuales</a>
+	<a [routerLink]="['/cargamasiva']" (click)="closeNav()">Carga Masiva</a>
 </div>
 
 

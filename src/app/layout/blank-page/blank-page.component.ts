@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PrestoService} from "../../common/presto.service";
 
 @Component({
   selector: 'app-blank-page',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlankPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _prestoService : PrestoService) { }
 
   ngOnInit() {
+
+	  this._prestoService.setBreadCrumb([]);
   }
 
 }

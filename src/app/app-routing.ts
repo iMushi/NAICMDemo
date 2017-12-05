@@ -1,19 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from "./auth/auth.guard";
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 
 const routes: Routes = [
-  { path: ''
-    , loadChildren: './layout/layout.module#LayoutModule'
-    , canActivate:[AuthGuard]
-  },
-  { path: '**', redirectTo: 'not-found' }
+	{
+		path: '', loadChildren: './layout/layout.module#LayoutModule'
+	}
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -6,6 +6,7 @@ import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import {AuthGuard} from "./auth/auth.guard";
+import {AuthService} from "./common/auth.service";
 
 @NgModule({
 	declarations: [
@@ -19,7 +20,7 @@ import {AuthGuard} from "./auth/auth.guard";
 		FormsModule,
 		HttpClientModule
 	],
-	providers: [AuthGuard],
+	providers: [AuthGuard,AuthService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

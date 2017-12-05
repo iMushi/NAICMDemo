@@ -1,26 +1,46 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck,OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {PrestoService} from "../../common/presto.service";
-
+import {Subscription} from "rxjs/Subscription";
+import {TBreaCrumb} from "../../models/interface";
+import {AuthService} from "../../common/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+	styleUrls: ['./header.component.css'],
+	providers : [AuthService]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
-	@Input() breadTitle : string;
+	ngDoCheck(): void {
+		this.identity = this._authService.getIdentity();
+	}
 
-	constructor(
-		private _prestoService : PrestoService
-	) {}
+
+	@ViewChild('appBread', {read: ViewContainerRef}) appBread: ViewContainerRef;
+	@ViewChild('breadTpl', { read: TemplateRef }) breadTpl: TemplateRef<any>;
+
+	public unsubscriber: Subscription;
+	public identity = null;
+
+
+	constructor(private _prestoService: PrestoService, private _authService : AuthService, private _router : Router) {
+		this.identity = this._authService.getIdentity();
+	}
 
 	ngOnInit() {
 
-		let presto : string = this._prestoService.getPrestoService();
+		this.unsubscriber = this._prestoService.breadEmitted$.subscribe(
+			breadArray => {
+				this.updateBread(breadArray);
+			},
+			error => console.log(error)
+		);
+	}
 
-		console.log('Init de header : ' + presto);
-
+	ngOnDestroy(): void {
+		this.unsubscriber.unsubscribe();
 	}
 
 
@@ -37,14 +57,45 @@ export class HeaderComponent implements OnInit {
 		document.body.style.backgroundColor = "white";
 	}
 
-	keyPressBuscar(...eve){
+	updateBread(params: Array<TBreaCrumb>) {
 
-		if(eve[0].keyCode === 13){
-			this.buscarPorNombre(eve[1].value);
-		}
+		let breadInit: Array<TBreaCrumb> = [{
+			routerLink: "/",
+			txt : "NAICM",
+			class:""
+		}, ...params];
+
+		this.appBread.clear();
+
+		breadInit.map(
+			el => {
+				this.appBread.createEmbeddedView( this.breadTpl, {$implicit: el} );
+			}
+		);
+
+
 	}
 
-	buscarPorNombre(value){
+	logout (){
+		this._authService.logout().subscribe(
+			logout => {
+				this._router.navigate(['/login']);
+			},
+			error =>{
+				console.log(error);
+			}
+		);
+	}
+
+	keyPressBuscar(...eve) {
+
+		if (eve[0].keyCode === 13) {
+			this.buscarPorNombre(eve[1].value);
+		}
+		return true;
+	}
+
+	buscarPorNombre(value) {
 		this._prestoService.getEnrolamientoByName(value.split(",")
 			.map(val => val.trim()));
 	}
