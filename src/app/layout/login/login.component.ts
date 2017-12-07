@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {PrestoService} from "../../common/presto.service";
 import {Usuario} from "../../models/User";
-import {NgForm} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {AuthService} from "../../common/auth.service";
 import {IUserResponse} from "../../models/interface";
-import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {isUndefined} from "util";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-login',
@@ -27,7 +27,39 @@ export class LoginComponent implements OnInit {
 		this.Usuario = new Usuario();
 	}
 
+
+	public loginForm;
+
+	public formError: { [id: string]: string } = {
+		'email': '',
+		'password': ''
+	};
+
+	public errorMsg: { [id: string]: { [id: string]: string } } = {
+		email: {
+			'required': 'Ingrese E-mail.',
+			'email': 'E-mail no es valido.'
+		},
+		password: {
+			'required': 'Ingrese Contraseña.'
+		}
+	}
+
+
 	ngOnInit() {
+
+		this.loginForm = new FormGroup({
+			email: new FormControl("",
+				Validators.compose([Validators.required, Validators.email])),
+			password: new FormControl("",
+				Validators.compose([Validators.required]))
+		});
+
+
+		this.loginForm.valueChanges.subscribe(
+			data => this.validateData(data)
+		);
+
 
 		if (!isUndefined(this._auth.getIdentity()))
 			this._router.navigate(['/']);
@@ -39,12 +71,29 @@ export class LoginComponent implements OnInit {
 		}]);
 	}
 
-	onSubmit(form: NgForm) {
+	validateData(data: any) {
 
+		for (let field in this.formError) {
+			this.formError[field] = '';
+			let hasError = this.loginForm.controls[field].touched &&
+				!this.loginForm.controls[field].valid;
+
+			if (hasError) {
+				for (let key in this.loginForm.controls[field].errors) {
+					this.formError[field] += this.errorMsg[field][key] + ' ';
+				}
+			}
+		}
+	}
+
+	onSubmit(form: NgForm) {
 
 		if (form.invalid) {
 			return false
 		} else {
+
+			this.Usuario = form.value;
+
 			this._auth.login(this.Usuario).subscribe(
 				res => {
 					if (res.user && res.token) {
@@ -60,6 +109,5 @@ export class LoginComponent implements OnInit {
 				}
 			);
 		}
-
 	}
 }

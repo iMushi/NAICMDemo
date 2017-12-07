@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {GLOBAL} from "./global";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {PersonaEnrolar} from "../models/PersonaEnrolar";
-import {IEmpresa, TBreaCrumb} from "../models/interface";
+import {IEmpresa, TBreaCrumb , TUpload} from "../models/interface";
 
 @Injectable()
 
@@ -66,6 +66,43 @@ export class PrestoService {
 			results.find(res => {
 				return res._id === personId;
 			}));
+	}
+
+	saveEnrolamiento( personEnrol : IEmpresa){
+
+		let params : HttpParams = GLOBAL.toHttpParams(personEnrol);
+		params = params.delete("empresa");
+		return this.http.post(GLOBAL.RESTAPINJS + 'saveEnrol', params , { withCredentials:true,});
+
+	}
+
+
+	makeFileRequest (url : string , params:Array<string>, files:Array<File>, name:string){
+
+		return new Promise(function(resolve,reject){
+
+			var formData : any = new FormData();
+			var xhr = new XMLHttpRequest();
+
+			for(var i = 0 ; i < files.length; i++){
+				formData.append(name,files[i], files[i].name);
+			}
+
+			xhr.onreadystatechange = function () {
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						resolve(JSON.parse(xhr.response));
+					}else{
+						reject(xhr.response);
+					}
+				}
+			}
+
+			xhr.open('POST' , url,true);
+			xhr.withCredentials = true;
+			xhr.send(formData);
+		});
+
 	}
 
 

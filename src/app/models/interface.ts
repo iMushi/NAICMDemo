@@ -1,5 +1,5 @@
 export interface IEmpresa {
-	_id: number
+	_id: string
 	name?:string
 	fechaContrato?: string
 	nombre?: string
@@ -21,6 +21,13 @@ export interface IEmpresa {
 	motivoAcceso?: string
 	ocupacion?: string
 	empresa ?: Array<TEmpresa>
+	image?: string
+	enrolComplete? : boolean
+}
+
+export type TUpload ={
+	_id : string,
+	src : string
 }
 
 export type TEmpresa = {

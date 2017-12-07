@@ -2,7 +2,7 @@ import {IEmpresa, TEmpresa} from "./interface";
 
 export class PersonaEnrolar implements IEmpresa {
 
-	_id: number;
+	_id: string;
 	name: string;
 	fechaContrato: string;
 	nombre: string;
@@ -23,6 +23,8 @@ export class PersonaEnrolar implements IEmpresa {
 	accesoOtorgado: string;
 	motivoAcceso: string;
 	empresa: Array<TEmpresa>;
+	image : string = null;
+	enrolComplete : boolean = false;
 
 	constructor(values?: IEmpresa) {
 

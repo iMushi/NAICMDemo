@@ -8,13 +8,12 @@
 			{{statusLogin}}
 		</div>
 
-		<form #formLogin="ngForm" (ngSubmit)="onSubmit(formLogin)">
+		<form (ngSubmit)="onSubmit(loginForm)"   [formGroup]="loginForm"   >
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="form-group">
+				<div class="form-group" [ngClass]="{'has-error' : formError.email }">
 					<label>Correo Electronico</label>
-					<input type="email" name="email" #email = "ngModel" [(ngModel)]="Usuario.email" class="form-control" required>
-					<span class="alert alert-warning col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					*ngIf=" email.invalid && email.touched  " >El e-mail es obligatorio</span>
+					<input type="email" name="email"  formControlName="email" class="form-control" required>
+					<span class="alert-warning col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="formError.email">{{formError.email}}</span>
 				</div>
 			</div>
 
@@ -22,16 +21,15 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<label>Contraseña</label>
-					<input type="password" name="password" #password = "ngModel" [(ngModel)]="Usuario.password" class="form-control" required>
-					<span class="alert alert-warning col-lg-12 col-md-12 col-sm-12 col-xs-12"
-						  *ngIf="password.invalid && password.touched  " >La contraseña es obligatoria</span>
+					<input type="password" name="password"  formControlName="password"   class="form-control" required>
+					<span class="alert alert-warning col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="formError.password">{{formError.password}}</span>
 				</div>
 			</div>
 
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
 					<div class="center-block" style="width: 94px;">
-						<button type="submit" class="btn btn-primary" [disabled] = '!formLogin.form.valid'>
+						<button type="submit" class="btn btn-primary" [disabled] = '!loginForm.valid'>
 							<i class="glyphicon glyphicon-log-in">&nbsp;</i>Entrar
 						</button>
 					</div>

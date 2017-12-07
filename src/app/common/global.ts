@@ -1,4 +1,5 @@
 import {isArray} from "rxjs/util/isArray";
+import {HttpParams} from "@angular/common/http";
 
 export const GLOBAL = {
 
@@ -25,7 +26,17 @@ export const GLOBAL = {
 			return obj;
 		}
 
+	},
+	/**
+	 * Convert Object to HttpParams
+	 * @param {Object} obj
+	 * @returns {HttpParams}
+	 */
+	toHttpParams(obj: Object): HttpParams {
+		return Object.getOwnPropertyNames(obj)
+			.reduce((p, key) => p.set(key, obj[key] ? obj[key] : '' ), new HttpParams());
 	}
+
 };
 
 
