@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {GLOBAL} from "./global";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {PersonaEnrolar} from "../models/PersonaEnrolar";
-import {IEmpresa, TBreaCrumb , TUpload} from "../models/interface";
+import {IEmpresa, TBreaCrumb, TpersonCredencial, TUpload} from "../models/interface";
 
 @Injectable()
 
@@ -17,6 +17,9 @@ export class PrestoService {
 
 	public enrolamientoPerson = new BehaviorSubject<PersonaEnrolar>(new PersonaEnrolar());
 	public personEnrolar = this.enrolamientoPerson.asObservable();
+
+	public impresionPerson = new BehaviorSubject<PersonaEnrolar>(null);
+	public impresion$ = this.impresionPerson.asObservable();
 
 	private breadcrumbBS = new BehaviorSubject<TBreaCrumb[]>([]);
 	public breadEmitted$ = this.breadcrumbBS.asObservable();
@@ -59,46 +62,54 @@ export class PrestoService {
 	}
 
 	setPersonEnrolamiento(personId: string) {
-
-		let results: Array<any> = <any>this.enrolamientoResultsNombre.getValue();
-
+		let results: Array<PersonaEnrolar> = <any>this.enrolamientoResultsNombre.getValue();
 		this.enrolamientoPerson.next(
 			results.find(res => {
 				return res._id === personId;
 			}));
 	}
 
-	saveEnrolamiento( personEnrol : IEmpresa){
+	setImpresion(personId: string) {
+		let results: Array<PersonaEnrolar> = <any>this.enrolamientoResultsNombre.getValue();
 
-		let params : HttpParams = GLOBAL.toHttpParams(personEnrol);
+		this.impresionPerson.next(
+			new PersonaEnrolar(
+				results.find(res => {
+					return res._id === personId;
+				})));
+	}
+
+	saveEnrolamiento(personEnrol: IEmpresa) {
+
+		let params: HttpParams = GLOBAL.toHttpParams(personEnrol);
 		params = params.delete("empresa");
-		return this.http.post(GLOBAL.RESTAPINJS + 'saveEnrol', params , { withCredentials:true,});
+		return this.http.post(GLOBAL.RESTAPINJS + 'saveEnrol', params, {withCredentials: true,});
 
 	}
 
 
-	makeFileRequest (url : string , params:Array<string>, files:Array<File>, name:string){
+	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string) {
 
-		return new Promise(function(resolve,reject){
+		return new Promise(function (resolve, reject) {
 
-			var formData : any = new FormData();
+			var formData: any = new FormData();
 			var xhr = new XMLHttpRequest();
 
-			for(var i = 0 ; i < files.length; i++){
-				formData.append(name,files[i], files[i].name);
+			for (var i = 0; i < files.length; i++) {
+				formData.append(name, files[i], files[i].name);
 			}
 
 			xhr.onreadystatechange = function () {
-				if(xhr.readyState == 4){
-					if(xhr.status == 200){
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
 						resolve(JSON.parse(xhr.response));
-					}else{
+					} else {
 						reject(xhr.response);
 					}
 				}
 			}
 
-			xhr.open('POST' , url,true);
+			xhr.open('POST', url, true);
 			xhr.withCredentials = true;
 			xhr.send(formData);
 		});

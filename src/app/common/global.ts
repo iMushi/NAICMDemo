@@ -7,8 +7,8 @@ export const GLOBAL = {
 	FEMALE : 'F',
 	MALEPHOTO : 'assets/customer-512.png',
 	FEMALEPHOTO : 'assets/girl-512.png',
-	MPHOTOURL : '../../../assets/customer-512.png',
-	FPHOTOURL : '../../../assets/girl-512.png',
+	MPHOTOURL : 'assets/customer-512.png',
+	FPHOTOURL : 'assets/girl-512.png',
 	RESTAPI : 'http://localhost:3000/enrolamiento',
 
 	DEFAULTPERSON : {empresas:[{}]},

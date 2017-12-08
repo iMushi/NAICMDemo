@@ -49,4 +49,15 @@ export class BusquedaRapidaComponent implements OnInit {
 
 	}
 
+	setPersonImpresion(personId : string){
+		this.prestoService.setImpresion(personId);
+
+		if (this._router.url !== '/imprimir') {
+			this._router.navigate(['/imprimir']).then();
+		}
+
+		$('#modalEnrolResult').modal('hide');
+
+	}
+
 }

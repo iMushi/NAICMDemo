@@ -22,7 +22,20 @@ export interface IEmpresa {
 	ocupacion?: string
 	empresa ?: Array<TEmpresa>
 	image?: string
-	enrolComplete? : boolean
+	enrolComplete? : boolean,
+	empresaCredId? : string
+}
+
+
+export type TpersonCredencial = {
+	nombre : string,
+	apellidoPaterno : string,
+	nombreEmpresa : string,
+	ocupacion : string,
+	rfc : string,
+	qrCode : string,
+	imgName ? : string,
+	imgBase64 ? : string
 }
 
 export type TUpload ={
@@ -31,7 +44,7 @@ export type TUpload ={
 }
 
 export type TEmpresa = {
-	_id : number,
+	_id : string,
 	nombreEmpresa : string,
 	fechaContrato : string,
 	ocupacion : string

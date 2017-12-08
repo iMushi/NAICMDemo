@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {TBreaCrumb} from "../../models/interface";
 import {AuthService} from "../../common/auth.service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-header',
@@ -11,6 +12,7 @@ import {Router} from "@angular/router";
 	styleUrls: ['./header.component.css'],
 	providers : [AuthService]
 })
+
 export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	ngDoCheck(): void {
@@ -78,11 +80,11 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	logout (){
 		this._authService.logout().subscribe(
-			logout => {
+			logged => {
 				this._router.navigate(['/login']);
 			},
-			error =>{
-				console.log(error);
+			(err:HttpErrorResponse) => {
+				this._router.navigate(['/login']);
 			}
 		);
 	}

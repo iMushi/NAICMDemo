@@ -1,0 +1,38 @@
+<div class="containerCred">
+	<div class="header">
+	</div>
+	<div class="mainbody">
+		<img [ngStyle]="{'background-image': 'url(' + personEnrol.imgBase64 + ')'}" *ngIf="!personEnrol.imgName">
+		<img src="{{imageUrl}}" *ngIf="personEnrol.imgName">
+	</div>
+	<div class="dataBody">
+		<table>
+			<tr>
+				<td>
+					<h3>{{personEnrol.nombre}} {{personEnrol.apellidoPaterno}}</h3></td>
+			</tr>
+			<tr class="trSeparador">
+				<td>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h4>{{personEnrol.nombreEmpresa}}</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5>{{personEnrol.ocupacion}}</h5>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ngx-qrcode [qrc-element-type]="'canvas'" [qrc-value]="personEnrol.qrCode" qrc-version="3"
+								qrc-errorCorrectionLevel="L">
+					</ngx-qrcode>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

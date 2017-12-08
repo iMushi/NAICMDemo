@@ -30,8 +30,6 @@ export class WebRTCService {
 		let video: any = document.querySelector('#hardwareVideo');
 
 
-
-
 		pc.setAttribute('width', video.videoWidth);
 		pc.setAttribute('height', video.videoHeight);
 

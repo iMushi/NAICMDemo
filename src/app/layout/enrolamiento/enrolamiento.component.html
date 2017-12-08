@@ -1,33 +1,46 @@
 <section id="mainEnrolamiento">
 
-	<form #formEnrolamiento class="form-horizontal" [formGroup]="enrolFrom" >
-		<div id="accordionEnrolamiento">
+	<div class="row"  class="navbar-fixed-top" [ngStyle]="{
+				'height' : completed ? '150px' : '0px',
+				'width' : completed ? '100%' : '0px',
+				transition : '1s',
+				'transition-delay':  completed ? '0' : '.5',
+				'margin-top' : '120px'
+			}">
 
-			<div class="row">
+		<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2
+				col-lg-8 col-md-8 col-sm-8 col-xs-8" [ngStyle]="{
+					'transition': '1s' , 'transition-delay':  completed ? '.5' : '0'  , 'opacity' : completed ? '1' : '0'
+					}">
 
-				<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2
-				col-lg-8 col-md-8 col-sm-8 col-xs-8">
-
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<i class=" glyphicon glyphicon-check"></i>&nbsp;&nbsp;Datos Completos</h3>
-						</div>
-						<div class="panel-body">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								¿Desea finalizar Enrolamiento?
-							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div class="center-block" style="width: 100px">
-									<button type="button" class="btn btn-info" (click)="finalizarEnrol()">
-										<i class="glyphicon glyphicon-save-file"></i> Finalizar
-									</button>
-								</div>
-							</div>
+			<div class=" panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class=" glyphicon glyphicon-check"></i>&nbsp;&nbsp;Datos Completos</h3>
+				</div>
+				<div class="panel-body">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						¿Desea finalizar Enrolamiento?
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="center-block" style="width: 100px">
+							<button type="button" class="btn btn-info" (click)="finalizarEnrol()" [disabled]="!completed">
+								<i class="glyphicon glyphicon-save-file"></i> Finalizar
+							</button>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+
+
+
+	<form #formEnrolamiento class="form-horizontal" [formGroup]="enrolFrom" [ngStyle]="{
+					'transition': '1s',
+					'margin-top' : completed  ? '170px' : '0px'
+					}"  >
+		<div id="accordionEnrolamiento">
 
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -49,45 +62,8 @@
 										<canvas #photoCanvas id="photoCanvas"></canvas>
 									</div>
 
-
 									<div [style.display]=" !isStreaming ? 'block' : 'none' ">
-										<div class="containerCred">
-											<div class="header">
-											</div>
-											<div class="mainbody">
-												<img  [ngStyle]="{'background-image': 'url(' + currImgPhoto + ')'}">
-											</div>
-											<div class="dataBody">
-												<table>
-													<tr>
-														<td>
-															<h3>{{personEnrolar.nombre}} {{personEnrolar.apellidoPaterno}}</h3></td>
-													</tr>
-													<tr class="trSeparador">
-														<td>
-															<hr>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<h4>{{credEmpresa}}</h4>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<h5>{{credOcupacion}}</h5>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<ngx-qrcode [qrc-element-type]="elementTypeQR" [qrc-value]="valueQR" qrc-version="3"
-																		qrc-errorCorrectionLevel="L">
-															</ngx-qrcode>
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
+										<app-credencial [personEnrol] = "personCred" ></app-credencial>
 									</div>
 
 								</div>
@@ -123,90 +99,81 @@
 						<!-- Termina Foto y Camara -->
 						<!-- Datos Personales -->
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.nombre.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Nombre</span>
-										<input type="text" class="form-control" id="enNombre" placeholder="Nombre"
-											   [(ngModel)]="personEnrolar.nombre" #nombre name="enNombre" formControlName="nombre"
-											   (ngModelChange)="qrModelChange($event)">
+										<input type="text" class="form-control" id="enNombre" placeholder="Nombre" formControlName="nombre">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.apellidoPaterno.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Apellido Paterno</span>
 										<input type="text" class="form-control" id="enApPaterno"
-											   placeholder="Apellido Paterno"
-											   [(ngModel)]="personEnrolar.apellidoPaterno" name="enApPaterno">
+											   placeholder="Apellido Paterno" formControlName="apellidoPaterno">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.apellidoMaterno.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Apellido Materno</span>
 										<input type="text" class="form-control" id="enApMaterno"
-											   placeholder="Apellido Materno"
-											   [(ngModel)]="personEnrolar.apellidoMaterno" name="enApMaterno">
+											   placeholder="Apellido Materno" formControlName="apellidoMaterno">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.fechaNacimiento.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Fecha de Nacimiento</span>
 										<input type="text" class="form-control" id="enFechaNacimiento"
-											   placeholder="dd/mm/YYYY"
-											   [(ngModel)]="personEnrolar.fechaNacimiento" name="enFechaNacimiento">
+											   placeholder="dd/mm/YYYY" formControlName="fechaNacimiento">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.lugarNacimiento.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Lugar de Nacimiento</span>
 										<input type="text" class="form-control" id="enLugarNacimiento"
-											   placeholder="Lugar de Nacimiento"
-											   [(ngModel)]="personEnrolar.lugarNacimiento" name="enLugarNacimiento">
+											   placeholder="Lugar de Nacimiento" formControlName="lugarNacimiento">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.sexo.valid }">
 								<div class="col-lg-8">
 									<div class="input-group">
 										<span class="input-group-addon">Sexo</span>
 										<select class="form-control" name="enCmbSexo" id="enCmbSexo" #enCmbSexo
-												(change)="cmbSexoChange(enCmbSexo.value)"
-												[(ngModel)]="personEnrolar.sexo" name="enCmbSexo">
-											<option value="M">Masculino</option>
-											<option value="F">Femenino</option>
+												(change)="cmbSexoChange(enCmbSexo.value)" formControlName="sexo">
+											<option  value="">-- Seleccione --</option>
+											<option [selected]=" enrolFrom.controls.sexo.value == 'M' " value="M">Masculino</option>
+											<option [selected]=" enrolFrom.controls.sexo.value == 'F' "value="F">Femenino</option>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.codigoPostal.valid }">
 								<div class="col-lg-5">
 									<div class="input-group">
 										<span class="input-group-addon">C.P.</span>
 										<input type="text" class="form-control" id="enCodigoPostal"
-											   placeholder="C&oacute;digo Postal"
-											   [(ngModel)]="personEnrolar.codigoPostal" name="enCodigoPostal">
+											   placeholder="C&oacute;digo Postal" formControlName="codigoPostal">
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group"  [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid }">
 								<div class="col-lg-12">
 									<div class="input-group">
 										<span class="input-group-addon">Tel&eacute;fono</span>
 										<input type="text" class="form-control" id="enTelefono"
-											   placeholder="Tel&eacute;fono"
-											   [(ngModel)]="personEnrolar.telefono" name="enTelefono">
+											   placeholder="Tel&eacute;fono" formControlName="telefono">
 										<span class="input-group-addon">Emergencias</span>
 										<input type="text" class="form-control" id="enTelefonoEmergencias"
-											   placeholder="Emergencias"
-											   [(ngModel)]="personEnrolar.telefonoEmergencia" name="enTelefonoEmergencias">
+											   placeholder="Emergencias" formControlName="telefonoEmergencia">
 									</div>
 								</div>
 							</div>
@@ -215,8 +182,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Contacto Emergencias</span>
 										<input type="text" class="form-control" id="enContactoEmergencias"
-											   placeholder="Contacto Emergencias"
-											   [(ngModel)]="personEnrolar.contactoEmergencia" name="enContactoEmergencias">
+											   placeholder="Contacto Emergencias" formControlName="contactoEmergencia">
 									</div>
 								</div>
 							</div>
@@ -231,8 +197,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Acceso Otorgado</span>
 										<input type="text" class="form-control" id="enAccesoOtorgado"
-											   placeholder="Acceso Otorgado ..."
-											   [(ngModel)]="personEnrolar.accesoOtorgado" name="enAccesoOtorgado">
+											   placeholder="Acceso Otorgado ..." formControlName="accesoOtorgado">
 									</div>
 								</div>
 							</div>
@@ -241,8 +206,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Motivo de Acceso</span>
 										<input type="text" class="form-control" id="enMotivoAcceso"
-											   placeholder="Motivo de Acceso"
-											   [(ngModel)]="personEnrolar.motivoAcceso" name="enMotivoAcceso">
+											   placeholder="Motivo de Acceso" formControlName="motivoAcceso">
 									</div>
 								</div>
 							</div>
@@ -251,8 +215,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Registro Patronal</span>
 										<input type="text" class="form-control" id="enRegistroPatronal"
-											   placeholder="Registro Patronal"
-											   [(ngModel)]="personEnrolar.registroPatronal" name="enRegistroPatronal">
+											   placeholder="Registro Patronal" formControlName="registroPatronal">
 									</div>
 								</div>
 							</div>
@@ -263,12 +226,10 @@
 									<div class="input-group">
 										<span class="input-group-addon">NSS</span>
 										<input type="text" class="form-control" id="enNSS"
-											   placeholder="NSS"
-											   [(ngModel)]="personEnrolar.nss" name="enNSS">
+											   placeholder="NSS" formControlName="nss">
 										<span class="input-group-addon">RFC</span>
 										<input type="text" class="form-control" id="enRFC"
-											   placeholder="RFC"
-											   [(ngModel)]="personEnrolar.rfc" name="enRFC">
+											   placeholder="RFC" formControlName="rfc">
 									</div>
 								</div>
 							</div>
@@ -277,8 +238,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Estado Civil</span>
 										<input type="text" class="form-control" id="enEstadoCivil"
-											   placeholder="Estado Civil"
-											   [(ngModel)]="personEnrolar.estadoCivil" name="enEstadoCivil">
+											   placeholder="Estado Civil" formControlName="estadoCivil">
 									</div>
 								</div>
 							</div>
@@ -287,8 +247,7 @@
 									<div class="input-group">
 										<span class="input-group-addon">Tipo de Sangre</span>
 										<input type="text" class="form-control" id="enTipoSangre"
-											   placeholder="Tipo de Sangre"
-											   [(ngModel)]="personEnrolar.tipoSangre" name="enTipoSangre">
+											   placeholder="Tipo de Sangre" formControlName="tipoSangre">
 									</div>
 								</div>
 							</div>
@@ -324,12 +283,10 @@
 														<div class="input-group">
 															<span class="input-group-addon">Ocupaci&oacute;n</span>
 															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}"
-																   placeholder="Ocupaci&oacute;n"
-																   [(ngModel)]="empresa.ocupacion" name="enOcupacion{{iEmpresa}}">
+																   placeholder="Ocupaci&oacute;n" formControlName="ocupacionEmpresa_{{iEmpresa}}">
 															<span class="input-group-addon">Fecha de Contrato</span>
 															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}"
-																   placeholder="Nombre Empresa"
-																   [(ngModel)]="empresa.fechaContrato" name="enEmpresaFC{{iEmpresa}}">
+																   placeholder="Nombre Empresa" formControlName="fechaContratoEmpresa_{{iEmpresa}}">
 														</div>
 													</div>
 												</div>

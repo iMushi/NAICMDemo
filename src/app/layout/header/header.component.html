@@ -33,7 +33,7 @@
 			<form class="navbar-form navbar-left col-lg-5" role="search" onsubmit="return false;" *ngIf="identity">
 				<div class="form-control-header">
 					<input #inputBuscar (keyup)="keyPressBuscar($event,inputBuscar)" type="text"
-						   placeholder="Buscar (Nombre, Apellido)" value="Gabriel,Lopez">
+						   placeholder="Buscar (Nombre, Apellido)" value="">
 				</div>
 				<button type="button" class="btn btn-primary" (click)="buscarPorNombre(inputBuscar.value)">
 					<i class="glyphicon glyphicon-search"></i>

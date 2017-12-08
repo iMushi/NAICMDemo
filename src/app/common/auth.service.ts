@@ -5,6 +5,7 @@ import {GLOBAL} from "./global";
 import {Subscribable} from "rxjs/Observable";
 import {isUndefined} from "util";
 
+
 @Injectable()
 export class AuthService {
 
@@ -38,10 +39,12 @@ export class AuthService {
 
 	logout() {
 
-		localStorage.clear();
 		this.identity = null;
+		localStorage.clear();
 
 		return this._http.post<IUserResponse>(GLOBAL.RESTAPINJS + 'logout', null, {withCredentials: true});
+
+
 
 	}
 

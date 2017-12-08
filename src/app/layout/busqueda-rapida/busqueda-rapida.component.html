@@ -24,14 +24,16 @@
 						<td>
 							<button class="btn btn-sm btn-circle btn-info"
 									data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Terminar Enrolamiento" (click)="setPersonEnrolamiento(res._id)">
+									data-original-title="Terminar Enrolamiento" (click)="setPersonEnrolamiento(res._id)"
+									*ngIf="!res.enrolComplete">
 								<i class="glyphicon glyphicon-camera"></i>
 							</button>
 						</td>
 						<td>
 							<button class="btn btn-sm btn-circle btn-info"
 									data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Imprimir Credencial">
+									data-original-title="Imprimir Credencial" (click)="setPersonImpresion(res._id)"
+									*ngIf="res.enrolComplete">
 								<i class="glyphicon glyphicon-print"></i>
 							</button>
 						</td>

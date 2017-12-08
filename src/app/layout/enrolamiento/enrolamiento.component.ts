@@ -5,7 +5,8 @@ import {GLOBAL} from "../../common/global";
 import {Router} from "@angular/router";
 import {PersonaEnrolar} from "../../models/PersonaEnrolar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-
+import {TpersonCredencial} from "../../models/interface";
+import {HttpErrorResponse} from "@angular/common/http";
 
 declare var jQuery: any;
 declare var $: any;
@@ -20,6 +21,8 @@ declare var $: any;
 
 export class EnrolamientoComponent implements OnInit, OnDestroy {
 
+	public personCred: TpersonCredencial;
+
 	@ViewChild('hardwareVideo') hardwareVideo: any;
 	@ViewChild('photoCanvas') photoCanvas: any;
 
@@ -30,7 +33,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	public personEnrolar: PersonaEnrolar = new PersonaEnrolar();
 
 	public subscriber;
-	public elementTypeQR: 'canvas';
+
+
+	public completed : boolean = false;
 
 	/* Datos generados en el proceso de Enrolamiento, se van a la BD como control*/
 
@@ -43,7 +48,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	/***********/
 
 
-	public enrolFrom : FormGroup;
+	public enrolFrom: FormGroup;
 
 
 	constructor(private webRTC: WebRTCService,
@@ -58,15 +63,54 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 
-		this.cmbSexoChange(GLOBAL.MALE);
-
-
-
 		this.enrolFrom = new FormGroup({
-			nombre : new FormControl('',Validators.required)
+			nombre: new FormControl('', Validators.required),
+			apellidoPaterno: new FormControl('', Validators.required),
+			apellidoMaterno: new FormControl('', Validators.required),
+			fechaNacimiento: new FormControl('', Validators.required),
+			lugarNacimiento: new FormControl('', Validators.required),
+			sexo: new FormControl('', Validators.required),
+			codigoPostal: new FormControl('', Validators.required),
+			telefono: new FormControl('', Validators.required),
+			telefonoEmergencia: new FormControl('', Validators.required),
+			contactoEmergencia: new FormControl('', Validators.required),
+			nss: new FormControl('', Validators.required),
+			rfc: new FormControl('', Validators.required),
+			estadoCivil: new FormControl('', Validators.required),
+			tipoSangre: new FormControl('', Validators.required),
+			registroPatronal: new FormControl('', Validators.required),
+			accesoOtorgado: new FormControl('', Validators.required),
+			motivoAcceso: new FormControl('', Validators.required),
+			image: new FormControl('', Validators.required),
+			enrolComplete: new FormControl('', Validators.required),
+			empresaCredId : new FormControl(''),
+			_id: new FormControl('', Validators.required)
 		});
 
+		this.enrolFrom.get('nombre').valueChanges.subscribe(
+			value => {
+				this.personEnrolar.nombre = value;
+				this.qrModelChange();
+			}
+		);
 
+		this.enrolFrom.get('apellidoPaterno').valueChanges.subscribe(
+			value => {
+				this.personEnrolar.apellidoPaterno = value;
+				this.qrModelChange();
+			}
+		);
+
+		this.enrolFrom.get('rfc').valueChanges.subscribe(
+			value => {
+				this.personEnrolar.rfc = value;
+				this.qrModelChange();
+			}
+		);
+
+		this.enrolFrom.valueChanges.subscribe(
+			values => this.validateFormCompletion()
+		)
 
 
 		this.subscriber = this._prestoService.personEnrolar.subscribe(
@@ -74,10 +118,30 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 				console.log("====> SubcriberPersonEnrolar");
 
+				this.personEnrolar.empresa.forEach((value, index) => {
+					this.enrolFrom.removeControl(`ocupacionEmpresa_${index}`);
+					this.enrolFrom.removeControl(`fechaContratoEmpresa_${index}`);
+				})
+
+
 				this.personEnrolar = new PersonaEnrolar(res);
+
+				//Setear datos a form group
+				delete res.empresa;
+				this.enrolFrom.setValue(res);
+
 				this.cmbSexoChange(this.personEnrolar.sexo);
-				this.qrModelChange();
 				this.onEmpresaChange(this.personEnrolar.empresa[0]);
+
+				this.personEnrolar.empresa.forEach((item, index) => {
+					let controlOcupacion: FormControl = new FormControl(item.ocupacion, Validators.required);
+					let controlFechaContrato: FormControl = new FormControl(item.fechaContrato, Validators.required);
+					this.enrolFrom.addControl('ocupacionEmpresa_' + index, controlOcupacion);
+					this.enrolFrom.addControl('fechaContratoEmpresa_' + index, controlFechaContrato);
+				});
+
+
+
 			},
 			error => console.log(error)
 		);
@@ -93,8 +157,11 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			}]
 		);
 
+	}
 
-
+	validateFormCompletion() : void{
+		this.completed = this.enrolFrom.valid
+			&& this.currImgPhoto.includes('image/png;base64');
 	}
 
 
@@ -123,6 +190,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.stopStream();
 		this.currImgPhoto = photoInfo.src;
 		this.uploadEnrolImage();
+		this.qrModelChange();
 	}
 
 	changeBread(ev, data) {
@@ -131,14 +199,27 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	}
 
 	qrModelChange() {
-		this.valueQR = this.personEnrolar.getQRValue();
-		console.log(this.valueQR);
+		this.personCred = {
+			nombre : this.personEnrolar.nombre,
+			apellidoPaterno : this.personEnrolar.apellidoPaterno,
+			rfc : this.personEnrolar.rfc,
+			qrCode : this.personEnrolar.getQRValue(),
+			nombreEmpresa : this.credEmpresa,
+			ocupacion : this.credOcupacion,
+			imgBase64 : this.currImgPhoto
+		};
 	}
 
 	onEmpresaChange(empresa: any) {
 		this.credEmpresa = empresa.nombreEmpresa;
 		this.credOcupacion = empresa.ocupacion;
-		this.credIdEmpresa = empresa.id;
+		this.credIdEmpresa = empresa._id;
+
+		this.enrolFrom.controls['empresaCredId'].setValue(empresa._id);
+
+		console.log(empresa);
+
+		this.qrModelChange();
 	}
 
 	cmbSexoChange(sexValue) {
@@ -155,6 +236,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			default :
 				this.currImgPhoto = GLOBAL.MPHOTOURL;
 		}
+
+		this.qrModelChange();
 	}
 
 	uploadEnrolImage() {
@@ -163,19 +246,17 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.filesToUpload = [file];
 
-		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id , [], this.filesToUpload, 'image')
+		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id, [], this.filesToUpload, 'image')
 			.then(
 				(success: any) => {
-					console.log(success);
+					this.validateFormCompletion();
 				},
 				error => {
 					console.log("Ocurrio un Error al subir Archivo =====> ");
 					console.log(error);
 				}
 			);
-
 	}
-
 
 	dataURLtoFile(dataurl, filename) {
 		var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
@@ -188,13 +269,16 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	finalizarEnrol() {
 
-		console.log(this.personEnrolar);
 
-		this.personEnrolar.enrolComplete = true;
+		this.enrolFrom.controls['enrolComplete'].setValue('true');
 
-		this._prestoService.saveEnrolamiento(this.personEnrolar).subscribe(
-			res => console.log(res),
-			err => console.log(err)
+		this._prestoService.saveEnrolamiento(this.enrolFrom.value).subscribe(
+			res => {
+				this._router.navigate(['/']);
+			},
+			(err : HttpErrorResponse) => {
+				alert('Ocurrio un Error al Guardar Informacion : ' + err.message);
+			}
 		);
 
 	}
