@@ -329,7 +329,8 @@ var GLOBAL = {
     FPHOTOURL: 'assets/girl-512.png',
     RESTAPI: 'http://localhost:3000/enrolamiento',
     DEFAULTPERSON: { empresas: [{}] },
-    RESTAPINJS: 'http://localhost:3789/api/',
+    //RESTAPINJS : 'http://localhost:3789/api/',
+    RESTAPINJS: 'https://aqueous-beyond-82335.herokuapp.com/api/',
     checkToArray: function (obj) {
         if (!Object(__WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__["a" /* isArray */])(obj)) {
             if (obj) {
