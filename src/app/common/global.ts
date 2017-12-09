@@ -1,5 +1,6 @@
 import {isArray} from "rxjs/util/isArray";
 import {HttpParams} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 export const GLOBAL = {
 
@@ -13,8 +14,10 @@ export const GLOBAL = {
 
 	DEFAULTPERSON : {empresas:[{}]},
 
-	//RESTAPINJS : 'http://localhost:3789/api/',
-	RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
+	//RESTAPINJS : 'http://localhost:5000/api/',
+	//RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
+
+	RESTAPINJS : environment.restUrl,
 
 	checkToArray: (obj: any): Array<any> => {
 		if (!isArray(obj)) {

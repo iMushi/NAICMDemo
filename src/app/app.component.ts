@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GLOBAL } from "./common/global";
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  constructor(){ }
+  constructor(){
+
+  	console.log("using====>" + GLOBAL.RESTAPINJS);
+
+  }
 }

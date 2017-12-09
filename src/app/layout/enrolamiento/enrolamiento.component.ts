@@ -5,7 +5,7 @@ import {GLOBAL} from "../../common/global";
 import {Router} from "@angular/router";
 import {PersonaEnrolar} from "../../models/PersonaEnrolar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {TpersonCredencial} from "../../models/interface";
+import {IEmpresa, TpersonCredencial} from "../../models/interface";
 import {HttpErrorResponse} from "@angular/common/http";
 
 declare var jQuery: any;
@@ -35,7 +35,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	public subscriber;
 
 
-	public completed : boolean = false;
+	public completed: boolean = false;
 
 	/* Datos generados en el proceso de Enrolamiento, se van a la BD como control*/
 
@@ -83,7 +83,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			motivoAcceso: new FormControl('', Validators.required),
 			image: new FormControl('', Validators.required),
 			enrolComplete: new FormControl('', Validators.required),
-			empresaCredId : new FormControl(''),
+			empresaCredId: new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
 
@@ -108,6 +108,14 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			}
 		);
 
+		this.enrolFrom.get('image').valueChanges.subscribe(
+			value => {
+				this.personEnrolar.image = value;
+				this.qrModelChange();
+			}
+		);
+
+
 		this.enrolFrom.valueChanges.subscribe(
 			values => this.validateFormCompletion()
 		)
@@ -116,7 +124,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.subscriber = this._prestoService.personEnrolar.subscribe(
 			res => {
 
-				console.log("====> SubcriberPersonEnrolar");
 
 				this.personEnrolar.empresa.forEach((value, index) => {
 					this.enrolFrom.removeControl(`ocupacionEmpresa_${index}`);
@@ -141,7 +148,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				});
 
 
-
 			},
 			error => console.log(error)
 		);
@@ -159,9 +165,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	}
 
-	validateFormCompletion() : void{
+	validateFormCompletion(): void {
 		this.completed = this.enrolFrom.valid
-			&& this.currImgPhoto.includes('image/png;base64');
+			&& ( this.currImgPhoto.includes('image/png;base64') || this.enrolFrom.controls['image'].value !== '' )
 	}
 
 
@@ -199,14 +205,17 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	}
 
 	qrModelChange() {
+
+		let imgDisplay = this.currImgPhoto.includes('image/png;base64') ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
+
 		this.personCred = {
-			nombre : this.personEnrolar.nombre,
-			apellidoPaterno : this.personEnrolar.apellidoPaterno,
-			rfc : this.personEnrolar.rfc,
-			qrCode : this.personEnrolar.getQRValue(),
-			nombreEmpresa : this.credEmpresa,
-			ocupacion : this.credOcupacion,
-			imgBase64 : this.currImgPhoto
+			nombre: this.personEnrolar.nombre,
+			apellidoPaterno: this.personEnrolar.apellidoPaterno,
+			rfc: this.personEnrolar.rfc,
+			qrCode: this.personEnrolar.getQRValue(),
+			nombreEmpresa: this.credEmpresa,
+			ocupacion: this.credOcupacion,
+			imgBase64: imgDisplay
 		};
 	}
 
@@ -217,7 +226,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.enrolFrom.controls['empresaCredId'].setValue(empresa._id);
 
-		console.log(empresa);
 
 		this.qrModelChange();
 	}
@@ -246,9 +254,14 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.filesToUpload = [file];
 
-		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id, [], this.filesToUpload, 'image')
+		let oldImageFile = this.personEnrolar.image !== '' ? this.personEnrolar.image : 'null';
+
+		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile, [], this.filesToUpload, 'image')
 			.then(
-				(success: any) => {
+				(success: IEmpresa) => {
+
+					this.enrolFrom.controls['image'].setValue(success.image);
+
 					this.validateFormCompletion();
 				},
 				error => {
@@ -276,7 +289,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			res => {
 				this._router.navigate(['/']);
 			},
-			(err : HttpErrorResponse) => {
+			(err: HttpErrorResponse) => {
 				alert('Ocurrio un Error al Guardar Informacion : ' + err.message);
 			}
 		);

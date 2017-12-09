@@ -18,6 +18,9 @@ export class CredencialComponent implements OnInit {
 	public imageUrl;
 
 	ngOnInit() {
+
+		console.log(this.personEnrol);
+
 		this.imageUrl = GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrol.imgName;
 	}
 
