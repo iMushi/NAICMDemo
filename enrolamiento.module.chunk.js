@@ -252,9 +252,12 @@ var EnrolamientoComponent = (function () {
             _this.personEnrolar.rfc = value;
             _this.qrModelChange();
         });
+        this.enrolFrom.get('image').valueChanges.subscribe(function (value) {
+            _this.personEnrolar.image = value;
+            _this.qrModelChange();
+        });
         this.enrolFrom.valueChanges.subscribe(function (values) { return _this.validateFormCompletion(); });
         this.subscriber = this._prestoService.personEnrolar.subscribe(function (res) {
-            console.log("====> SubcriberPersonEnrolar");
             _this.personEnrolar.empresa.forEach(function (value, index) {
                 _this.enrolFrom.removeControl("ocupacionEmpresa_" + index);
                 _this.enrolFrom.removeControl("fechaContratoEmpresa_" + index);
@@ -284,7 +287,7 @@ var EnrolamientoComponent = (function () {
     };
     EnrolamientoComponent.prototype.validateFormCompletion = function () {
         this.completed = this.enrolFrom.valid
-            && this.currImgPhoto.includes('image/png;base64');
+            && (this.currImgPhoto.includes('image/png;base64') || this.enrolFrom.controls['image'].value !== '');
     };
     EnrolamientoComponent.prototype.ngOnDestroy = function () {
         if (this.isStreaming) {
@@ -314,6 +317,7 @@ var EnrolamientoComponent = (function () {
             .innerHTML = data.title;
     };
     EnrolamientoComponent.prototype.qrModelChange = function () {
+        var imgDisplay = this.currImgPhoto.includes('image/png;base64') ? this.currImgPhoto : __WEBPACK_IMPORTED_MODULE_3__common_global__["a" /* GLOBAL */].RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
         this.personCred = {
             nombre: this.personEnrolar.nombre,
             apellidoPaterno: this.personEnrolar.apellidoPaterno,
@@ -321,7 +325,7 @@ var EnrolamientoComponent = (function () {
             qrCode: this.personEnrolar.getQRValue(),
             nombreEmpresa: this.credEmpresa,
             ocupacion: this.credOcupacion,
-            imgBase64: this.currImgPhoto
+            imgBase64: imgDisplay
         };
     };
     EnrolamientoComponent.prototype.onEmpresaChange = function (empresa) {
@@ -329,7 +333,6 @@ var EnrolamientoComponent = (function () {
         this.credOcupacion = empresa.ocupacion;
         this.credIdEmpresa = empresa._id;
         this.enrolFrom.controls['empresaCredId'].setValue(empresa._id);
-        console.log(empresa);
         this.qrModelChange();
     };
     EnrolamientoComponent.prototype.cmbSexoChange = function (sexValue) {
@@ -350,8 +353,10 @@ var EnrolamientoComponent = (function () {
         var _this = this;
         var file = this.dataURLtoFile(this.currImgPhoto, this.personEnrolar._id + '.png');
         this.filesToUpload = [file];
-        this._prestoService.makeFileRequest(__WEBPACK_IMPORTED_MODULE_3__common_global__["a" /* GLOBAL */].RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id, [], this.filesToUpload, 'image')
+        var oldImageFile = this.personEnrolar.image !== '' ? this.personEnrolar.image : 'null';
+        this._prestoService.makeFileRequest(__WEBPACK_IMPORTED_MODULE_3__common_global__["a" /* GLOBAL */].RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile, [], this.filesToUpload, 'image')
             .then(function (success) {
+            _this.enrolFrom.controls['image'].setValue(success.image);
             _this.validateFormCompletion();
         }, function (error) {
             console.log("Ocurrio un Error al subir Archivo =====> ");

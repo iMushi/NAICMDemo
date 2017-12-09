@@ -118,6 +118,7 @@ module.exports = "<router-outlet></router-outlet>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_global__ = __webpack_require__("../../../../../src/app/common/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -128,9 +129,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'app';
+        console.log("using====>" + __WEBPACK_IMPORTED_MODULE_1__common_global__["a" /* GLOBAL */].RESTAPINJS);
     }
     return AppComponent;
 }());
@@ -318,6 +321,8 @@ var _a;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GLOBAL; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__ = __webpack_require__("../../../../rxjs/_esm5/util/isArray.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+
 
 
 var GLOBAL = {
@@ -329,8 +334,9 @@ var GLOBAL = {
     FPHOTOURL: 'assets/girl-512.png',
     RESTAPI: 'http://localhost:3000/enrolamiento',
     DEFAULTPERSON: { empresas: [{}] },
-    //RESTAPINJS : 'http://localhost:3789/api/',
-    RESTAPINJS: 'https://aqueous-beyond-82335.herokuapp.com/api/',
+    //RESTAPINJS : 'http://localhost:5000/api/',
+    //RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
+    RESTAPINJS: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].restUrl,
     checkToArray: function (obj) {
         if (!Object(__WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__["a" /* isArray */])(obj)) {
             if (obj) {
@@ -369,7 +375,8 @@ var GLOBAL = {
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 // The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: false
+    production: false,
+    restUrl: 'https://aqueous-beyond-82335.herokuapp.com/api/'
 };
 //# sourceMappingURL=environment.js.map
 
