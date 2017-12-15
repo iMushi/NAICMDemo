@@ -1,0 +1,214 @@
+<section id="mainEnrolamiento">
+
+	<div class="row" class="navbar-fixed-top" [ngStyle]="{
+				'height' : completed ? '150px' : '0px',
+				'width' : completed ? '100%' : '0px',
+				transition : '1s',
+				'transition-delay':  completed ? '0' : '.5',
+				'margin-top' : '120px',
+				'display' : completed ? 'block' : 'none'
+			}">
+
+		<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2
+				col-lg-8 col-md-8 col-sm-8 col-xs-8" [ngStyle]="{
+					'transition': '1s' , 'transition-delay':  completed ? '.5' : '0'  , 'opacity' : completed ? '1' : '0'
+					}">
+
+			<div class=" panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class=" glyphicon glyphicon-check"></i>&nbsp;&nbsp;Datos Completos</h3>
+				</div>
+				<div class="panel-body">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						¿Desea finalizar Registro Eventual?
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="center-block" style="width: 100px">
+							<button type="button" class="btn btn-info" (click)="finalizarEnrol()" [disabled]="!completed">
+								<i class="glyphicon glyphicon-save-file"></i> Finalizar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<form #formEventuales class="form-horizontal" [formGroup]="eventualForm" [ngStyle]="{
+					'transition': '1s',
+					'margin-top' : completed  ? '170px' : '0px'
+					}">
+		<div id="accordionEnrolamiento">
+
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="glyphicon glyphicon-transfer"></i>&nbsp;&nbsp;&nbsp;Registro de Acceso Eventual</h3>
+				</div>
+				<div class="panel-body panel-collapse in" id="collapseInactivo">
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+						<div [style.display]=" isStreaming ? 'block' : 'none' " class="center-block" style="width: 480px;">
+
+							<video #hardwareVideo id="hardwareVideo" autoplay></video>
+							<canvas #photoCanvas id="photoCanvas"></canvas>
+
+						</div>
+
+						<div class="containerCred" [style.display]=" !isStreaming ? 'block' : 'none' ">
+							<div class="header">
+								<div class="eventualTitle">EVENTUAL</div>
+								<div class="eventualTitleDos">EVENTUAL</div>
+							</div>
+							<div class="mainbody">
+								<img #imgEventual>
+								<table class="tableDatos">
+									<tr>
+										<td><h2>{{eventualForm.value['nombre'].toUpperCase() +' ' + eventualForm.value['apellidoPaterno'].toUpperCase()}}</h2></td>
+									</tr>
+									<tr class="trSeparador">
+										<td>
+											<hr>
+										</td>
+									</tr>
+									<tr>
+										<td><h3>{{eventualForm.value['razonSocial'].toUpperCase()}}</h3></td>
+									</tr>
+									<tr>
+										<td><h4>{{eventualForm.value['ocupacion'].toUpperCase()}}</h4></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="center-block" *ngIf="isStreaming" style="margin-bottom: 15px;width: 245px;">
+							<button (click)="tomarFoto()" class="btn btn-sm btn-success" style="margin-right: 10px">
+								<span class="glyphicon glyphicon-camera"></span> Captuar Foto
+							</button>
+							<button (click)="stopStream()" class="btn btn-sm btn-danger">
+								<span class="glyphicon glyphicon-stop"></span> Parar Camara
+							</button>
+						</div>
+						<div class="center-block" *ngIf="!isStreaming" style="margin-bottom: 15px">
+							<br>
+							<button (click)="iniciaStream()" class="btn btn-sm btn-info center-block">
+								<span class="glyphicon glyphicon-camera"></span> Iniciar Camara
+							</button>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.nombre.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Nombre</span>
+											<input type="text" class="form-control" id="enNombre" placeholder="Nombre" formControlName="nombre">
+										</div>
+									</div>
+								</div>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.apellidoPaterno.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Apellido Paterno</span>
+											<input type="text" class="form-control" id="apellidoPaterno" placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+										</div>
+									</div>
+								</div>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.apellidoMaterno.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Apellido Materno</span>
+											<input type="text" class="form-control" id="apellidoMaterno" placeholder="Apellido Materno" formControlName="apellidoMaterno">
+										</div>
+									</div>
+								</div>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.telefono.valid }">
+									<div class="col-lg-12">
+										<div class="input-group">
+											<span class="input-group-addon">Tel&eacute;fono</span>
+											<input type="text" class="form-control" id="enTelefono" placeholder="Tel&eacute;fono" formControlName="telefono">
+											<span class="input-group-addon">Emergencias</span>
+											<input type="text" class="form-control" id="enTelefonoEmergencias" placeholder="Emergencias" formControlName="telefonoEmergencia">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<!--
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.razonSocial.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Empresa</span>
+											<input type="text" class="form-control" id="razonSocial" placeholder="Razo&oacute;n Social" formControlName="razonSocial">
+										</div>
+									</div>
+								</div>
+								-->
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.razonSocial.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Empresa</span>
+											<input type="text" formControlName="razonSocial"
+												   placeholder="Empresa"
+												   class="form-control"
+												   ngxTypeahead
+												   [taUrl]="url"
+												   [taApi]="api"
+												   [taItemTpl]="itemTpl"
+												   (taSelected)="handleResultSelected($event)">
+										</div>
+									</div>
+								</div>
+								<ng-template #itemTpl let-result class="list-item">
+									<div>
+										<i class="glyphicon glyphicon-briefcase"></i> <strong>{{result.result.nombreEmpresa.toUpperCase()}}</strong>
+									</div>
+								</ng-template>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.ocupacion.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Ocupaci&oacute;</span>
+											<input type="text" class="form-control" id="ocupacion" placeholder="Ocupacon" formControlName="ocupacion">
+										</div>
+									</div>
+								</div>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.acceso.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Acceso</span>
+											<input type="text" class="form-control" id="acceso" placeholder="Persona que Otorga el Acceso" formControlName="acceso">
+										</div>
+									</div>
+								</div>
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.motivo.valid }">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">Motivo</span>
+											<input type="text" class="form-control" id="motivo" placeholder="Motivo del Acceso" formControlName="motivo">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="center-block" style="width: 315px;">
+							<button type="button" class="btn btn-success" style="margin-right: 10px">
+								<i class="glyphicon glyphicon-save"></i>&nbsp;&nbsp;&nbsp;Guardar e Imprimir
+							</button>
+							<button type="button" class="btn btn-danger">
+								<i class="glyphicon glyphicon-stop"></i>&nbsp;&nbsp;&nbsp;Cancelar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+</section>

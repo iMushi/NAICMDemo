@@ -11,6 +11,7 @@ const routes: Routes = [
 		children: [
 			{path: '', loadChildren: './blank-page/blank-page.module#BlankPageModule' , canActivate: [AuthGuard]},
 			{path: 'enrolamiento', loadChildren: './enrolamiento/enrolamiento.module#EnrolamientoModule', canActivate: [AuthGuard]},
+			{path: 'eventual', loadChildren: './eventual/eventual.module#EventualModule', canActivate: [AuthGuard]},
 			{path: 'imprimir', loadChildren: './impresion/impresion.module#ImpresionModule', canActivate: [AuthGuard]},
 			{path: 'busqueda', loadChildren: './busqueda/busqueda.module#BusquedaModule', canActivate: [AuthGuard]},
 			{path: 'login', loadChildren:'./login/login.module#LoginModule'},

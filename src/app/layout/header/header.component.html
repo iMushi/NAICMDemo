@@ -33,7 +33,7 @@
 			<form class="navbar-form navbar-left col-lg-5" role="search" onsubmit="return false;" *ngIf="identity">
 				<div class="form-control-header">
 					<input #inputBuscar (keyup)="keyPressBuscar($event,inputBuscar)" type="text"
-						   placeholder="Buscar (Nombre, Apellido)" value="">
+						   placeholder="Buscar (Nombre, Apellido)" [(ngModel)]="nombreSearch" name="nombreSearch">
 				</div>
 				<button type="button" class="btn btn-primary" (click)="buscarPorNombre(inputBuscar.value)">
 					<i class="glyphicon glyphicon-search"></i>
@@ -78,7 +78,7 @@
 	<a (click)="closeNav()" class="closebtn">&times;</a>
 	<a [routerLink]="['/busqueda']" (click)="closeNav()">B&uacute;squeda</a>
 	<a [routerLink]="['/imprimir']" (click)="closeNav()">Imprimir Acceso</a>
-	<a [routerLink]="['/eventuales']" (click)="closeNav()">Eventuales</a>
+	<a [routerLink]="['/eventual']" (click)="closeNav()">Eventuales</a>
 	<a [routerLink]="['/cargamasiva']" (click)="closeNav()">Carga Masiva</a>
 </div>
 

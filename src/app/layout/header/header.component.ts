@@ -17,6 +17,12 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	ngDoCheck(): void {
 		this.identity = this._authService.getIdentity();
+
+
+		if (this.identity == null && this._router.url !== '/login') {
+			this._router.navigate(['/login']).then();
+		}
+
 	}
 
 
@@ -25,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	public unsubscriber: Subscription;
 	public identity = null;
-
+	public nombreSearch = 'JAVIER,QUINTERO';
 
 	constructor(private _prestoService: PrestoService, private _authService : AuthService, private _router : Router) {
 		this.identity = this._authService.getIdentity();
@@ -92,14 +98,16 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 	keyPressBuscar(...eve) {
 
 		if (eve[0].keyCode === 13) {
-			this.buscarPorNombre(eve[1].value);
+			this.buscarPorNombre();
 		}
 		return true;
 	}
 
-	buscarPorNombre(value) {
-		this._prestoService.getEnrolamientoByName(value.split(",")
-			.map(val => val.trim()));
+	buscarPorNombre() {
+		this._prestoService
+			.getEnrolamientoByName(
+				this.nombreSearch.split(",").map(val => val.trim()),1);
+
 	}
 
 }

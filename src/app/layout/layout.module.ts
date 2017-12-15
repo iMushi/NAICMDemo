@@ -5,11 +5,15 @@ import {LayoutRoutingModule} from "./layout-routing.module";
 import {HeaderComponent} from './header/header.component';
 import {PrestoService} from "../common/presto.service";
 import {BusquedaRapidaComponent} from './busqueda-rapida/busqueda-rapida.component';
+import {NgxPaginationModule} from "ngx-pagination";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
 	imports: [
 		CommonModule,
-		LayoutRoutingModule
+		LayoutRoutingModule,
+		NgxPaginationModule,
+		FormsModule
 	],
 	declarations: [
 		LayoutComponent,

@@ -18,7 +18,7 @@ export class AuthService {
 
 		let params = new HttpParams().append("email", userToLogin.email).append("password", userToLogin.password);
 
-		//let headers = new HttpHeaders().append("Authorization", this.getIdentity().token);
+
 
 		return this._http.post<IUserResponse>(GLOBAL.RESTAPINJS + 'login', params, {withCredentials: true});
 

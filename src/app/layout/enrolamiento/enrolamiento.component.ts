@@ -84,6 +84,11 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			image: new FormControl('', Validators.required),
 			enrolComplete: new FormControl('', Validators.required),
 			empresaCredId: new FormControl(''),
+			seniasParticulares: new FormControl(''),
+			licencia: new FormControl(''),
+			tipoLicencia: new FormControl(''),
+			direccion: new FormControl(''),
+			__v :  new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
 
@@ -206,7 +211,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	qrModelChange() {
 
-		let imgDisplay = this.currImgPhoto.includes('image/png;base64') ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
+		console.log(this.currImgPhoto);
+
+		let imgDisplay = this.currImgPhoto.includes('image/png;base64') || this.personEnrolar.image=="" ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
 
 		this.personCred = {
 			nombre: this.personEnrolar.nombre,
@@ -220,7 +227,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	}
 
 	onEmpresaChange(empresa: any) {
-		this.credEmpresa = empresa.nombreEmpresa;
+		this.credEmpresa = empresa.idEmpresa.nombreEmpresa;
 		this.credOcupacion = empresa.ocupacion;
 		this.credIdEmpresa = empresa._id;
 

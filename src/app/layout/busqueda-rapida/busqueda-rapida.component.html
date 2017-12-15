@@ -19,12 +19,13 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr *ngFor="let res of results">
+
+					<tr *ngFor="let res of results | paginate: config ">
 						<td>{{res.id}}</td>
 						<td>
 							<button class="btn btn-sm btn-circle btn-info"
 									data-toggle="tooltip" data-placement="top" title=""
-									data-original-title="Terminar Enrolamiento" (click)="setPersonEnrolamiento(res._id)"
+									data-original-title="Terminar Enrolamiento" (click)="setPersonEnrolamiento(res)"
 									*ngIf="!res.enrolComplete">
 								<i class="glyphicon glyphicon-camera"></i>
 							</button>
@@ -42,14 +43,29 @@
 						<td>
 							<ul>
 								<li *ngFor="let emp of res.empresa">
-									{{emp.nombreEmpresa}} - {{emp.fechaContrato}}
+									{{emp.idEmpresa.nombreEmpresa}} - {{emp.fechaContrato}}
 								</li>
 							</ul>
 						</td>
 					</tr>
+					<tr></tr>
 					</tbody>
 				</table>
+				<pagination-template #p="paginationApi"
+									 [id]="config.id"
+									 (pageChange)="onPageChange($event)">
+					<div class="custom-pagination">
+						<ul class="pagination pagination-sm">
+							<li><a [class.disabled]="p.isFirstPage()" *ngIf="!p.isFirstPage()" (click)="p.previous()"> &laquo; </a></li>
+							<li  *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value"   >
+								<a (click)="p.setCurrent(page.value);">{{page.label}}</a>
+							</li>
+							<li><a [class.disabled]="p.isLastPage()" *ngIf="!p.isLastPage()" (click)="p.next()">&raquo;</a></li>
+						</ul>
+					</div>
+				</pagination-template>
 			</div>
+
 			<div class="modal-footer">
 				<button class="btn  btn-info" data-dismiss="modal" aria-hidden="true">
 					<i class="glyphicon glyphicon-stop"></i>&nbsp;Cerrar

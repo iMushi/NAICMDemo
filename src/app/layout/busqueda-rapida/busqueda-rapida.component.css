@@ -7,3 +7,16 @@
 		width:80%;
 	}
 }
+
+
+
+.custom-pagination .pagination>li>a,
+.custom-pagination .pagination>li>span {
+	border: 1px solid black;
+	background : #3498db;
+	cursor : pointer;
+}
+.pagination>li.active>a {
+	background: #18bc9c !important;
+	color: #fff;
+}

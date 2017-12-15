@@ -1,6 +1,6 @@
 <section id="mainBusqueda">
 
-	<form #formBusqueda class="form-horizontal">
+	<form #formBusqueda class="form-horizontal" [formGroup]="busquedaGroup">
 
 
 		<div class="panel panel-primary">
@@ -18,8 +18,8 @@
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Nombre</span>
-									<input type="text" class="form-control" id="enNombre" placeholder="Nombre"
-										   [(ngModel)]="personBuscar.nombre" #nombre name="enNombre">
+									<input ccCardHover type="text" class="form-control" id="enNombre" placeholder="Nombre"
+										   formControlName="nombre" >
 								</div>
 							</div>
 						</div>
@@ -30,7 +30,7 @@
 								<div class="input-group">
 									<span class="input-group-addon">Apellido Paterno</span>
 									<input type="text" class="form-control" id="enApPaterno" placeholder="Apellido Paterno"
-										   [(ngModel)]="personBuscar.apellidoPaterno" #nombre name="enApPaterno">
+										   formControlName="apellidoPaterno">
 								</div>
 							</div>
 						</div>
@@ -44,7 +44,7 @@
 								<div class="input-group">
 									<span class="input-group-addon">Apellido Materno</span>
 									<input type="text" class="form-control" id="enApMaterno" placeholder="Apellido Materno"
-										   [(ngModel)]="personBuscar.apellidoMaterno" #nombre name="enApMaterno">
+										   formControlName="apellidoMaterno">
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,37 @@
 								<div class="input-group">
 									<span class="input-group-addon">RFC</span>
 									<input type="text" class="form-control" id="enRFC" placeholder="RFC"
-										   [(ngModel)]="personBuscar.rfc" #nombre name="enRFC">
+										   formControlName="rfc">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="form-group">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Empresa</span>
+									<!--
+									<input type="text" class="form-control" id="enEmpresa" placeholder="Empresa"
+										   formControlName="empresaBus">
+										-->
+									<input type="text" formControlName="empresaBus"
+										   placeholder="Empresa"
+										   class="form-control"
+										   ngxTypeahead
+										   [taUrl]="url"
+										   [taApi]="api"
+										   [taItemTpl]="itemTpl"
+										   (taSelected)="handleResultSelected($event)"
+									>
+									<ng-template #itemTpl let-result class="list-item">
+										<div>
+											<i class="glyphicon glyphicon-briefcase"></i> <strong>{{result.result.nombreEmpresa.toUpperCase()}}</strong>
+										</div>
+									</ng-template>
 								</div>
 							</div>
 						</div>

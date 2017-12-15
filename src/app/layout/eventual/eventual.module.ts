@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BusquedaRouting} from "./busqueda-routing";
+import {EventualComponent} from "./eventual.component";
+import {EventualRouting} from "./eventual-routing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BusquedaComponent} from "./busqueda.component";
-import {NgxTypeaheadModule} from "ngx-typeahead";
 import {SharedModulesModule} from "../shared-modules/shared-modules.module";
+import {NgxTypeaheadModule} from "ngx-typeahead";
 
 @NgModule({
 	imports: [
 		CommonModule,
+		EventualRouting,
 		FormsModule,
 		ReactiveFormsModule,
-		BusquedaRouting,
-		NgxTypeaheadModule,
-		SharedModulesModule
+		SharedModulesModule,
+		NgxTypeaheadModule
 	],
-	declarations: [BusquedaComponent]
+	declarations: [EventualComponent]
 })
-export class BusquedaModule {
+export class EventualModule {
 }

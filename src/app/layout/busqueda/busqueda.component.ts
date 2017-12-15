@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PrestoService} from "../../common/presto.service";
-import {IEmpresa} from "../../models/interface";
 import {Router} from "@angular/router";
-import {Subscription} from "rxjs/Subscription";
+import {FormControl, FormGroup} from "@angular/forms";
+import {GLOBAL} from "../../common/global";
+
 
 @Component({
 	selector: 'app-busqueda',
@@ -11,9 +12,11 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class BusquedaComponent implements OnInit , OnDestroy {
 
+	public empresaBuscar : string;
+	public busquedaGroup
 
-	public personBuscar : IEmpresa;
-
+	public url = GLOBAL.RESTAPINJS + 'searchEmpresa';
+	public api = 'http';
 
 	constructor(private _prestoService: PrestoService,private _router : Router) {
 	}
@@ -27,17 +30,31 @@ export class BusquedaComponent implements OnInit , OnDestroy {
 		this._prestoService.setBreadCrumb([
 			{routerLink: '/busqueda', class: 'active', txt: 'Búsqueda de Personal'}
 		]);
-		this.personBuscar = {
-			_id:null,
-			nombre:null,
-			apellidoPaterno:null,
-			apellidoMaterno:null,
-			rfc:null
-		};
 
+
+		this.busquedaGroup = new FormGroup({
+			empresaBus: new FormControl(''),
+			nombre: new FormControl(''),
+			apellidoPaterno: new FormControl(''),
+			apellidoMaterno: new FormControl(''),
+			rfc : new FormControl('')
+		});
+		// Save
 	}
 
 	buscarPersona(){
-		this._prestoService.getSearchEnrolamiento(this.personBuscar);
+		let values = this.busquedaGroup.value;
+		let query  = this.busquedaGroup.controls['empresaBus'].value;
+
+		delete values.empresaBus;
+
+		values.idEmpresa=query == ''? query : this.empresaBuscar;
+		this._prestoService.getSearchEnrolamiento(values, 1);
+
+	}
+
+	handleResultSelected(result){
+		this.busquedaGroup.controls['empresaBus'].setValue(result.nombreEmpresa.toUpperCase());
+		this.empresaBuscar = result._id;
 	}
 }

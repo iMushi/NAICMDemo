@@ -11,7 +11,7 @@ export const GLOBAL = {
 	MPHOTOURL : 'assets/customer-512.png',
 	FPHOTOURL : 'assets/girl-512.png',
 	RESTAPI : 'http://localhost:3000/enrolamiento',
-
+	DEFAULTPERPAGE : 10,
 	DEFAULTPERSON : {empresas:[{}]},
 
 	//RESTAPINJS : 'http://localhost:5000/api/',
