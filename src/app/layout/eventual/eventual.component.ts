@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {PrestoService} from "../../common/presto.service";
 import {WebRTCService} from "../../common/webRTC.service";
 import {GLOBAL} from "../../common/global";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-eventual',
@@ -27,7 +28,7 @@ export class EventualComponent implements OnInit {
 	public url = GLOBAL.RESTAPINJS + 'searchEmpresa';
 	public api = 'http';
 
-	constructor(private _prestoService: PrestoService, private _webRTC: WebRTCService) {
+	constructor(private _prestoService: PrestoService, private _webRTC: WebRTCService, private _router : Router) {
 	}
 
 	ngOnInit() {
@@ -41,7 +42,6 @@ export class EventualComponent implements OnInit {
 			}]
 		);
 
-
 		this.eventualForm = new FormGroup({
 			nombre: new FormControl('', Validators.required),
 			apellidoPaterno: new FormControl('', Validators.required),
@@ -51,7 +51,8 @@ export class EventualComponent implements OnInit {
 			ocupacion: new FormControl('', Validators.required),
 			razonSocial: new FormControl('', Validators.required),
 			acceso: new FormControl('', Validators.required),
-			motivo: new FormControl('', Validators.required)
+			motivo: new FormControl('', Validators.required),
+			imageBase64 : new FormControl('',Validators.required)
 		});
 
 	}
@@ -69,12 +70,20 @@ export class EventualComponent implements OnInit {
 	tomarFoto(){
 		this.imageUrl = this._webRTC.takePicture(this.hardwareVideo, this.photoCanvas);
 		this.imgEventual.nativeElement.src = this.imageUrl;
+		this.eventualForm.controls['imageBase64'].setValue(this.imageUrl);
 		this.stopStream();
 	}
 
 	handleResultSelected(result){
 		this.eventualForm.controls['razonSocial'].setValue(result.nombreEmpresa.toUpperCase());
 		this.idEmpresa = result._id;
+	}
+
+	guardar(){
+		if(!this.eventualForm.valid) return;
+	}
+	cancelEventual(){
+		this._router.navigate(['/']);
 	}
 
 }

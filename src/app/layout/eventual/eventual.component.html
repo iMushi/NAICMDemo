@@ -197,10 +197,10 @@
 					</div>
 					<div class="">
 						<div class="center-block" style="width: 315px;">
-							<button type="button" class="btn btn-success" style="margin-right: 10px">
+							<button type="button" class="btn btn-success" style="margin-right: 10px" [disabled]="!eventualForm.valid" (click)="guardar();">
 								<i class="glyphicon glyphicon-save"></i>&nbsp;&nbsp;&nbsp;Guardar e Imprimir
 							</button>
-							<button type="button" class="btn btn-danger">
+							<button type="button" class="btn btn-danger" (click)="cancelEventual()">
 								<i class="glyphicon glyphicon-stop"></i>&nbsp;&nbsp;&nbsp;Cancelar
 							</button>
 						</div>
@@ -209,6 +209,4 @@
 			</div>
 		</div>
 	</form>
-
-
 </section>

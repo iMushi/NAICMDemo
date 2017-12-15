@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	public unsubscriber: Subscription;
 	public identity = null;
-	public nombreSearch = 'JAVIER,QUINTERO';
+	public nombreSearch = '';
 
 	constructor(private _prestoService: PrestoService, private _authService : AuthService, private _router : Router) {
 		this.identity = this._authService.getIdentity();
