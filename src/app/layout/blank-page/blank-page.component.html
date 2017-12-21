@@ -15,25 +15,15 @@
 				</button>
 
 			</div>
-
-
-			<!--
-			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
-				<button class="btn btn-info" [routerLink]="['/imprimir']">
-					<span class="glyphicon glyphicon-print"></span>
-					Imprimir Acceso
-				</button>
-			</div>
-
-			-->
-
-
 			<div class="col-lg-4 col-md-4 " style="margin-bottom: 10px">
-				<button class="btn  btn-success" [routerLink]="['/eventual']">
-					<span class="glyphicon glyphicon-tags"></span>
-					Acceso Eventual
-				</button>
-
+				<div class="btn-group">
+					<a  [routerLink]="['/eventual']" class="btn btn-success"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;&nbsp;Eventual</a>
+					<a  class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a [routerLink]="['/eventual']">Crear Acceso Eventual</a></li>
+						<li><a [routerLink]="['/listadoEventuales']">Accesos Creados</a></li>
+					</ul>
+				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 " style="margin-bottom: 10px">
 				<button class="btn  btn-primary" [routerLink]="['/cargamasiva']">

@@ -1,0 +1,11 @@
+.imageEventual {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	height: 150px;
+	display: block;
+	vertical-align: middle;
+	background-size: 200% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}

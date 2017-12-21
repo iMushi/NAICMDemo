@@ -7,13 +7,15 @@ import {PrestoService} from "../common/presto.service";
 import {BusquedaRapidaComponent} from './busqueda-rapida/busqueda-rapida.component';
 import {NgxPaginationModule} from "ngx-pagination";
 import {FormsModule} from "@angular/forms";
+import {SharedModulesModule} from "./shared-modules/shared-modules.module";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		LayoutRoutingModule,
 		NgxPaginationModule,
-		FormsModule
+		FormsModule,
+		SharedModulesModule
 	],
 	declarations: [
 		LayoutComponent,

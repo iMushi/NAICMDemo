@@ -27,15 +27,12 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	@ViewChild('photoCanvas') photoCanvas: any;
 
 	public isStreaming: boolean;
-
 	public currImgPhoto: string = GLOBAL.MPHOTOURL;
-
 	public personEnrolar: PersonaEnrolar = new PersonaEnrolar();
-
 	public subscriber;
-
-
 	public completed: boolean = false;
+
+	public imagenes : Array<any>;
 
 	/* Datos generados en el proceso de Enrolamiento, se van a la BD como control*/
 
@@ -88,7 +85,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			licencia: new FormControl(''),
 			tipoLicencia: new FormControl(''),
 			direccion: new FormControl(''),
-			__v :  new FormControl(''),
+			enrolActive: new FormControl(''),
+			rutaImagenes : new FormControl(''),
+			__v: new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
 
@@ -144,6 +143,11 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 				this.cmbSexoChange(this.personEnrolar.sexo);
 				this.onEmpresaChange(this.personEnrolar.empresa[0]);
+
+				this.imagenes = this.personEnrolar.rutaImagenes.split(",").map(
+					x => GLOBAL.RESTAPINJS + 'getImagePreEnrol/' + x.replace("./","").replace(/\//g, '|')
+				)
+
 
 				this.personEnrolar.empresa.forEach((item, index) => {
 					let controlOcupacion: FormControl = new FormControl(item.ocupacion, Validators.required);
@@ -211,9 +215,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	qrModelChange() {
 
-		console.log(this.currImgPhoto);
-
-		let imgDisplay = this.currImgPhoto.includes('image/png;base64') || this.personEnrolar.image=="" ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
+		let imgDisplay = this.currImgPhoto.includes('image/png;base64') || this.personEnrolar.image == "" ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
 
 		this.personCred = {
 			nombre: this.personEnrolar.nombre,
@@ -257,7 +259,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	uploadEnrolImage() {
 
-		var file = this.dataURLtoFile(this.currImgPhoto, this.personEnrolar._id + '.png');
+		var file = GLOBAL.dataURLtoFile(this.currImgPhoto, this.personEnrolar._id + '.png');
 
 		this.filesToUpload = [file];
 
@@ -278,19 +280,13 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			);
 	}
 
-	dataURLtoFile(dataurl, filename) {
-		var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-			bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n);
-		}
-		return new File([u8arr], filename, {type: mime});
-	}
 
 	finalizarEnrol() {
 
 
 		this.enrolFrom.controls['enrolComplete'].setValue('true');
+		this.enrolFrom.controls['enrolActive'].setValue('true');
+
 
 		this._prestoService.saveEnrolamiento(this.enrolFrom.value).subscribe(
 			res => {
@@ -300,8 +296,5 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				alert('Ocurrio un Error al Guardar Informacion : ' + err.message);
 			}
 		);
-
 	}
-
-
 }

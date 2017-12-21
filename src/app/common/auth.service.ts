@@ -17,9 +17,6 @@ export class AuthService {
 	login(userToLogin: IUsuario): Subscribable<IUserResponse> {
 
 		let params = new HttpParams().append("email", userToLogin.email).append("password", userToLogin.password);
-
-
-
 		return this._http.post<IUserResponse>(GLOBAL.RESTAPINJS + 'login', params, {withCredentials: true});
 
 	}

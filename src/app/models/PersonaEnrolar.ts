@@ -26,6 +26,8 @@ export class PersonaEnrolar implements IEmpresa {
 	image : string = null;
 	enrolComplete : boolean = false;
 	empresaCredId : string ;
+	enrolActive : boolean = false;
+	rutaImagenes : string;
 
 
 	constructor(values?: IEmpresa) {
@@ -53,6 +55,7 @@ export class PersonaEnrolar implements IEmpresa {
 			this.empresa = values.empresa;
 			this.empresaCredId = values.empresaCredId;
 			this.image = values.image;
+			this.rutaImagenes = values.rutaImagenes;
 
 		} else {
 			this._id = undefined;

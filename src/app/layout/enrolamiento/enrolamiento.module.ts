@@ -5,6 +5,7 @@ import {EnrolamientoComponent} from "./enrolamiento.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EnrolamientoGuard} from "../../auth/enrolamiento.guard";
 import {CredencialModule} from "../credencial/credencial.module";
+import {SharedModulesModule} from "../shared-modules/shared-modules.module";
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import {CredencialModule} from "../credencial/credencial.module";
 		EnrolamientoRouting,
 		FormsModule,
 		ReactiveFormsModule,
-		CredencialModule
+		CredencialModule,
+		SharedModulesModule
 	],
 	declarations: [
 		EnrolamientoComponent

@@ -20,13 +20,13 @@
 					<a class="dropdown-toggle dropdownBtn" data-toggle="dropdown" role="button"
 					   aria-expanded="false">Men&uacute;<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a [routerLink]="['/busqueda']" (click)="closeNav()" >B&uacute;squeda</a></li>
+						<li><a [routerLink]="['/busqueda']" (click)="closeNav()">B&uacute;squeda</a></li>
 						<li class="divider"></li>
-						<li><a [routerLink]="['/imprimir']" (click)="closeNav()" >Imprimir</a></li>
+						<li><a [routerLink]="['/imprimir']" (click)="closeNav()">Imprimir</a></li>
 						<li class="divider"></li>
-						<li><a [routerLink]="['/eventuales']" (click)="closeNav()" >Eventuales</a></li>
+						<li><a [routerLink]="['/eventuales']" (click)="closeNav()">Eventuales</a></li>
 						<li class="divider"></li>
-						<li><a [routerLink]="['/cargamasiva']" (click)="closeNav()" >Carga Masiva</a></li>
+						<li><a [routerLink]="['/cargamasiva']" (click)="closeNav()">Carga Masiva</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -41,13 +41,13 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right" *ngIf="!identity">
 				<li>
-					<a style="display: inline-block" [routerLink] = "['/login']" >
+					<a style="display: inline-block" [routerLink]="['/login']">
 						<span class="glyphicon glyphicon-log-in">&nbsp;</span>
 						Login
 					</a>
 				</li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right"  *ngIf="identity">
+			<ul class="nav navbar-nav navbar-right" *ngIf="identity">
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" role="button"
 					   aria-expanded="true">{{identity.user.name}}<span class="caret"></span></a>
@@ -62,13 +62,13 @@
 	</div>
 </nav>
 
-<ol id="appBread"  class="breadcrumb navbar-fixed-top">
+<ol id="appBread" class="breadcrumb navbar-fixed-top">
 	<ng-container #appBread></ng-container>
 
 	<ng-template #breadTpl let-options>
 		<li class="{{options.class}}">
 			<a *ngIf="options.class === '' " [routerLink]="[options.routerLink]" (click)="closeNav()">{{options.txt}}</a>
-			<span *ngIf="options.class !==''" >{{options.txt}}</span>
+			<span *ngIf="options.class !==''">{{options.txt}}</span>
 		</li>
 	</ng-template>
 </ol>
@@ -77,7 +77,7 @@
 <div id="mySidenav" class="sidenav">
 	<a (click)="closeNav()" class="closebtn">&times;</a>
 	<a [routerLink]="['/busqueda']" (click)="closeNav()">B&uacute;squeda</a>
-	<a [routerLink]="['/imprimir']" (click)="closeNav()">Imprimir Acceso</a>
+	<!--<a [routerLink]="['/imprimir']" (click)="closeNav()">Imprimir Acceso</a>-->
 	<a [routerLink]="['/eventual']" (click)="closeNav()">Eventuales</a>
 	<a [routerLink]="['/cargamasiva']" (click)="closeNav()">Carga Masiva</a>
 </div>

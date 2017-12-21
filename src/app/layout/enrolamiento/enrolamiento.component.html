@@ -1,6 +1,6 @@
 <section id="mainEnrolamiento">
 
-	<div class="row"  class="navbar-fixed-top" [ngStyle]="{
+	<div class="row" class="navbar-fixed-top" [ngStyle]="{
 				'height' : completed ? '150px' : '0px',
 				'width' : completed ? '100%' : '0px',
 				transition : '1s',
@@ -35,11 +35,10 @@
 	</div>
 
 
-
 	<form #formEnrolamiento class="form-horizontal" [formGroup]="enrolFrom" [ngStyle]="{
 					'transition': '1s',
 					'margin-top' : completed  ? '170px' : '0px'
-					}"  >
+					}">
 		<div id="accordionEnrolamiento">
 
 			<div class="panel panel-primary">
@@ -63,7 +62,7 @@
 									</div>
 
 									<div [style.display]=" !isStreaming ? 'block' : 'none' ">
-										<app-credencial [personEnrol] = "personCred" ></app-credencial>
+										<app-credencial [personEnrol]="personCred"></app-credencial>
 									</div>
 
 								</div>
@@ -149,9 +148,9 @@
 										<span class="input-group-addon">Sexo</span>
 										<select class="form-control" name="enCmbSexo" id="enCmbSexo" #enCmbSexo
 												(change)="cmbSexoChange(enCmbSexo.value)" formControlName="sexo">
-											<option  value="">-- Seleccione --</option>
+											<option value="">-- Seleccione --</option>
 											<option [selected]=" enrolFrom.controls.sexo.value == 'M' " value="M">Masculino</option>
-											<option [selected]=" enrolFrom.controls.sexo.value == 'F' "value="F">Femenino</option>
+											<option [selected]=" enrolFrom.controls.sexo.value == 'F' " value="F">Femenino</option>
 										</select>
 									</div>
 								</div>
@@ -165,7 +164,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group"  [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid }">
 								<div class="col-lg-12">
 									<div class="input-group">
 										<span class="input-group-addon">Tel&eacute;fono</span>
@@ -177,7 +176,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.contactoEmergencia.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Contacto Emergencias</span>
@@ -192,7 +191,7 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.accesoOtorgado.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Acceso Otorgado</span>
@@ -201,7 +200,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.motivoAcceso.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Motivo de Acceso</span>
@@ -210,7 +209,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.registroPatronal.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Registro Patronal</span>
@@ -221,7 +220,7 @@
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid || !enrolFrom.controls.telefonoEmergencia.valid}">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">NSS</span>
@@ -233,7 +232,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.estadoCivil.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Estado Civil</span>
@@ -242,7 +241,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.tipoSangre.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Tipo de Sangre</span>
@@ -291,11 +290,26 @@
 													</div>
 												</div>
 											</blockquote>
-
-
 										</div>
 									</div>
 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10
+							col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Documentos proporcionados</h3>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-3" *ngFor="let imagen of imagenes;">
+										<div class="thumbnail">
+											<img src="{{imagen}}" class="producto-imagen">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

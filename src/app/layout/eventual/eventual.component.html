@@ -1,41 +1,5 @@
 <section id="mainEnrolamiento">
 
-	<div class="row" class="navbar-fixed-top" [ngStyle]="{
-				'height' : completed ? '150px' : '0px',
-				'width' : completed ? '100%' : '0px',
-				transition : '1s',
-				'transition-delay':  completed ? '0' : '.5',
-				'margin-top' : '120px',
-				'display' : completed ? 'block' : 'none'
-			}">
-
-		<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2
-				col-lg-8 col-md-8 col-sm-8 col-xs-8" [ngStyle]="{
-					'transition': '1s' , 'transition-delay':  completed ? '.5' : '0'  , 'opacity' : completed ? '1' : '0'
-					}">
-
-			<div class=" panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<i class=" glyphicon glyphicon-check"></i>&nbsp;&nbsp;Datos Completos</h3>
-				</div>
-				<div class="panel-body">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						¿Desea finalizar Registro Eventual?
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="center-block" style="width: 100px">
-							<button type="button" class="btn btn-info" (click)="finalizarEnrol()" [disabled]="!completed">
-								<i class="glyphicon glyphicon-save-file"></i> Finalizar
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 	<form #formEventuales class="form-horizontal" [formGroup]="eventualForm" [ngStyle]="{
 					'transition': '1s',
 					'margin-top' : completed  ? '170px' : '0px'
@@ -49,14 +13,10 @@
 				<div class="panel-body panel-collapse in" id="collapseInactivo">
 
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
 						<div [style.display]=" isStreaming ? 'block' : 'none' " class="center-block" style="width: 480px;">
-
 							<video #hardwareVideo id="hardwareVideo" autoplay></video>
 							<canvas #photoCanvas id="photoCanvas"></canvas>
-
 						</div>
-
 						<div class="containerCred" [style.display]=" !isStreaming ? 'block' : 'none' ">
 							<div class="header">
 								<div class="eventualTitle">EVENTUAL</div>
@@ -126,7 +86,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.telefono.valid }">
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.telefono.valid || !eventualForm.controls.telefonoEmergencia.valid}">
 									<div class="col-lg-12">
 										<div class="input-group">
 											<span class="input-group-addon">Tel&eacute;fono</span>
@@ -138,16 +98,6 @@
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<!--
-								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.razonSocial.valid }">
-									<div class="col-lg-10">
-										<div class="input-group">
-											<span class="input-group-addon">Empresa</span>
-											<input type="text" class="form-control" id="razonSocial" placeholder="Razo&oacute;n Social" formControlName="razonSocial">
-										</div>
-									</div>
-								</div>
-								-->
 								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.razonSocial.valid }">
 									<div class="col-lg-10">
 										<div class="input-group">
@@ -171,24 +121,24 @@
 								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.ocupacion.valid }">
 									<div class="col-lg-10">
 										<div class="input-group">
-											<span class="input-group-addon">Ocupaci&oacute;</span>
+											<span class="input-group-addon">Ocupaci&oacute;n</span>
 											<input type="text" class="form-control" id="ocupacion" placeholder="Ocupacon" formControlName="ocupacion">
 										</div>
 									</div>
 								</div>
-								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.acceso.valid }">
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.accesoOtorgado.valid }">
 									<div class="col-lg-10">
 										<div class="input-group">
 											<span class="input-group-addon">Acceso</span>
-											<input type="text" class="form-control" id="acceso" placeholder="Persona que Otorga el Acceso" formControlName="acceso">
+											<input type="text" class="form-control" id="acceso" placeholder="Persona que Otorga el Acceso" formControlName="accesoOtorgado">
 										</div>
 									</div>
 								</div>
-								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.motivo.valid }">
+								<div class="form-group" [ngClass]="{'has-error' : !eventualForm.controls.motivoAcceso.valid }">
 									<div class="col-lg-10">
 										<div class="input-group">
 											<span class="input-group-addon">Motivo</span>
-											<input type="text" class="form-control" id="motivo" placeholder="Motivo del Acceso" formControlName="motivo">
+											<input type="text" class="form-control" id="motivo" placeholder="Motivo del Acceso" formControlName="motivoAcceso">
 										</div>
 									</div>
 								</div>

@@ -4,9 +4,10 @@ import {HttpClient} from "@angular/common/http";
 import {GLOBAL} from "./global";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {PersonaEnrolar} from "../models/PersonaEnrolar";
-import {IEmpresa, TBreaCrumb, TpersonCredencial, TUpload} from "../models/interface";
+import {IEmpresa, TBreaCrumb, TEventual} from "../models/interface";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 
@@ -26,10 +27,10 @@ export class PrestoService {
 	private breadcrumbBS = new BehaviorSubject<TBreaCrumb[]>([]);
 	public breadEmitted$ = this.breadcrumbBS.asObservable();
 
-	private lastSearch : any;
+	private lastSearch: any;
 	private pageFunction;
 
-	constructor(private http: HttpClient, private _authService : AuthService,private _router : Router) {
+	constructor(private http: HttpClient, private _authService: AuthService, private _router: Router) {
 	}
 
 	getEnrolamientoByName(param: string[], pageNumber: number) {
@@ -50,8 +51,8 @@ export class PrestoService {
 		this.http.get(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
 			res => {
 				this.enrolamientoResultsNombre.next(res);
-			}, (err : HttpErrorResponse)=>{
-				if(err.status===403){
+			}, (err: HttpErrorResponse) => {
+				if (err.status === 403) {
 					this._authService.logout().subscribe();
 				}
 			}
@@ -78,8 +79,8 @@ export class PrestoService {
 		this.http.get(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
 			res => {
 				this.enrolamientoResultsNombre.next(res);
-			},(err : HttpErrorResponse)=>{
-				if(err.status===403){
+			}, (err: HttpErrorResponse) => {
+				if (err.status === 403) {
 					this._authService.logout().subscribe();
 				}
 			}
@@ -90,9 +91,9 @@ export class PrestoService {
 		this[this.pageFunction](this.lastSearch, pageNumber);
 	}
 
-	setPersonEnrolamiento(person : any) {
+	setPersonEnrolamiento(person: any) {
 		let results: Array<PersonaEnrolar> = <any>this.enrolamientoResultsNombre.getValue();
-		this.enrolamientoPerson.next( person );
+		this.enrolamientoPerson.next(person);
 	}
 
 	setImpresion(personId: string) {
@@ -106,13 +107,15 @@ export class PrestoService {
 	}
 
 	saveEnrolamiento(personEnrol: IEmpresa) {
-
 		let params: HttpParams = GLOBAL.toHttpParams(personEnrol);
 		params = params.delete("empresa");
 		return this.http.post(GLOBAL.RESTAPINJS + 'saveEnrol', params, {withCredentials: true,});
-
 	}
 
+	saveEventual(eventual: TEventual): Observable<any> {
+		let params: HttpParams = GLOBAL.toHttpParams(eventual);
+		return this.http.post(GLOBAL.RESTAPINJS + 'saveEventual', params, {withCredentials: true});
+	}
 
 	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string) {
 
@@ -142,12 +145,28 @@ export class PrestoService {
 
 	}
 
-
 	setBreadCrumb(params: Array<TBreaCrumb>) {
 		this.breadcrumbBS.next(params);
 	}
 
 	resetPerson() {
 		this.enrolamientoPerson.next(new PersonaEnrolar());
+	}
+
+	getEventual(pageNumber: number) {
+		let params = new HttpParams()
+			.append('page', pageNumber.toString())
+			.append('maxPerPage', GLOBAL.DEFAULTPERPAGE.toString());
+
+		return this.http.get(GLOBAL.RESTAPINJS+'getEventuales',{params : params, withCredentials:true});
+	}
+
+	getCargaMasiva(pageNumber : number){
+		let params = new HttpParams()
+			.append('page', pageNumber.toString())
+			.append('maxPerPage', GLOBAL.DEFAULTPERPAGEMASIVA.toString());
+
+		let idUser = this._authService.getIdentity().user._id;
+		return this.http.get(GLOBAL.RESTAPINJS+'getCargaMasiva/'+idUser,{params : params, withCredentials:true});
 	}
 }

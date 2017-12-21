@@ -23,5 +23,5 @@ import {AuthService} from "./common/auth.service";
 	providers: [AuthGuard,AuthService],
 	bootstrap: [AppComponent]
 })
-export class AppModule {
+export class AppModule { //probando
 }
