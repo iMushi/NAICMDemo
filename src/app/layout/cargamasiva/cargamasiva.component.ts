@@ -1,9 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PaginationInstance} from "ngx-pagination";
 import {GLOBAL} from "../../common/global";
 import {PrestoService} from "../../common/presto.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthService} from "../../common/auth.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {MsgService} from "../../common/msg.service";
+import {Msg} from "../../models/interface";
 
 @Component({
 	selector: 'app-cargamasiva',
@@ -13,8 +17,16 @@ import {AuthService} from "../../common/auth.service";
 export class CargamasivaComponent implements OnInit {
 
 
-	public cargasMasiva : Array <any>;
+	public cargasMasiva: Array<any>;
+	public cargaMForm: FormGroup;
+	public filesToUpload: Array<any>;
+	public filesSelected = {
+		cargaZip: '',
+		cargaCSV: ''
+	}
 
+	subjectFile = new BehaviorSubject(true);
+	file$ = this.subjectFile.asObservable();
 
 	public config: PaginationInstance = {
 		id: 'cargaMasivaPag',
@@ -23,40 +35,110 @@ export class CargamasivaComponent implements OnInit {
 		totalItems: 1
 	};
 
-	constructor(private _prestoService : PrestoService, private  _authService : AuthService) {
+	constructor(private _prestoService: PrestoService, private  _authService: AuthService, private _msgService : MsgService) {
 	}
 
 	ngOnInit() {
 		this.getCargaMasiva(1);
+
+		this.cargaMForm = new FormGroup({
+			csvFile: new FormControl('', Validators.required),
+			zipFile: new FormControl('', Validators.required)
+		});
+
 	}
 
-
-	getCargaMasiva (pageNumber : number){
+	getCargaMasiva(pageNumber: number) {
 
 		this._prestoService.getCargaMasiva(pageNumber).subscribe(
-			(resp : any) => {
+			(resp: any) => {
 
 				if (!resp.docs) return;
 				this.cargasMasiva = resp.docs.map(
 					x => {
 						return {
-							idBatch : x.idBatch,
-							email : x.idUser.email,
-							ruta : `${GLOBAL.RESTAPINJS}getResultCarga/${x.idUser.email}|${x.idBatch}|${GLOBAL.cargaMasiva}`,
-							rutaError : `${GLOBAL.RESTAPINJS}getResultCarga/${x.idUser.email}|${x.idBatch}|${GLOBAL.errorCargaMasiva}`,
+							idBatch: x.idBatch,
+							email: x.idUser.email,
+							ruta: `${GLOBAL.RESTAPINJS}getResultCarga/${x.idUser.email}|${x.idBatch}|${GLOBAL.cargaMasiva}`,
+							rutaError: `${GLOBAL.RESTAPINJS}getResultCarga/${x.idUser.email}|${x.idBatch}|${GLOBAL.errorCargaMasiva}`,
 						};
 					}
 				);
 				this.config.currentPage = resp.page;
 				this.config.totalItems = resp.total;
 			},
-			(err : HttpErrorResponse)=>{
-				if(err.status===403){
+			(err: HttpErrorResponse) => {
+				if (err.status === 403) {
 					this._authService.logout().subscribe();
 				}
 			}
 		);
 
+	}
+
+	cancelCarga() {
+
+		[].forEach.call(document.querySelectorAll("input[type=file]"), function(item) {
+			item.value = '';
+		});
+
+
+		this.filesSelected = {cargaZip: '', cargaCSV: ''};
+		this.subjectFile.next(true);
+
+	}
+
+	guardar() {
+
+		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'cargaZip', [], this.filesToUpload, [
+			'csvCargaZip', 'csvCargaMasiva'
+		]).then(
+			(resp : Msg) => {
+					this._msgService.setMsg(resp);
+					this.getCargaMasiva(1);
+					this.cancelCarga();
+				}
+			).catch(
+			(err: HttpErrorResponse) => {
+				if (err.status === 403) {
+					this._authService.logout().subscribe();
+				}
+			}
+		);
+
+	}
+
+	fileChangeEvent(fileInput: any) {
+
+		let subject;
+		this.filesSelected[fileInput.target.id] = fileInput.target.files.length ? fileInput.target.files : '';
+
+		if (!!this.filesSelected['cargaZip'] && !!this.filesSelected['cargaCSV']) {
+			subject = false;
+			this.filesToUpload = [
+				this.filesSelected['cargaZip'][0],
+				this.filesSelected['cargaCSV'][0]
+			]
+		} else {
+			subject = true;
+		}
+		this.subjectFile.next(subject);
+
+
+
+
+						/* let fileList = event.target.files;
+				  let file = fileList[0];
+				  let extension = file.name.split('.')[1].toLowerCase();
+
+				  if (extension === 'jpg') {
+					alert('Good file extension!');
+				  }
+				  else {
+					event.target.value = '';
+					alert('Wrong file extension! File input is cleared.');
+				  }
+					*/
 	}
 
 	onPageChange(number: number) {

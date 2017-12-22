@@ -41,7 +41,7 @@ export class BusquedaRapidaComponent implements OnInit {
 
 				if (this.results.length) {
 					setTimeout(_ => {
-						$('#modalEnrolResult').modal('show');
+						$('#modalEnrolResult').modal({keyboard: true});
 						$('#modalEnrolResult [data-toggle="tooltip"]').tooltip();
 					}, 100);
 				}

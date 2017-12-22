@@ -1,0 +1,26 @@
+<div class="modal" id="modalMsg" tabindex='-1'>
+
+	<div class="modal-dialog">
+		<div class="modal-content panel-info">
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;&nbsp;NAICM</h4>
+			</div>
+			<div class="modal-body">
+
+				<blockquote *ngIf="!!message.message">
+					<p>{{ message.message}}</p>
+				</blockquote>
+
+			</div>
+			<div class="modal-footer">
+				<button class="btn  btn-info" data-dismiss="modal" aria-hidden="true">
+					<i class="glyphicon glyphicon-stop"></i>&nbsp;Cerrar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

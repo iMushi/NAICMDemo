@@ -2,27 +2,60 @@
 
 /* Estilos para botones redondos */
 .btn-circle {
-  width: 30px !important;
-  height: 30px !important;
-  text-align: center !important;
-  padding: 6px 0 !important;
-  font-size: 12px !important;
-  line-height: 1.428571429 !important;
-  border-radius: 15px !important;
+	width: 30px !important;
+	height: 30px !important;
+	text-align: center !important;
+	padding: 6px 0 !important;
+	font-size: 12px !important;
+	line-height: 1.428571429 !important;
+	border-radius: 15px !important;
 }
+
 .btn-circle.btn-lg {
-  width: 50px  !important;
-  height: 50px !important;
-  padding: 10px 16px !important;
-  font-size: 18px !important;
-  line-height: 1.33 !important;
-  border-radius: 25px !important;
+	width: 50px !important;
+	height: 50px !important;
+	padding: 10px 16px !important;
+	font-size: 18px !important;
+	line-height: 1.33 !important;
+	border-radius: 25px !important;
 }
+
 .btn-circle.btn-xl {
-  width: 70px !important;
-  height: 70px !important;
-  padding: 10px 16px !important;
-  font-size: 24px !important;
-  line-height: 1.33 !important;
-  border-radius: 35px !important;
+	width: 70px !important;
+	height: 70px !important;
+	padding: 10px 16px !important;
+	font-size: 24px !important;
+	line-height: 1.33 !important;
+	border-radius: 35px !important;
+}
+
+/* Estilos para paneles Custom */
+.panel-primaryC {
+	border-color: transparent !important;
+}
+
+.panelC {
+	box-shadow: none !important;
+}
+
+.panel-primaryC > .panel-heading {
+	background-color: transparent !important;
+	color: #000 !important;
+}
+
+.panel-title {
+	cursor: pointer !important;
+}
+
+.custom-pagination .pagination > li > a, .custom-pagination .pagination > li > span {
+	border: none !important;
+	background: #3498db !important;;
+	cursor: pointer !important;;
+	color: black !important;
+}
+
+.pagination > li.active > a {
+	background: #3498db !important;
+	color: #fff !important;
+	border-bottom: 3px solid black !important;
 }

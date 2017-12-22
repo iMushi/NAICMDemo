@@ -1,0 +1,9 @@
+#modalMsg .modal-dialog{
+	width:auto;
+}
+
+@media screen and (min-width:768px) {
+	#modalMsg .modal-dialog{
+		width:500px;
+	}
+}

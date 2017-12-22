@@ -28,6 +28,10 @@ export interface IEmpresa {
 	rutaImagenes ? : string
 }
 
+export interface Msg{
+	message : string
+}
+
 export type TEventual = {
 	nombre: string,
 	apellidoPaterno: string,

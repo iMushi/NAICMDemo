@@ -4,9 +4,10 @@ import {PrestoService} from "../../common/presto.service";
 import {WebRTCService} from "../../common/webRTC.service";
 import {GLOBAL} from "../../common/global";
 import {Router} from "@angular/router";
-import {TEventual} from "../../models/interface";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {TEventual, Msg} from "../../models/interface";
 import {AuthService} from "../../common/auth.service";
+import {MsgService} from "../../common/msg.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-eventual',
@@ -33,7 +34,7 @@ export class EventualComponent implements OnInit {
 	public url = GLOBAL.RESTAPINJS + 'searchEmpresa';
 	public api = 'http';
 
-	constructor(private _prestoService: PrestoService, private _webRTC: WebRTCService, private _router : Router, private  _authService : AuthService) {
+	constructor(private _prestoService: PrestoService, private _webRTC: WebRTCService, private _router : Router, private  _authService : AuthService , private _msgService : MsgService) {
 	}
 
 	ngOnInit() {
@@ -101,17 +102,20 @@ export class EventualComponent implements OnInit {
 		};
 
 		this._prestoService.saveEventual(eventual).toPromise().then(
-			resp=> {
+			resp => {
 				return this.uploadImageEventual(resp);
 			}
 		).then(
-			resp => {console.log(1111);
+			(resp : Msg) => {
+				this._msgService.setMsg(resp);
 				return this.cancelEventual();
 			}
 		).catch(
 			(err : HttpErrorResponse)=>{
 				if(err.status===403){
 					this._authService.logout().subscribe();
+				}else{
+					this._msgService.setMsg(err);
 				}
 			}
 		);

@@ -283,10 +283,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	finalizarEnrol() {
 
-
 		this.enrolFrom.controls['enrolComplete'].setValue('true');
 		this.enrolFrom.controls['enrolActive'].setValue('true');
-
 
 		this._prestoService.saveEnrolamiento(this.enrolFrom.value).subscribe(
 			res => {

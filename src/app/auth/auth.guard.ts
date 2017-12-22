@@ -8,7 +8,6 @@ export class AuthGuard implements CanActivate {
 
 
 	constructor(private _router: Router, private _authService: AuthService) {
-		console.log("Creando Auth Guard");
 	}
 
 

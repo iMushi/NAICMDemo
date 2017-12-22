@@ -117,7 +117,7 @@ export class PrestoService {
 		return this.http.post(GLOBAL.RESTAPINJS + 'saveEventual', params, {withCredentials: true});
 	}
 
-	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string) {
+	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string | Array<string>) {
 
 		return new Promise(function (resolve, reject) {
 
@@ -125,7 +125,11 @@ export class PrestoService {
 			var xhr = new XMLHttpRequest();
 
 			for (var i = 0; i < files.length; i++) {
-				formData.append(name, files[i], files[i].name);
+				if( Array.isArray(name) ){
+					formData.append(name[i], files[i], files[i].name);
+				}else {
+					formData.append(name, files[i], files[i].name);
+				}
 			}
 
 			xhr.onreadystatechange = function () {

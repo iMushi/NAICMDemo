@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PrestoService} from "../common/presto.service";
 
 @Component({
 	selector: 'app-layout',

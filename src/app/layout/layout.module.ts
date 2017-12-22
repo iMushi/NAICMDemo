@@ -8,6 +8,8 @@ import {BusquedaRapidaComponent} from './busqueda-rapida/busqueda-rapida.compone
 import {NgxPaginationModule} from "ngx-pagination";
 import {FormsModule} from "@angular/forms";
 import {SharedModulesModule} from "./shared-modules/shared-modules.module";
+import { ModalMsgComponent } from './modal-msg/modal-msg.component';
+import {MsgService} from "../common/msg.service";
 
 @NgModule({
 	imports: [
@@ -20,11 +22,12 @@ import {SharedModulesModule} from "./shared-modules/shared-modules.module";
 	declarations: [
 		LayoutComponent,
 		HeaderComponent,
-		BusquedaRapidaComponent
+		BusquedaRapidaComponent,
+		ModalMsgComponent
 	],
 
 	providers: [
-		PrestoService
+		PrestoService, MsgService
 	]
 })
 
