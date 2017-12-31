@@ -1,4 +1,4 @@
-import {Component, DoCheck,OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {PrestoService} from "../../common/presto.service";
 import {Subscription} from "rxjs/Subscription";
 import {TBreaCrumb} from "../../models/interface";
@@ -10,7 +10,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.css'],
-	providers : [AuthService]
+	providers: [AuthService]
 })
 
 export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
@@ -27,13 +27,13 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 
 	@ViewChild('appBread', {read: ViewContainerRef}) appBread: ViewContainerRef;
-	@ViewChild('breadTpl', { read: TemplateRef }) breadTpl: TemplateRef<any>;
+	@ViewChild('breadTpl', {read: TemplateRef}) breadTpl: TemplateRef<any>;
 
 	public unsubscriber: Subscription;
 	public identity = null;
 	public nombreSearch = '';
 
-	constructor(private _prestoService: PrestoService, private _authService : AuthService, private _router : Router) {
+	constructor(private _prestoService: PrestoService, private _authService: AuthService, private _router: Router) {
 		this.identity = this._authService.getIdentity();
 	}
 
@@ -69,27 +69,27 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 		let breadInit: Array<TBreaCrumb> = [{
 			routerLink: "/",
-			txt : "NAICM",
-			class:""
+			txt: "NAICM",
+			class: ""
 		}, ...params];
 
 		this.appBread.clear();
 
 		breadInit.map(
 			el => {
-				this.appBread.createEmbeddedView( this.breadTpl, {$implicit: el} );
+				this.appBread.createEmbeddedView(this.breadTpl, {$implicit: el});
 			}
 		);
 
 
 	}
 
-	logout (){
+	logout() {
 		this._authService.logout().subscribe(
 			logged => {
 				this._router.navigate(['/login']);
 			},
-			(err:HttpErrorResponse) => {
+			(err: HttpErrorResponse) => {
 				this._router.navigate(['/login']);
 			}
 		);
@@ -104,10 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 	}
 
 	buscarPorNombre() {
-		this._prestoService
-			.getEnrolamientoByName(
-				this.nombreSearch.split(",").map(val => val.trim()),1);
-
+		this._prestoService.getEnrolamientoByName(this.nombreSearch.split(",").map(val => val.trim()),1);
 	}
 
 }

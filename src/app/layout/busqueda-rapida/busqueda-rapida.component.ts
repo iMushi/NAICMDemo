@@ -73,6 +73,6 @@ export class BusquedaRapidaComponent implements OnInit {
 
 	onPageChange(number: number) {
 		this.config.currentPage = number;
-		this.prestoService.getNextPageByName(number);
+		this.prestoService.getNextPageByName(1);
 	}
 }

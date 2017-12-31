@@ -24,12 +24,29 @@ export interface IEmpresa {
 	image?: string
 	enrolComplete?: boolean,
 	empresaCredId?: string,
-	enrolActive ? : boolean
-	rutaImagenes ? : string
+	enrolActive ?: boolean
+	rutaImagenes ?: string
 }
 
-export interface Msg{
-	message : string
+export interface Msg {
+	message: string
+}
+
+export interface PaginatedResult {
+	docs: Array<any>,
+	limit: number,
+	page: string,
+	pages: number,
+	total: number
+}
+
+
+export interface PaginatedIEmpresa {
+	docs: Array<IEmpresa>,
+	limit: number,
+	page: number,
+	pages: number,
+	total: number
 }
 
 export type TEventual = {
@@ -41,9 +58,9 @@ export type TEventual = {
 	ocupacion: string,
 	accesoOtorgado: string,
 	motivoAcceso: string,
-	imageBase64:string,
-	idEmpresa : string,
-	fechaAcceso : Date
+	imageBase64: string,
+	idEmpresa: string,
+	fechaAcceso: Date
 }
 
 export type TpersonCredencial = {

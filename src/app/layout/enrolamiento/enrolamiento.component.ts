@@ -1,16 +1,12 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {WebRTCService} from "../../common/webRTC.service";
-import {PrestoService} from "../../common/presto.service";
-import {GLOBAL} from "../../common/global";
-import {Router} from "@angular/router";
-import {PersonaEnrolar} from "../../models/PersonaEnrolar";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {IEmpresa, TpersonCredencial} from "../../models/interface";
-import {HttpErrorResponse} from "@angular/common/http";
-
-declare var jQuery: any;
-declare var $: any;
-
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { WebRTCService } from '../../common/webRTC.service';
+import { PrestoService } from '../../common/presto.service';
+import { GLOBAL } from '../../common/global';
+import { Router } from '@angular/router';
+import { PersonaEnrolar } from '../../models/PersonaEnrolar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IEmpresa, TpersonCredencial } from '../../models/interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-enrolamiento',
@@ -30,15 +26,14 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	public currImgPhoto: string = GLOBAL.MPHOTOURL;
 	public personEnrolar: PersonaEnrolar = new PersonaEnrolar();
 	public subscriber;
-	public completed: boolean = false;
+	public completed = false;
 
-	public imagenes : Array<any>;
+	public imagenes: Array<any>;
 
 	/* Datos generados en el proceso de Enrolamiento, se van a la BD como control*/
 
-	public valueQR: string = '1';
-	public credEmpresa: string = '';
-	public credOcupacion: string = '';
+	public credEmpresa = '';
+	public credOcupacion = '';
 	public credIdEmpresa: number;
 	public filesToUpload: Array<File> = [];
 
@@ -46,7 +41,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 
 	public enrolFrom: FormGroup;
-
+	@ViewChild('currImgPhoto') imgEle: ElementRef;
 
 	constructor(private webRTC: WebRTCService,
 				private _prestoService: PrestoService,
@@ -54,9 +49,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.isStreaming = false;
 	}
-
-
-	@ViewChild('currImgPhoto') imgEle: ElementRef;
 
 	ngOnInit() {
 
@@ -86,7 +78,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			tipoLicencia: new FormControl(''),
 			direccion: new FormControl(''),
 			enrolActive: new FormControl(''),
-			rutaImagenes : new FormControl(''),
+			rutaImagenes: new FormControl(''),
 			__v: new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
@@ -122,7 +114,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.enrolFrom.valueChanges.subscribe(
 			values => this.validateFormCompletion()
-		)
+		);
 
 
 		this.subscriber = this._prestoService.personEnrolar.subscribe(
@@ -132,26 +124,26 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				this.personEnrolar.empresa.forEach((value, index) => {
 					this.enrolFrom.removeControl(`ocupacionEmpresa_${index}`);
 					this.enrolFrom.removeControl(`fechaContratoEmpresa_${index}`);
-				})
+				});
 
 
 				this.personEnrolar = new PersonaEnrolar(res);
 
-				//Setear datos a form group
+				// Setear datos a form group
 				delete res.empresa;
 				this.enrolFrom.setValue(res);
 
 				this.cmbSexoChange(this.personEnrolar.sexo);
 				this.onEmpresaChange(this.personEnrolar.empresa[0]);
 
-				this.imagenes = this.personEnrolar.rutaImagenes.split(",").map(
-					x => GLOBAL.RESTAPINJS + 'getImagePreEnrol/' + x.replace("./","").replace(/\//g, '|')
-				)
+				this.imagenes = this.personEnrolar.rutaImagenes.split(',').map(
+					x => GLOBAL.RESTAPINJS + 'getImagePreEnrol/' + x.replace('./', '').replace(/\//g, '|')
+				);
 
 
 				this.personEnrolar.empresa.forEach((item, index) => {
-					let controlOcupacion: FormControl = new FormControl(item.ocupacion, Validators.required);
-					let controlFechaContrato: FormControl = new FormControl(item.fechaContrato, Validators.required);
+					const controlOcupacion: FormControl = new FormControl(item.ocupacion, Validators.required);
+					const controlFechaContrato: FormControl = new FormControl(item.fechaContrato, Validators.required);
 					this.enrolFrom.addControl('ocupacionEmpresa_' + index, controlOcupacion);
 					this.enrolFrom.addControl('fechaContratoEmpresa_' + index, controlFechaContrato);
 				});
@@ -162,13 +154,13 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		);
 
 		this._prestoService.setBreadCrumb([{
-				routerLink: "/enrolamiento",
-				txt: "Enrolamiento",
-				class: ""
+				routerLink: '/enrolamiento',
+				txt: 'Enrolamiento',
+				class: ''
 			}, {
-				routerLink: "/enrolamiento",
-				txt: "Finalizar Enrolamiento",
-				class: "active"
+				routerLink: '/enrolamiento',
+				txt: 'Finalizar Enrolamiento',
+				class: 'active'
 			}]
 		);
 
@@ -176,7 +168,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	validateFormCompletion(): void {
 		this.completed = this.enrolFrom.valid
-			&& ( this.currImgPhoto.includes('image/png;base64') || this.enrolFrom.controls['image'].value !== '' )
+			&& ( this.currImgPhoto.includes('image/png;base64') || this.enrolFrom.controls['image'].value !== '' );
 	}
 
 
@@ -200,7 +192,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	tomarFoto() {
 
-		let photoInfo = document.createElement('img');
+		const photoInfo = document.createElement('img');
 		photoInfo.src = this.webRTC.takePicture(this.hardwareVideo, this.photoCanvas);
 		this.stopStream();
 		this.currImgPhoto = photoInfo.src;
@@ -209,13 +201,14 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	}
 
 	changeBread(ev, data) {
-		document.querySelector(".breadcrumb > li.active")
+		document.querySelector('.breadcrumb > li.active')
 			.innerHTML = data.title;
 	}
 
 	qrModelChange() {
 
-		let imgDisplay = this.currImgPhoto.includes('image/png;base64') || this.personEnrolar.image == "" ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
+		const imgDisplay = this.currImgPhoto.includes('image/png;base64')
+			|| this.personEnrolar.image === '' ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
 
 		this.personCred = {
 			nombre: this.personEnrolar.nombre,
@@ -248,7 +241,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				this.currImgPhoto = GLOBAL.MPHOTOURL;
 				break;
 			case GLOBAL.FEMALE:
-				this.currImgPhoto = GLOBAL.FPHOTOURL
+				this.currImgPhoto = GLOBAL.FPHOTOURL;
 				break;
 			default :
 				this.currImgPhoto = GLOBAL.MPHOTOURL;
@@ -259,22 +252,22 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	uploadEnrolImage() {
 
-		var file = GLOBAL.dataURLtoFile(this.currImgPhoto, this.personEnrolar._id + '.png');
+		const file = GLOBAL.dataURLtoFile(this.currImgPhoto, this.personEnrolar._id + '.png');
 
 		this.filesToUpload = [file];
 
-		let oldImageFile = this.personEnrolar.image !== '' ? this.personEnrolar.image : 'null';
+		const oldImageFile = this.personEnrolar.image !== '' ? this.personEnrolar.image : 'null';
 
-		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile, [], this.filesToUpload, 'image')
+		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile,
+			[], this.filesToUpload, 'image')
 			.then(
 				(success: IEmpresa) => {
 
 					this.enrolFrom.controls['image'].setValue(success.image);
-
 					this.validateFormCompletion();
 				},
 				error => {
-					console.log("Ocurrio un Error al subir Archivo =====> ");
+					console.log('Ocurrio un Error al subir Archivo =====> ');
 					console.log(error);
 				}
 			);

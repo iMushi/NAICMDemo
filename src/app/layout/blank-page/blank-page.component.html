@@ -8,14 +8,20 @@
 		<hr>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
 
-			<div class="col-lg-4 col-md-4" style="margin-bottom: 10px">
-				<button class="btn  btn-default"   [routerLink]="['/busqueda']" >
+			<div class="col-lg-3 col-md-3" style="margin-bottom: 10px">
+				<button class="btn  btn-default"   [routerLink]="['/busqueda',buscaEnrol]" >
 					<span class="glyphicon glyphicon-search"></span>
-					Buscar Persona
+					Enrolar Persona
 				</button>
 
 			</div>
-			<div class="col-lg-4 col-md-4 " style="margin-bottom: 10px">
+			<div class="col-lg-3 col-md-3" style="margin-bottom: 10px">
+				<button class="btn  btn-info"   [routerLink]="['/busqueda',buscaManagement]" >
+					<span class="glyphicon glyphicon-search"></span>
+					Administrar Enrolamiento
+				</button>
+			</div>
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
 				<div class="btn-group">
 					<a  [routerLink]="['/eventual']" class="btn btn-success"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;&nbsp;Eventual</a>
 					<a  class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
@@ -25,7 +31,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-4 col-md-4 " style="margin-bottom: 10px">
+			<div class="col-lg-3 col-md-3 " style="margin-bottom: 10px">
 				<button class="btn  btn-primary" [routerLink]="['/cargamasiva']">
 					<span class="glyphicon glyphicon-hdd"></span>
 					Carga Masiva

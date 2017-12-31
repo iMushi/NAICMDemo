@@ -59,3 +59,25 @@
 	color: #fff !important;
 	border-bottom: 3px solid black !important;
 }
+
+.caretC{
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: 4px solid \9;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+}
+
+.panel > .panel-heading > .panel-title >
+.caretC {
+	border-bottom: 4px dashed;
+}
+
+.panel > .panel-heading > .collapsed >
+.caretC {
+	border-top: 4px dashed;
+	border-bottom: none;
+}

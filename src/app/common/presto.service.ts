@@ -4,10 +4,11 @@ import {HttpClient} from "@angular/common/http";
 import {GLOBAL} from "./global";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {PersonaEnrolar} from "../models/PersonaEnrolar";
-import {IEmpresa, TBreaCrumb, TEventual} from "../models/interface";
+import {IEmpresa, PaginatedIEmpresa, TBreaCrumb, TEventual} from "../models/interface";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
+import {MsgService} from "./msg.service";
 
 @Injectable()
 
@@ -15,7 +16,11 @@ export class PrestoService {
 
 	public _prestoSearchBy: string[];
 
-	private enrolamientoResultsNombre = new BehaviorSubject<Object>([]);
+
+	private subjectManageEnrolamiento = new BehaviorSubject<PaginatedIEmpresa>(null);
+	public manageEnrol$ = this.subjectManageEnrolamiento.asObservable();
+
+	public enrolamientoResultsNombre = new BehaviorSubject<Object>([]);
 	public enrolamientoBusquedaRapida = this.enrolamientoResultsNombre.asObservable();
 
 	public enrolamientoPerson = new BehaviorSubject<PersonaEnrolar>(new PersonaEnrolar());
@@ -28,12 +33,13 @@ export class PrestoService {
 	public breadEmitted$ = this.breadcrumbBS.asObservable();
 
 	private lastSearch: any;
-	private pageFunction;
+	private pageFunction : string;
 
-	constructor(private http: HttpClient, private _authService: AuthService, private _router: Router) {
+	constructor(private http: HttpClient, private _authService: AuthService, private _router: Router, private _msgService : MsgService) {
 	}
 
-	getEnrolamientoByName(param: string[], pageNumber: number) {
+
+	getEnrolamientoByName(param: string[] , pageNumber : number) {
 
 		this._prestoSearchBy = param;
 
@@ -59,7 +65,7 @@ export class PrestoService {
 		);
 	}
 
-	getSearchEnrolamiento(jsonParams: IEmpresa, pageNumber: number) {
+	getSearchEnrolamiento(jsonParams: IEmpresa, pageNumber : number) {
 
 		this.lastSearch = jsonParams;
 
@@ -67,7 +73,7 @@ export class PrestoService {
 
 		for (let obj in jsonParams) {
 			if (jsonParams[obj] && jsonParams[obj] !== '')
-				params = params.append(obj, obj.includes("idEmpresa") ? jsonParams[obj] : jsonParams[obj].toUpperCase());
+				params = params.append(obj, GLOBAL.includesAny(obj, ['idEmpresa', 'enrolComplete']) ? jsonParams[obj] : jsonParams[obj].toUpperCase());
 		}
 
 		this.pageFunction = 'getSearchEnrolamiento';
@@ -75,8 +81,7 @@ export class PrestoService {
 		params = params.append('page', pageNumber.toString());
 		params = params.append('maxPerPage', GLOBAL.DEFAULTPERPAGE.toString());
 
-
-		this.http.get(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
+		this.http.get<PaginatedIEmpresa>(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
 			res => {
 				this.enrolamientoResultsNombre.next(res);
 			}, (err: HttpErrorResponse) => {
@@ -87,8 +92,42 @@ export class PrestoService {
 		);
 	}
 
-	getNextPageByName(pageNumber: number) {
-		this[this.pageFunction](this.lastSearch, pageNumber);
+	getSearchManagement(jsonParams: IEmpresa, pageNumber : number){
+		this.lastSearch = jsonParams;
+
+		let params = new HttpParams();
+
+		for (let obj in jsonParams) {
+			if (jsonParams[obj] && jsonParams[obj] !== '')
+				params = params.append(obj, GLOBAL.includesAny(obj, ['idEmpresa', 'enrolComplete']) ? jsonParams[obj] : jsonParams[obj].toUpperCase());
+		}
+
+		params = params.append('page', pageNumber.toString());
+		params = params.append('maxPerPage', GLOBAL.DEFAULTPERPAGE.toString());
+
+		this.http.get<PaginatedIEmpresa>(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
+			resp => {
+				if (resp.total > 0) {
+					this.setManagementRes(resp);
+				} else {
+					this._msgService.setMsg({message: "No se encontraron Registros"});
+				}
+			},(err: HttpErrorResponse) => {
+				if (err.status === 403) {
+					this._authService.logout().subscribe();
+				} else {
+					this._msgService.setMsg(err);
+				}
+			}
+		);
+	}
+
+	getNextPageByName(pageNumber : number) {
+		this[this.pageFunction](this.lastSearch,pageNumber);
+	}
+
+	getNextPageByManage(pageNumber : number) {
+		this.getSearchManagement(this.lastSearch,pageNumber);
 	}
 
 	setPersonEnrolamiento(person: any) {
@@ -125,9 +164,9 @@ export class PrestoService {
 			var xhr = new XMLHttpRequest();
 
 			for (var i = 0; i < files.length; i++) {
-				if( Array.isArray(name) ){
+				if (Array.isArray(name)) {
 					formData.append(name[i], files[i], files[i].name);
-				}else {
+				} else {
 					formData.append(name, files[i], files[i].name);
 				}
 			}
@@ -162,15 +201,19 @@ export class PrestoService {
 			.append('page', pageNumber.toString())
 			.append('maxPerPage', GLOBAL.DEFAULTPERPAGE.toString());
 
-		return this.http.get(GLOBAL.RESTAPINJS+'getEventuales',{params : params, withCredentials:true});
+		return this.http.get(GLOBAL.RESTAPINJS + 'getEventuales', {params: params, withCredentials: true});
 	}
 
-	getCargaMasiva(pageNumber : number){
+	getCargaMasiva(pageNumber: number) {
 		let params = new HttpParams()
 			.append('page', pageNumber.toString())
 			.append('maxPerPage', GLOBAL.DEFAULTPERPAGEMASIVA.toString());
 
 		let idUser = this._authService.getIdentity().user._id;
-		return this.http.get(GLOBAL.RESTAPINJS+'getCargaMasiva/'+idUser,{params : params, withCredentials:true});
+		return this.http.get(GLOBAL.RESTAPINJS + 'getCargaMasiva/' + idUser, {params: params, withCredentials: true});
+	}
+
+	setManagementRes(data: PaginatedIEmpresa) {
+		this.subjectManageEnrolamiento.next(data);
 	}
 }

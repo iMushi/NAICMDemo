@@ -15,7 +15,7 @@ const routes: Routes = [
 			{path: 'listadoEventuales', loadChildren: './listado-eventuales/listado-eventuales.module#ListadoEventualesModule', canActivate: [AuthGuard]},
 			{path: 'imprimir', loadChildren: './impresion/impresion.module#ImpresionModule', canActivate: [AuthGuard]},
 			{path: 'cargamasiva', loadChildren: './cargamasiva/cargamasiva.module#CargamasivaModule', canActivate: [AuthGuard]},
-			{path: 'busqueda', loadChildren: './busqueda/busqueda.module#BusquedaModule', canActivate: [AuthGuard]},
+			{path: 'busqueda/:searchType', loadChildren: './busqueda/busqueda.module#BusquedaModule', canActivate: [AuthGuard]},
 			{path: 'login', loadChildren:'./login/login.module#LoginModule'},
 			{path: '**', component: NotFoundComponent}
 		]

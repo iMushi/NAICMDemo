@@ -3,7 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { BusquedaComponent } from "./busqueda.component"
 
 const routes: Routes = [
-	{ path: '', component: BusquedaComponent}
+	{ path: '',   component: BusquedaComponent,
+
+		children:[
+			{path: 'list', loadChildren: '../manage-enrolamiento/manage-enrolamiento.module#ManageEnrolamientoModule'}
+		]
+	}
 ];
 
 @NgModule({

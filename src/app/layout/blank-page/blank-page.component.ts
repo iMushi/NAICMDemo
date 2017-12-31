@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PrestoService} from "../../common/presto.service";
+import {GLOBAL} from "../../common/global";
 
 @Component({
-  selector: 'app-blank-page',
-  templateUrl: './blank-page.component.html',
-  styleUrls: ['./blank-page.component.css']
+	selector: 'app-blank-page',
+	templateUrl: './blank-page.component.html',
+	styleUrls: ['./blank-page.component.css']
 })
 export class BlankPageComponent implements OnInit {
 
-  constructor(private _prestoService : PrestoService) { }
+	constructor(private _prestoService: PrestoService) {
+	}
 
-  ngOnInit() {
+	buscaEnrol: string = GLOBAL.BUSCAENROL;
+	buscaManagement: string = GLOBAL.BUSCAMANAGEMENT;
 
-	  this._prestoService.setBreadCrumb([]);
-  }
+	ngOnInit() {
+		this._prestoService.setBreadCrumb([]);
+	}
 
 }

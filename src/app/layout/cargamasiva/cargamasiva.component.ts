@@ -1,13 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {PaginationInstance} from "ngx-pagination";
-import {GLOBAL} from "../../common/global";
-import {PrestoService} from "../../common/presto.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {AuthService} from "../../common/auth.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {MsgService} from "../../common/msg.service";
-import {Msg} from "../../models/interface";
+import { Component, OnInit } from '@angular/core';
+import { PaginationInstance } from 'ngx-pagination';
+import { GLOBAL } from '../../common/global';
+import { PrestoService } from '../../common/presto.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../common/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { MsgService } from '../../common/msg.service';
+import { Msg } from '../../models/interface';
 
 @Component({
 	selector: 'app-cargamasiva',
@@ -23,7 +23,7 @@ export class CargamasivaComponent implements OnInit {
 	public filesSelected = {
 		cargaZip: '',
 		cargaCSV: ''
-	}
+	};
 
 	subjectFile = new BehaviorSubject(true);
 	file$ = this.subjectFile.asObservable();
@@ -35,7 +35,7 @@ export class CargamasivaComponent implements OnInit {
 		totalItems: 1
 	};
 
-	constructor(private _prestoService: PrestoService, private  _authService: AuthService, private _msgService : MsgService) {
+	constructor(private _prestoService: PrestoService, private  _authService: AuthService, private _msgService: MsgService) {
 	}
 
 	ngOnInit() {
@@ -78,7 +78,7 @@ export class CargamasivaComponent implements OnInit {
 
 	cancelCarga() {
 
-		[].forEach.call(document.querySelectorAll("input[type=file]"), function(item) {
+		[].forEach.call(document.querySelectorAll('input[type=file]'), function (item) {
 			item.value = '';
 		});
 
@@ -93,12 +93,12 @@ export class CargamasivaComponent implements OnInit {
 		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'cargaZip', [], this.filesToUpload, [
 			'csvCargaZip', 'csvCargaMasiva'
 		]).then(
-			(resp : Msg) => {
-					this._msgService.setMsg(resp);
-					this.getCargaMasiva(1);
-					this.cancelCarga();
-				}
-			).catch(
+			(resp: Msg) => {
+				this._msgService.setMsg(resp);
+				this.getCargaMasiva(1);
+				this.cancelCarga();
+			}
+		).catch(
 			(err: HttpErrorResponse) => {
 				if (err.status === 403) {
 					this._authService.logout().subscribe();
@@ -118,27 +118,25 @@ export class CargamasivaComponent implements OnInit {
 			this.filesToUpload = [
 				this.filesSelected['cargaZip'][0],
 				this.filesSelected['cargaCSV'][0]
-			]
+			];
 		} else {
 			subject = true;
 		}
 		this.subjectFile.next(subject);
 
 
+		/* let fileList = event.target.files;
+  let file = fileList[0];
+  let extension = file.name.split('.')[1].toLowerCase();
 
-
-						/* let fileList = event.target.files;
-				  let file = fileList[0];
-				  let extension = file.name.split('.')[1].toLowerCase();
-
-				  if (extension === 'jpg') {
-					alert('Good file extension!');
-				  }
-				  else {
-					event.target.value = '';
-					alert('Wrong file extension! File input is cleared.');
-				  }
-					*/
+  if (extension === 'jpg') {
+    alert('Good file extension!');
+  }
+  else {
+    event.target.value = '';
+    alert('Wrong file extension! File input is cleared.');
+  }
+    */
 	}
 
 	onPageChange(number: number) {
