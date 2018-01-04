@@ -1,6 +1,6 @@
-import {isArray} from "rxjs/util/isArray";
-import {HttpParams} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import { isArray } from 'rxjs/util/isArray';
+import { HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 export const GLOBAL = {
@@ -18,11 +18,11 @@ export const GLOBAL = {
 	errorCargaMasiva: 'errorCargaMasiva.log',
 	cargaMasiva: 'cargaMasiva.log',
 
-	BUSCAENROL: "enrolamiento",
-	BUSCAMANAGEMENT: "management",
+	BUSCAENROL: 'enrolamiento',
+	BUSCAMANAGEMENT: 'management',
 
-	//RESTAPINJS : 'http://localhost:5000/api/',
-	//RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
+	// RESTAPINJS : 'http://localhost:5000/api/',
+	// RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
 
 	RESTAPINJS: environment.restUrl,
 
@@ -43,13 +43,22 @@ export const GLOBAL = {
 	 * @param {Object} obj
 	 * @returns {HttpParams}
 	 */
-	toHttpParams(obj: Object): HttpParams {
+	toHttpParams(obj: Object, includes?: Array<String>): HttpParams {
 		return Object.getOwnPropertyNames(obj)
-			.reduce((p, key) => p.set(key, obj[key] ? obj[key] : ''), new HttpParams());
+			.reduce((p, key) => {
+				let val = '';
+				if (obj[key]) {
+					val = GLOBAL.includesAny(key, includes) ? obj[key] : obj[key].toUpperCase();
+				}
+				return p.set(key, val);
+			}, new HttpParams());
 	},
+
 	dataURLtoFile(dataurl, filename) {
-		var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-			bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+		const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]);
+		let n = bstr.length;
+		const u8arr = new Uint8Array(n);
 		while (n--) {
 			u8arr[n] = bstr.charCodeAt(n);
 		}
@@ -57,6 +66,7 @@ export const GLOBAL = {
 	},
 	includesAny: (testStr, checkList) => checkList.reduce((prev, curr) => prev || testStr.includes(curr), false)
 
-};
+}
+;
 
 

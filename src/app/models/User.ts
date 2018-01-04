@@ -1,4 +1,4 @@
-import {IUsuario} from "./interface";
+import { IUsuario } from './interface';
 
 
 export class Usuario implements IUsuario {
@@ -9,6 +9,6 @@ export class Usuario implements IUsuario {
 				public role: string = '',
 				public email: string = '',
 				public name: string = '',
-				public surname: string = ''){
+				public surname: string = '') {
 	}
 }

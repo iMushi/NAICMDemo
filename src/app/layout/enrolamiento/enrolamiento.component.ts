@@ -4,9 +4,13 @@ import { PrestoService } from '../../common/presto.service';
 import { GLOBAL } from '../../common/global';
 import { Router } from '@angular/router';
 import { PersonaEnrolar } from '../../models/PersonaEnrolar';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IEmpresa, TpersonCredencial } from '../../models/interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/timeInterval';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'app-enrolamiento',
@@ -41,7 +45,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 
 	public enrolFrom: FormGroup;
+
 	@ViewChild('currImgPhoto') imgEle: ElementRef;
+
 
 	constructor(private webRTC: WebRTCService,
 				private _prestoService: PrestoService,
@@ -148,6 +154,15 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 					this.enrolFrom.addControl('fechaContratoEmpresa_' + index, controlFechaContrato);
 				});
 
+				// se agregan formControl para biometricos
+
+				this.enrolFrom.addControl('biometrico', new FormGroup({
+					biometricoUno: new FormControl('', Validators.required),
+					biometricoDos: new FormControl('', Validators.required),
+					biometricoTres: new FormControl('', Validators.required),
+					biometricoCuatro: new FormControl('', Validators.required),
+					biometricoCinco: new FormControl('', Validators.required)
+				}, this.biometricoMatcher));
 
 			},
 			error => console.log(error)
@@ -163,7 +178,54 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				class: 'active'
 			}]
 		);
+	}
 
+	biometricoMatcher(control: AbstractControl): { [key: string]: boolean } {
+		const bio1 = control.get('biometricoUno').value, bio2 = control.get('biometricoDos').value,
+			bio3 = control.get('biometricoTres').value,
+			bio4 = control.get('biometricoCuatro').value, bio5 = control.get('biometricoCinco').value;
+
+		const bioMap = {};
+
+		updateMap(bio1, 'biometricoUno');
+		updateMap(bio2, 'biometricoDos');
+		updateMap(bio3, 'biometricoTres');
+		updateMap(bio4, 'biometricoCuatro');
+		updateMap(bio5, 'biometricoCinco');
+
+
+		for (const obj in bioMap) {
+			if (bioMap.hasOwnProperty(obj)) {
+				if (bioMap[obj].count <= 2) {
+					console.log('rojo ====>', ...bioMap[obj].controls);
+					bioMap[obj].controls.forEach((item) => {
+						control.get(item).setErrors({'error': true});
+					});
+				}
+				if (!!obj && bioMap[obj].count > 2) {
+					console.log('Verde ====>', ...bioMap[obj].controls);
+					bioMap[obj].controls.forEach((item) => {
+						control.get(item).setErrors(null);
+					});
+				}
+			}
+		}
+
+		function updateMap(str: string, controlName: string) {
+			if (!!str) {
+				if (!bioMap.hasOwnProperty(str)) {
+					bioMap[str] = {
+						controls: [controlName],
+						count: 1
+					};
+				} else {
+					bioMap[str].controls.push(controlName);
+					bioMap[str].count++;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	validateFormCompletion(): void {
@@ -208,7 +270,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	qrModelChange() {
 
 		const imgDisplay = this.currImgPhoto.includes('image/png;base64')
-			|| this.personEnrolar.image === '' ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
+		|| this.personEnrolar.image === '' ? this.currImgPhoto : GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrolar.image;
 
 		this.personCred = {
 			nombre: this.personEnrolar.nombre,
@@ -287,5 +349,23 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				alert('Ocurrio un Error al Guardar Informacion : ' + err.message);
 			}
 		);
+	}
+
+	captureBiometrico() {
+		console.log('entramos');
+		let count = 0;
+		const biometricoArr = ['biometricoUno', 'biometricoDos', 'biometricoTres', 'biometricoCuatro', 'biometricoCinco'];
+		this.enrolFrom.reset();
+
+		Observable.interval(1500)
+			.timeInterval()
+			.take(5)
+			.subscribe(
+				timeInterval => {
+					this.enrolFrom.get(`biometrico.${biometricoArr[count++]}`).setValue(
+						Math.floor(Math.random() * 4) + 1
+					);
+				}
+			);
 	}
 }

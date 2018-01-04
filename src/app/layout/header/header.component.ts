@@ -67,10 +67,10 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 	updateBread(params: Array<TBreaCrumb>) {
 
-		let breadInit: Array<TBreaCrumb> = [{
-			routerLink: "/",
-			txt: "NAICM",
-			class: ""
+		const breadInit: Array<TBreaCrumb> = [{
+			routerLink: '/',
+			txt: 'NAICM',
+			class: ''
 		}, ...params];
 
 		this.appBread.clear();

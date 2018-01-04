@@ -1,4 +1,4 @@
-import {IEmpresa, TEmpresa} from "./interface";
+import { IEmpresa, TEmpresa } from './interface';
 
 export class PersonaEnrolar implements IEmpresa {
 
@@ -23,11 +23,11 @@ export class PersonaEnrolar implements IEmpresa {
 	accesoOtorgado: string;
 	motivoAcceso: string;
 	empresa: Array<TEmpresa>;
-	image : string = null;
-	enrolComplete : boolean = false;
-	empresaCredId : string ;
-	enrolActive : boolean = false;
-	rutaImagenes : string;
+	image: string = null;
+	enrolComplete = false;
+	empresaCredId: string;
+	enrolActive = false;
+	rutaImagenes: string;
 
 
 	constructor(values?: IEmpresa) {
@@ -66,7 +66,8 @@ export class PersonaEnrolar implements IEmpresa {
 				_id: undefined,
 				nombreEmpresa: '',
 				fechaContrato: '',
-				ocupacion: ''
+				ocupacion: '',
+				idEmpresa: null
 			}];
 		}
 

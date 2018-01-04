@@ -44,7 +44,8 @@
 			<div class="panel panel-primary panelC panel-primaryC">
 				<div class="panel-heading">
 
-					<h3 class="panel-title" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo" (click)="changeBread(this,{'title':'Datos Personales'})">
+					<h3 class="panel-title" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo"
+						(click)="changeBread(this,{'title':'Datos Personales'})">
 						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Datos Personales <span class="caretC"></span></h3>
 
 
@@ -269,7 +270,7 @@
 												<div class="divRadioEmprea">
 													<input type="radio" name="radioEmpresa"
 														   [checked]="iEmpresa === 0"
-														   [value]="empresa.id"
+														   [value]="empresa._id"
 														   (change)="onEmpresaChange(empresa)">
 												</div>
 											</div>
@@ -322,17 +323,84 @@
 
 			<div class="panel panel-primary panelC panel-primaryC">
 				<div class="panel-heading">
-					<h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseBiometricos" (click)="changeBread(this,{'title':'Biométricos'})">
+					<h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseBiometricos"
+						(click)="changeBread(this,{'title':'Biométricos'})">
 						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Biom&eacute;tricos <span class="caretC"></span></h3>
 
 
 				</div>
 				<div class="panel-body panel-collapse collapse" id="collapseBiometricos">
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6
+								col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" formGroupName="biometrico">
+
+
+						<div class="alert alert-info">
+							Realizar la captura de datos Biom&eacute;tricos.
+							<p>Se considerara una captura exitosa cuando al menos 3 de las 5 lecturas tengan el mismo valor.</p>
+							<p>Presione <strong>Iniciar Captura</strong> para realizar el proceso.</p>
+						</div>
+
+
+
+
+						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoUno').valid,
+															'has-success' : enrolFrom.get('biometrico.biometricoUno').valid }">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Biom&eacute;trico 1</span>
+									<input type="text" class="form-control" placeholder="Caputra Biometrica 1" formControlName="biometricoUno">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoDos').valid,
+															'has-success' : enrolFrom.get('biometrico.biometricoDos').valid }">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Biom&eacute;trico 2</span>
+									<input type="text" class="form-control" placeholder="Caputra Biometrica 2" formControlName="biometricoDos">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoTres').valid,
+															'has-success' : enrolFrom.get('biometrico.biometricoTres').valid }">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Biom&eacute;trico 3</span>
+									<input type="text" class="form-control" placeholder="Caputra Biometrica 3" formControlName="biometricoTres">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoCuatro').valid,
+															'has-success' : enrolFrom.get('biometrico.biometricoCuatro').valid}">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Biom&eacute;trico 4</span>
+									<input type="text" class="form-control" placeholder="Caputra Biometrica 4" formControlName="biometricoCuatro">
+								</div>
+							</div>
+						</div>
+						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoCinco').valid,
+															'has-success' : enrolFrom.get('biometrico.biometricoCinco').valid}">
+							<div class="col-lg-12">
+								<div class="input-group">
+									<span class="input-group-addon">Biom&eacute;trico 5</span>
+									<input type="text" class="form-control" placeholder="Caputra Biometrica 5" formControlName="biometricoCinco">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-12">
+								<div class="center-block" style="width: 120px;">
+									<button type="button" class="btn btn-success" (click)="captureBiometrico()">
+										<i class="glyphicon"></i>Iniciar Captura
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-
-
 		</div>
 	</form>
-
 </section>
