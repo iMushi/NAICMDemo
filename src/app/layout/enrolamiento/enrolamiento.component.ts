@@ -12,6 +12,8 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/timeInterval';
 import { Observable } from 'rxjs/Observable';
 
+declare const $;
+
 @Component({
 	selector: 'app-enrolamiento',
 	templateUrl: './enrolamiento.component.html',
@@ -33,9 +35,13 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	public completed = false;
 
 	public imagenes: Array<any>;
+	public bioMap: any = {};
+	public bioError: any = {};
+	public savedInfo = false;
 
 	/* Datos generados en el proceso de Enrolamiento, se van a la BD como control*/
 
+	public biometricoFinal: string;
 	public credEmpresa = '';
 	public credOcupacion = '';
 	public credIdEmpresa: number;
@@ -44,7 +50,17 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	/***********/
 
 
+	private biometricoTest = [
+		'asdfSDFAJGdadXasdfXXvvasDFAWERFDSA',
+		'ASDFLaSLDflaSDLFasodogwertQEqrLD66',
+		'SSaSaSSDOPF34523FASDCAasdcasSHD444',
+		'aafoiqiowncnqwiehudfñakdfjñlsahdfw',
+		'208293084jwadsdkjlfhRQrwqEFasdf234'
+	];
+
+
 	public enrolFrom: FormGroup;
+	public biometricoForm: FormGroup;
 
 	@ViewChild('currImgPhoto') imgEle: ElementRef;
 
@@ -85,6 +101,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			direccion: new FormControl(''),
 			enrolActive: new FormControl(''),
 			rutaImagenes: new FormControl(''),
+			biometricoFinal : new FormControl(''),
 			__v: new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
@@ -126,12 +143,15 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.subscriber = this._prestoService.personEnrolar.subscribe(
 			res => {
 
+				console.log('=====>' , res);
 
+				// borramos Controles que previamente se crean en runtime
 				this.personEnrolar.empresa.forEach((value, index) => {
 					this.enrolFrom.removeControl(`ocupacionEmpresa_${index}`);
 					this.enrolFrom.removeControl(`fechaContratoEmpresa_${index}`);
 				});
 
+				this.enrolFrom.removeControl('biometrico');
 
 				this.personEnrolar = new PersonaEnrolar(res);
 
@@ -146,7 +166,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 					x => GLOBAL.RESTAPINJS + 'getImagePreEnrol/' + x.replace('./', '').replace(/\//g, '|')
 				);
 
-
 				this.personEnrolar.empresa.forEach((item, index) => {
 					const controlOcupacion: FormControl = new FormControl(item.ocupacion, Validators.required);
 					const controlFechaContrato: FormControl = new FormControl(item.fechaContrato, Validators.required);
@@ -156,13 +175,24 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 				// se agregan formControl para biometricos
 
-				this.enrolFrom.addControl('biometrico', new FormGroup({
-					biometricoUno: new FormControl('', Validators.required),
-					biometricoDos: new FormControl('', Validators.required),
-					biometricoTres: new FormControl('', Validators.required),
-					biometricoCuatro: new FormControl('', Validators.required),
-					biometricoCinco: new FormControl('', Validators.required)
-				}, this.biometricoMatcher));
+				this.savedInfo = res.enrolComplete;
+
+				if (this.savedInfo) {
+					this.enrolFrom.disable();
+				}else {
+					this.biometricoForm = new FormGroup({
+						biometricoUno: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
+						biometricoDos: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
+						biometricoTres: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
+						biometricoCuatro: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
+						biometricoCinco: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)]))
+					}, this.biometricoMatcher.bind(this));
+
+					this.biometricoForm.valueChanges.subscribe(
+						_ => this.validateFormCompletion()
+					);
+
+				}
 
 			},
 			error => console.log(error)
@@ -178,61 +208,75 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				class: 'active'
 			}]
 		);
+
+	}
+	control (control: AbstractControl): {[key: string]: boolean } {
+		if (!control.parent) {
+			return null;
+		}
+		this.updateMap(control.value, this.getControlName(control));
+		return null;
+	}
+
+	updateMap(str: string, controlName: string) {
+		if (!!str) {
+
+			if (!this.bioMap.hasOwnProperty(str)) {
+				this.bioMap[str] = {
+					controls: [controlName],
+					count: 1
+				};
+			} else {
+				this.bioMap[str].controls.push(controlName);
+				this.bioMap[str].count++;
+			}
+		}
+	}
+
+	getControlName(c: AbstractControl): string | null {
+		const formGroup = c.parent.controls;
+		return Object.keys(formGroup).find(name => c === formGroup[name]) || null;
 	}
 
 	biometricoMatcher(control: AbstractControl): { [key: string]: boolean } {
-		const bio1 = control.get('biometricoUno').value, bio2 = control.get('biometricoDos').value,
-			bio3 = control.get('biometricoTres').value,
-			bio4 = control.get('biometricoCuatro').value, bio5 = control.get('biometricoCinco').value;
 
-		const bioMap = {};
+		const bioMap = this.bioMap;
 
-		updateMap(bio1, 'biometricoUno');
-		updateMap(bio2, 'biometricoDos');
-		updateMap(bio3, 'biometricoTres');
-		updateMap(bio4, 'biometricoCuatro');
-		updateMap(bio5, 'biometricoCinco');
-
+		let hasError: any = null;
+		let hasSuccess: any = null;
 
 		for (const obj in bioMap) {
 			if (bioMap.hasOwnProperty(obj)) {
 				if (bioMap[obj].count <= 2) {
-					console.log('rojo ====>', ...bioMap[obj].controls);
-					bioMap[obj].controls.forEach((item) => {
-						control.get(item).setErrors({'error': true});
-					});
+					hasError = { capturaIncorrecta : true };
 				}
 				if (!!obj && bioMap[obj].count > 2) {
-					console.log('Verde ====>', ...bioMap[obj].controls);
+					hasSuccess = true;
 					bioMap[obj].controls.forEach((item) => {
-						control.get(item).setErrors(null);
+						this.bioError[item] = true;
+						this.biometricoFinal = control.get(item).value;
 					});
 				}
 			}
 		}
 
-		function updateMap(str: string, controlName: string) {
-			if (!!str) {
-				if (!bioMap.hasOwnProperty(str)) {
-					bioMap[str] = {
-						controls: [controlName],
-						count: 1
-					};
-				} else {
-					bioMap[str].controls.push(controlName);
-					bioMap[str].count++;
-				}
-			}
-		}
+		const totalCaptures: number = Object.values(bioMap).reduce(
+			(prev: number, curr: any) => prev + curr.count
+		, 0 );
 
-		return null;
+		return totalCaptures === 5 && !hasSuccess ? hasError : null;
 	}
 
 	validateFormCompletion(): void {
-		this.completed = this.enrolFrom.valid
-			&& ( this.currImgPhoto.includes('image/png;base64') || this.enrolFrom.controls['image'].value !== '' );
+		// se agrega timeout para que siempre se vea la animacion
+		window.setTimeout(
+			_ => {
+				this.completed = (this.enrolFrom.valid || this.enrolFrom.disabled)
+					&& ( this.biometricoForm ? this.biometricoForm.valid : true )
+					&& ( this.currImgPhoto.includes('image/png;base64') || !!this.enrolFrom.controls['image'].value );
+			}, 100
+		);
 	}
-
 
 	ngOnDestroy(): void {
 		if (this.isStreaming) {
@@ -287,10 +331,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.credEmpresa = empresa.idEmpresa.nombreEmpresa;
 		this.credOcupacion = empresa.ocupacion;
 		this.credIdEmpresa = empresa._id;
-
 		this.enrolFrom.controls['empresaCredId'].setValue(empresa._id);
-
-
 		this.qrModelChange();
 	}
 
@@ -324,9 +365,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			[], this.filesToUpload, 'image')
 			.then(
 				(success: IEmpresa) => {
-
 					this.enrolFrom.controls['image'].setValue(success.image);
-					this.validateFormCompletion();
 				},
 				error => {
 					console.log('Ocurrio un Error al subir Archivo =====> ');
@@ -335,15 +374,15 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			);
 	}
 
-
 	finalizarEnrol() {
 
 		this.enrolFrom.controls['enrolComplete'].setValue('true');
 		this.enrolFrom.controls['enrolActive'].setValue('true');
+		this.enrolFrom.controls['biometricoFinal'].setValue(this.biometricoFinal);
 
 		this._prestoService.saveEnrolamiento(this.enrolFrom.value).subscribe(
-			res => {
-				this._router.navigate(['/']);
+			(res: any) => {
+				this.savedInfo = res.enrolComplete;
 			},
 			(err: HttpErrorResponse) => {
 				alert('Ocurrio un Error al Guardar Informacion : ' + err.message);
@@ -352,20 +391,30 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	}
 
 	captureBiometrico() {
-		console.log('entramos');
+		this.bioMap = {};
 		let count = 0;
 		const biometricoArr = ['biometricoUno', 'biometricoDos', 'biometricoTres', 'biometricoCuatro', 'biometricoCinco'];
-		this.enrolFrom.reset();
+		this.biometricoForm.reset();
 
-		Observable.interval(1500)
+		Observable.interval(750)
 			.timeInterval()
 			.take(5)
 			.subscribe(
 				timeInterval => {
-					this.enrolFrom.get(`biometrico.${biometricoArr[count++]}`).setValue(
-						Math.floor(Math.random() * 4) + 1
+					this.biometricoForm.get(`${biometricoArr[count++]}`).setValue(
+						this.biometricoTest[
+							Math.floor(Math.random() * 4) + 1
+						]
 					);
 				}
 			);
+	}
+
+	imprimirCredencial() {
+		$('.divImpresion').printThis({
+			loadCSS: 'assets/styleEnrolamiento.css',
+			importStyle: false,
+			canvas: true
+		});
 	}
 }

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EnrolamientoRouting} from "./enrolamiento-routing";
-import {EnrolamientoComponent} from "./enrolamiento.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {EnrolamientoGuard} from "../../auth/enrolamiento.guard";
-import {CredencialModule} from "../credencial/credencial.module";
-import {SharedModulesModule} from "../shared-modules/shared-modules.module";
+import {EnrolamientoRouting} from './enrolamiento-routing';
+import {EnrolamientoComponent} from './enrolamiento.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {EnrolamientoGuard} from '../../auth/enrolamiento.guard';
+import {CredencialModule} from '../credencial/credencial.module';
+import {SharedModulesModule} from '../shared-modules/shared-modules.module';
 
 @NgModule({
 	imports: [
@@ -19,7 +19,7 @@ import {SharedModulesModule} from "../shared-modules/shared-modules.module";
 	declarations: [
 		EnrolamientoComponent
 	],
-	providers:[EnrolamientoGuard]
+	providers: [EnrolamientoGuard]
 })
 export class EnrolamientoModule {
 }

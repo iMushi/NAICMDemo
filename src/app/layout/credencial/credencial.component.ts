@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TpersonCredencial} from "../../models/interface";
-import {GLOBAL} from "../../common/global";
+import {TpersonCredencial} from '../../models/interface';
+import {GLOBAL} from '../../common/global';
 
 
 @Component({
@@ -10,7 +10,7 @@ import {GLOBAL} from "../../common/global";
 })
 export class CredencialComponent implements OnInit {
 
-	@Input() personEnrol: TpersonCredencial
+	@Input() personEnrol: TpersonCredencial;
 
 	constructor() {
 	}
@@ -18,10 +18,9 @@ export class CredencialComponent implements OnInit {
 	public imageUrl;
 
 	ngOnInit() {
-
-		console.log(this.personEnrol);
-
 		this.imageUrl = GLOBAL.RESTAPINJS + 'getImageEnrol/' + this.personEnrol.imgName;
+		if (!this.personEnrol.imgName) {
+			this.imageUrl = 'assets/s.gif';
+		}
 	}
-
 }

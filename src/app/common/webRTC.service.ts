@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 
@@ -21,13 +21,12 @@ export class WebRTCService {
 				video.srcObject = stream;
 				video.play();
 			});
-		console.log("start");
 	}
 
 	takePicture(hardwareVideo: any, photoCanvas: any) : string {
 
-		let pc: any = document.querySelector('#photoCanvas');
-		let video: any = document.querySelector('#hardwareVideo');
+		const pc: any = document.querySelector('#photoCanvas');
+		const video: any = document.querySelector('#hardwareVideo');
 
 
 		pc.setAttribute('width', video.videoWidth);
@@ -35,13 +34,13 @@ export class WebRTCService {
 
 		pc.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
-		let data = pc.toDataURL('image/png');
+		const data = pc.toDataURL('image/png');
 
 		//
 		// let photoEle = document.createElement('img');
 
-		//photoEle.src = data;
-		//document.body.appendChild(photoEle);
+		// photoEle.src = data;
+		// document.body.appendChild(photoEle);
 		return data;
 	}
 

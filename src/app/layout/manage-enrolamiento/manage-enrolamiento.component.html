@@ -14,6 +14,7 @@
 					<tr class="info">
 						<th>Nombre</th>
 						<th>Empresa - Contrato</th>
+						<th></th>
 						<th>Activo</th>
 					</tr>
 					</thead>
@@ -26,14 +27,17 @@
 							</ul>
 						</td>
 						<td>
+							<button class="btn btn-info" (click)="setPersonEnrolamiento(enrolado)">
+								<i class="glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp;&nbsp;Ver detalles
+							</button>
+						</td>
+						<td>
 							<div class="roundedOne">
 								<input type="checkbox" value="None" id="roundedOne" name="check" [checked]="enrolado.enrolActive"/>
 								<label for="roundedOne"></label>
 							</div>
-
 						</td>
 					</tr>
-					<tr></tr>
 					</tbody>
 				</table>
 				<pagination-template #p="paginationApi"

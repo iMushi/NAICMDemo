@@ -1,10 +1,10 @@
-import {Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
-import {PrestoService} from "../../common/presto.service";
-import {Subscription} from "rxjs/Subscription";
-import {TBreaCrumb} from "../../models/interface";
-import {AuthService} from "../../common/auth.service";
-import {Router} from "@angular/router";
-import {HttpErrorResponse} from "@angular/common/http";
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { PrestoService } from '../../common/presto.service';
+import { Subscription } from 'rxjs/Subscription';
+import { TBreaCrumb } from '../../models/interface';
+import { AuthService } from '../../common/auth.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-header',
@@ -15,6 +15,16 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
+	@ViewChild('appBread', {read: ViewContainerRef}) appBread: ViewContainerRef;
+	@ViewChild('breadTpl', {read: TemplateRef}) breadTpl: TemplateRef<any>;
+	public unsubscriber: Subscription;
+	public identity = null;
+	public nombreSearch = '';
+
+	constructor(private _prestoService: PrestoService, private _authService: AuthService, private _router: Router) {
+		this.identity = this._authService.getIdentity();
+	}
+
 	ngDoCheck(): void {
 		this.identity = this._authService.getIdentity();
 
@@ -23,18 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 			this._router.navigate(['/login']).then();
 		}
 
-	}
-
-
-	@ViewChild('appBread', {read: ViewContainerRef}) appBread: ViewContainerRef;
-	@ViewChild('breadTpl', {read: TemplateRef}) breadTpl: TemplateRef<any>;
-
-	public unsubscriber: Subscription;
-	public identity = null;
-	public nombreSearch = '';
-
-	constructor(private _prestoService: PrestoService, private _authService: AuthService, private _router: Router) {
-		this.identity = this._authService.getIdentity();
 	}
 
 	ngOnInit() {
@@ -53,16 +51,16 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 
 
 	openNav() {
-		document.getElementById("mySidenav").style.width = "250px";
-		document.getElementById("mainDiv").style.marginLeft = "270px";
-		document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+		document.getElementById('mySidenav').style.width = '250px';
+		document.getElementById('mainDiv').style.marginLeft = '270px';
+		document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
 	}
 
 	/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
 	closeNav() {
-		document.getElementById("mySidenav").style.width = "0";
-		document.getElementById("mainDiv").style.marginLeft = "0";
-		document.body.style.backgroundColor = "white";
+		document.getElementById('mySidenav').style.width = '0';
+		document.getElementById('mainDiv').style.marginLeft = '0';
+		document.body.style.backgroundColor = 'white';
 	}
 
 	updateBread(params: Array<TBreaCrumb>) {
@@ -104,7 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 	}
 
 	buscarPorNombre() {
-		this._prestoService.getEnrolamientoByName(this.nombreSearch.split(",").map(val => val.trim()),1);
+		this._prestoService.getEnrolamientoByName(this.nombreSearch.split(',').map(val => val.trim()), 1);
 	}
 
 }

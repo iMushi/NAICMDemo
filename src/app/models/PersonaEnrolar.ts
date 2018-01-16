@@ -28,6 +28,7 @@ export class PersonaEnrolar implements IEmpresa {
 	empresaCredId: string;
 	enrolActive = false;
 	rutaImagenes: string;
+	biometricoFinal: string;
 
 
 	constructor(values?: IEmpresa) {
@@ -56,6 +57,7 @@ export class PersonaEnrolar implements IEmpresa {
 			this.empresaCredId = values.empresaCredId;
 			this.image = values.image;
 			this.rutaImagenes = values.rutaImagenes;
+			this.biometricoFinal = values.biometricoFinal;
 
 		} else {
 			this._id = undefined;
@@ -70,7 +72,6 @@ export class PersonaEnrolar implements IEmpresa {
 				idEmpresa: null
 			}];
 		}
-
 	}
 
 	getQRValue(): string {

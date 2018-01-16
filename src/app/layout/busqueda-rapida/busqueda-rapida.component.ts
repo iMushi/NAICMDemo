@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PrestoService} from "../../common/presto.service";
-import {Router} from "@angular/router";
-import {PaginationInstance} from "ngx-pagination";
-import {GLOBAL} from "../../common/global";
+import {PrestoService} from '../../common/presto.service';
+import {Router} from '@angular/router';
+import {PaginationInstance} from 'ngx-pagination';
+import {GLOBAL} from '../../common/global';
 
 declare var $;
 
@@ -31,9 +31,11 @@ export class BusquedaRapidaComponent implements OnInit {
 		this.prestoService.enrolamientoBusquedaRapida.subscribe(
 			res => {
 
-				let tmpRes: any = res;
+				const tmpRes: any = res;
 
-				if (!tmpRes.docs) return;
+				if (!tmpRes.docs) {
+					return;
+				}
 
 				this.results = tmpRes.docs;
 				this.config.currentPage = tmpRes.page;

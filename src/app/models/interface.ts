@@ -26,10 +26,11 @@ export interface IEmpresa {
 	empresaCredId?: string;
 	enrolActive ?: boolean;
 	rutaImagenes ?: string;
+	biometricoFinal ?: string;
 }
 
 export interface Msg {
-	message: string;
+	message?: string;
 }
 
 export interface PaginatedResult {

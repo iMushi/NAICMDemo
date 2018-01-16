@@ -1,9 +1,6 @@
 <section id="mainEnrolamiento">
 
-	<form #formEventuales class="form-horizontal" [formGroup]="eventualForm" [ngStyle]="{
-					'transition': '1s',
-					'margin-top' : completed  ? '170px' : '0px'
-					}">
+	<form #formEventuales class="form-horizontal" [formGroup]="eventualForm">
 		<div id="accordionEnrolamiento">
 
 			<div class="panel panel-primary panel-primaryC panelC">
@@ -17,29 +14,31 @@
 							<video #hardwareVideo id="hardwareVideo" autoplay></video>
 							<canvas #photoCanvas id="photoCanvas"></canvas>
 						</div>
-						<div class="containerCred" [style.display]=" !isStreaming ? 'block' : 'none' ">
-							<div class="header">
-								<div class="eventualTitle">EVENTUAL</div>
-								<div class="eventualTitleDos">EVENTUAL</div>
-							</div>
-							<div class="mainbody">
-								<img #imgEventual>
-								<table class="tableDatos">
-									<tr>
-										<td><h2>{{eventualForm.value['nombre'].toUpperCase() +' ' + eventualForm.value['apellidoPaterno'].toUpperCase()}}</h2></td>
-									</tr>
-									<tr class="trSeparador">
-										<td>
-											<hr>
-										</td>
-									</tr>
-									<tr>
-										<td><h3>{{eventualForm.value['razonSocial'].toUpperCase()}}</h3></td>
-									</tr>
-									<tr>
-										<td><h4>{{eventualForm.value['ocupacion'].toUpperCase()}}</h4></td>
-									</tr>
-								</table>
+						<div class="divImpresion">
+							<div class="containerCred" [style.display]=" !isStreaming ? 'block' : 'none' ">
+								<div class="header">
+									<div class="eventualTitle">EVENTUAL</div>
+									<div class="eventualTitleDos">EVENTUAL</div>
+								</div>
+								<div class="mainbody">
+									<img #imgEventual src="assets/s.gif">
+									<table class="tableDatos">
+										<tr>
+											<td><h2>{{eventualForm.value['nombre'].toUpperCase() +' ' + eventualForm.value['apellidoPaterno'].toUpperCase()}}</h2></td>
+										</tr>
+										<tr class="trSeparador">
+											<td>
+												<hr>
+											</td>
+										</tr>
+										<tr>
+											<td><h3>{{eventualForm.value['razonSocial'].toUpperCase()}}</h3></td>
+										</tr>
+										<tr>
+											<td><h4>{{eventualForm.value['ocupacion'].toUpperCase()}}</h4></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -146,9 +145,12 @@
 						</div>
 					</div>
 					<div class="">
-						<div class="center-block" style="width: 315px;">
-							<button type="button" class="btn btn-success" style="margin-right: 10px" [disabled]="!eventualForm.valid" (click)="guardar();">
-								<i class="glyphicon glyphicon-save"></i>&nbsp;&nbsp;&nbsp;Guardar e Imprimir
+						<div class="center-block" style="width: 375px;">
+							<button type="button" class="btn btn-success" style="margin-right: 10px" [disabled]="!eventualForm.valid || completed" (click)="guardar();">
+								<i class="glyphicon glyphicon-save"></i>&nbsp;&nbsp;&nbsp;Guardar
+							</button>
+							<button type="button" class="btn btn-success" style="margin-right: 10px" [disabled]="!completed" (click)="imprimirAcceso();">
+								<i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;&nbsp;Imprimir
 							</button>
 							<button type="button" class="btn btn-danger" (click)="cancelEventual()">
 								<i class="glyphicon glyphicon-stop"></i>&nbsp;&nbsp;&nbsp;Cancelar

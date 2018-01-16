@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Msg} from "../models/interface";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Msg} from '../models/interface';
 
 @Injectable()
 export class MsgService   {
@@ -10,7 +10,7 @@ export class MsgService   {
 
 	constructor() {}
 
-	setMsg( msg : Msg){
+	setMsg(  msg: Msg  ) {
 		this.MsgSubject.next(msg);
 	}
 }

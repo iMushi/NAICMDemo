@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PrestoService} from "../../common/presto.service";
-import {ActivatedRoute, Router, ParamMap} from "@angular/router";
-import {FormControl, FormGroup} from "@angular/forms";
-import {GLOBAL} from "../../common/global";
-import {HttpErrorResponse} from "@angular/common/http";
-import {AuthService} from "../../common/auth.service";
-import {IEmpresa} from "../../models/interface";
-import {MsgService} from "../../common/msg.service";
-import {NextObserver, Observer} from "rxjs/Observer";
+import {PrestoService} from '../../common/presto.service';
+import {ActivatedRoute, Router, ParamMap} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
+import {GLOBAL} from '../../common/global';
+import {HttpErrorResponse} from '@angular/common/http';
+import {AuthService} from '../../common/auth.service';
+import {IEmpresa} from '../../models/interface';
+import {MsgService} from '../../common/msg.service';
+import {NextObserver, Observer} from 'rxjs/Observer';
 
 
 @Component({
@@ -18,7 +18,7 @@ import {NextObserver, Observer} from "rxjs/Observer";
 export class BusquedaComponent implements OnInit {
 
 	public empresaBuscar: string;
-	public busquedaGroup
+	public busquedaGroup;
 	public searchType: string;
 
 	public url = GLOBAL.RESTAPINJS + 'searchEmpresa';
@@ -55,16 +55,16 @@ export class BusquedaComponent implements OnInit {
 	}
 
 	buscarPersona() {
-		let values = this.busquedaGroup.value;
-		let query = this.busquedaGroup.controls['empresaBus'].value;
+		const values = this.busquedaGroup.value;
+		const query = this.busquedaGroup.controls['empresaBus'].value;
 
 		delete values.empresaBus;
 
-		values.idEmpresa = query == '' ? query : this.empresaBuscar;
+		values.idEmpresa = query === '' ? query : this.empresaBuscar;
 
 		if (this.searchType === GLOBAL.BUSCAENROL) {
 
-			this._prestoService.getSearchEnrolamiento(values,1)
+			this._prestoService.getSearchEnrolamiento(values, 1);
 
 		} else if (this.searchType === GLOBAL.BUSCAMANAGEMENT) {
 

@@ -1,16 +1,20 @@
 <section id="mainEnrolamiento">
 
 	<div class="row" class="navbar-fixed-top" [ngStyle]="{
-				'height' : completed ? '150px' : '0px',
+				'height' : completed ? '184px' : '0px',
 				'width' : completed ? '100%' : '0px',
 				transition : '1s',
 				'transition-delay':  completed ? '0' : '.5',
-				'margin-top' : '120px'
+				'margin-top' : '99px',
+				'background' : 'white'
 			}">
 
 		<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2
 				col-lg-8 col-md-8 col-sm-8 col-xs-8" [ngStyle]="{
-					'transition': '1s' , 'transition-delay':  completed ? '.5' : '0'  , 'opacity' : completed ? '1' : '0'
+					'transition': '1s' ,
+					'transition-delay':  completed ? '.5' : '0'  ,
+					'opacity' : completed ? '1' : '0',
+					'margin-top' : '25px'
 					}">
 
 			<div class=" panel panel-info">
@@ -19,13 +23,23 @@
 						<i class=" glyphicon glyphicon-check"></i>&nbsp;&nbsp;Datos Completos</h3>
 				</div>
 				<div class="panel-body">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!savedInfo">
 						¿Desea finalizar Enrolamiento?
 					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="savedInfo">
+						Enrolamiento Finalizado Exitosamente
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="!savedInfo">
 						<div class="center-block" style="width: 100px">
 							<button type="button" class="btn btn-info" (click)="finalizarEnrol()" [disabled]="!completed">
 								<i class="glyphicon glyphicon-save-file"></i> Finalizar
+							</button>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="savedInfo">
+						<div class="center-block" style="width: 190px">
+							<button type="button" class="btn btn-info" (click)="imprimirCredencial()" [disabled]="!savedInfo">
+								<i class="glyphicon glyphicon-print"></i> Imprimir Credencial
 							</button>
 						</div>
 					</div>
@@ -34,19 +48,20 @@
 		</div>
 	</div>
 
+	<div id="accordionEnrolamiento" [ngStyle]="{
+		'transition': '1s',
+		'margin-top' : completed  ? '170px' : '0px'
+		}">
 
-	<form #formEnrolamiento class="form-horizontal" [formGroup]="enrolFrom" [ngStyle]="{
-					'transition': '1s',
-					'margin-top' : completed  ? '170px' : '0px'
-					}">
-		<div id="accordionEnrolamiento">
+		<form #formEnrolamiento class="form-horizontal" [formGroup]="enrolFrom" action="">
 
 			<div class="panel panel-primary panelC panel-primaryC">
 				<div class="panel-heading">
 
-					<h3 class="panel-title" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo"
-						(click)="changeBread(this,{'title':'Datos Personales'})">
-						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Datos Personales <span class="caretC"></span></h3>
+					<h3 class="panel-title" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseInactivo" (click)="changeBread(this,{'title':'Datos Personales'})">
+						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Datos Personales
+						<span class="caretC"></span>
+					</h3>
 
 
 				</div>
@@ -62,7 +77,7 @@
 										<canvas #photoCanvas id="photoCanvas"></canvas>
 									</div>
 
-									<div [style.display]=" !isStreaming ? 'block' : 'none' ">
+									<div [style.display]=" !isStreaming ? 'block' : 'none' " class="divImpresion">
 										<app-credencial [personEnrol]="personCred"></app-credencial>
 									</div>
 
@@ -91,7 +106,6 @@
 											<span class="glyphicon glyphicon-camera"></span> Iniciar Camara
 										</button>
 
-
 									</div>
 								</div>
 							</div>
@@ -99,7 +113,7 @@
 						<!-- Termina Foto y Camara -->
 						<!-- Datos Personales -->
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.nombre.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.nombre.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Nombre</span>
@@ -107,48 +121,43 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.apellidoPaterno.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled &&  !enrolFrom.controls.apellidoPaterno.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Apellido Paterno</span>
-										<input type="text" class="form-control" id="enApPaterno"
-											   placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+										<input type="text" class="form-control" id="enApPaterno" placeholder="Apellido Paterno" formControlName="apellidoPaterno">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.apellidoMaterno.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.apellidoMaterno.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Apellido Materno</span>
-										<input type="text" class="form-control" id="enApMaterno"
-											   placeholder="Apellido Materno" formControlName="apellidoMaterno">
+										<input type="text" class="form-control" id="enApMaterno" placeholder="Apellido Materno" formControlName="apellidoMaterno">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.fechaNacimiento.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.fechaNacimiento.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Fecha de Nacimiento</span>
-										<input type="text" class="form-control" id="enFechaNacimiento"
-											   placeholder="dd/mm/YYYY" formControlName="fechaNacimiento">
+										<input type="text" class="form-control" id="enFechaNacimiento" placeholder="dd/mm/YYYY" formControlName="fechaNacimiento">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.lugarNacimiento.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.lugarNacimiento.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Lugar de Nacimiento</span>
-										<input type="text" class="form-control" id="enLugarNacimiento"
-											   placeholder="Lugar de Nacimiento" formControlName="lugarNacimiento">
+										<input type="text" class="form-control" id="enLugarNacimiento" placeholder="Lugar de Nacimiento" formControlName="lugarNacimiento">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.sexo.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.sexo.valid }">
 								<div class="col-lg-8">
 									<div class="input-group">
 										<span class="input-group-addon">Sexo</span>
-										<select class="form-control" name="enCmbSexo" id="enCmbSexo" #enCmbSexo
-												(change)="cmbSexoChange(enCmbSexo.value)" formControlName="sexo">
+										<select class="form-control" name="enCmbSexo" id="enCmbSexo" #enCmbSexo (change)="cmbSexoChange(enCmbSexo.value)" formControlName="sexo">
 											<option value="">-- Seleccione --</option>
 											<option [selected]=" enrolFrom.controls.sexo.value == 'M' " value="M">Masculino</option>
 											<option [selected]=" enrolFrom.controls.sexo.value == 'F' " value="F">Femenino</option>
@@ -156,33 +165,29 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.codigoPostal.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.codigoPostal.valid }">
 								<div class="col-lg-5">
 									<div class="input-group">
 										<span class="input-group-addon">C.P.</span>
-										<input type="text" class="form-control" id="enCodigoPostal"
-											   placeholder="C&oacute;digo Postal" formControlName="codigoPostal">
+										<input type="text" class="form-control" id="enCodigoPostal" placeholder="C&oacute;digo Postal" formControlName="codigoPostal">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.telefono.valid }">
 								<div class="col-lg-12">
 									<div class="input-group">
 										<span class="input-group-addon">Tel&eacute;fono</span>
-										<input type="text" class="form-control" id="enTelefono"
-											   placeholder="Tel&eacute;fono" formControlName="telefono">
+										<input type="text" class="form-control" id="enTelefono" placeholder="Tel&eacute;fono" formControlName="telefono">
 										<span class="input-group-addon">Emergencias</span>
-										<input type="text" class="form-control" id="enTelefonoEmergencias"
-											   placeholder="Emergencias" formControlName="telefonoEmergencia">
+										<input type="text" class="form-control" id="enTelefonoEmergencias" placeholder="Emergencias" formControlName="telefonoEmergencia">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.contactoEmergencia.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.contactoEmergencia.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Contacto Emergencias</span>
-										<input type="text" class="form-control" id="enContactoEmergencias"
-											   placeholder="Contacto Emergencias" formControlName="contactoEmergencia">
+										<input type="text" class="form-control" id="enContactoEmergencias" placeholder="Contacto Emergencias" formControlName="contactoEmergencia">
 									</div>
 								</div>
 							</div>
@@ -192,62 +197,55 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.accesoOtorgado.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.accesoOtorgado.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Acceso Otorgado</span>
-										<input type="text" class="form-control" id="enAccesoOtorgado"
-											   placeholder="Acceso Otorgado ..." formControlName="accesoOtorgado">
+										<input type="text" class="form-control" id="enAccesoOtorgado" placeholder="Acceso Otorgado ..." formControlName="accesoOtorgado">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.motivoAcceso.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.motivoAcceso.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Motivo de Acceso</span>
-										<input type="text" class="form-control" id="enMotivoAcceso"
-											   placeholder="Motivo de Acceso" formControlName="motivoAcceso">
+										<input type="text" class="form-control" id="enMotivoAcceso" placeholder="Motivo de Acceso" formControlName="motivoAcceso">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.registroPatronal.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.registroPatronal.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Registro Patronal</span>
-										<input type="text" class="form-control" id="enRegistroPatronal"
-											   placeholder="Registro Patronal" formControlName="registroPatronal">
+										<input type="text" class="form-control" id="enRegistroPatronal" placeholder="Registro Patronal" formControlName="registroPatronal">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.telefono.valid || !enrolFrom.controls.telefonoEmergencia.valid}">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && (!enrolFrom.controls.telefono.valid || !enrolFrom.controls.telefonoEmergencia.valid)}">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">NSS</span>
-										<input type="text" class="form-control" id="enNSS"
-											   placeholder="NSS" formControlName="nss">
+										<input type="text" class="form-control" id="enNSS" placeholder="NSS" formControlName="nss">
 										<span class="input-group-addon">RFC</span>
-										<input type="text" class="form-control" id="enRFC"
-											   placeholder="RFC" formControlName="rfc">
+										<input type="text" class="form-control" id="enRFC" placeholder="RFC" formControlName="rfc">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.estadoCivil.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.estadoCivil.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Estado Civil</span>
-										<input type="text" class="form-control" id="enEstadoCivil"
-											   placeholder="Estado Civil" formControlName="estadoCivil">
+										<input type="text" class="form-control" id="enEstadoCivil" placeholder="Estado Civil" formControlName="estadoCivil">
 									</div>
 								</div>
 							</div>
-							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.controls.tipoSangre.valid }">
+							<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.disabled && !enrolFrom.controls.tipoSangre.valid }">
 								<div class="col-lg-10">
 									<div class="input-group">
 										<span class="input-group-addon">Tipo de Sangre</span>
-										<input type="text" class="form-control" id="enTipoSangre"
-											   placeholder="Tipo de Sangre" formControlName="tipoSangre">
+										<input type="text" class="form-control" id="enTipoSangre" placeholder="Tipo de Sangre" formControlName="tipoSangre">
 									</div>
 								</div>
 							</div>
@@ -259,7 +257,9 @@
 							<div class="panel panel-primary panelC panel-primaryC" id="panelEmpresas">
 								<div class="panel-heading">
 									<h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#panelEmpresas" href="#collapseEmpresas">
-										<i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;&nbsp;Empresas para las que labora <span class="caretC"></span></h3>
+										<i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;&nbsp;Empresas para las que labora
+										<span class="caretC"></span>
+									</h3>
 								</div>
 								<div class="panel-body panel-collapse collapse" id="collapseEmpresas">
 
@@ -268,10 +268,7 @@
 										<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-top: 45px;">
 											<div style="display:block;">
 												<div class="divRadioEmprea">
-													<input type="radio" name="radioEmpresa"
-														   [checked]="iEmpresa === 0"
-														   [value]="empresa._id"
-														   (change)="onEmpresaChange(empresa)">
+													<input type="radio" name="radioEmpresa" [checked]="iEmpresa === 0" [value]="empresa._id" (change)="onEmpresaChange(empresa)">
 												</div>
 											</div>
 										</div>
@@ -283,11 +280,9 @@
 														<p>{{empresa.idEmpresa.nombreEmpresa}}</p>
 														<div class="input-group">
 															<span class="input-group-addon">Ocupaci&oacute;n</span>
-															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}"
-																   placeholder="Ocupaci&oacute;n" formControlName="ocupacionEmpresa_{{iEmpresa}}">
+															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}" placeholder="Ocupaci&oacute;n" formControlName="ocupacionEmpresa_{{iEmpresa}}">
 															<span class="input-group-addon">Fecha de Contrato</span>
-															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}"
-																   placeholder="Nombre Empresa" formControlName="fechaContratoEmpresa_{{iEmpresa}}">
+															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}" placeholder="Nombre Empresa" formControlName="fechaContratoEmpresa_{{iEmpresa}}">
 														</div>
 													</div>
 												</div>
@@ -301,11 +296,13 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10
-							col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+						col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 							<div class="panel panel-primary panelC panel-primaryC" id="panelImagenes">
 								<div class="panel-heading">
 									<h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#panelImagenes" href="#collapseImagenes">
-										<i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;&nbsp;Documentos proporcionados <span class="caretC"></span></h3>
+										<i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;&nbsp;Documentos proporcionados
+										<span class="caretC"></span>
+									</h3>
 								</div>
 								<div class="panel-body panel-collapse collapse" id="collapseImagenes">
 									<div class="col-lg-3" *ngFor="let imagen of imagenes;">
@@ -319,33 +316,49 @@
 
 					</div>
 				</div>
+
 			</div>
+		</form>
+
+		<form #formBiometrico class="form-horizontal" [formGroup]="biometricoForm" action="">
 
 			<div class="panel panel-primary panelC panel-primaryC">
 				<div class="panel-heading">
 					<h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordionEnrolamiento" href="#collapseBiometricos"
-						(click)="changeBread(this,{'title':'Biométricos'})">
-						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Biom&eacute;tricos <span class="caretC"></span></h3>
-
-
+					 (click)="changeBread(this,{'title':'Biométricos'})">
+						<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Biom&eacute;tricos
+						<span class="caretC"></span>
+					</h3>
 				</div>
 				<div class="panel-body panel-collapse collapse" id="collapseBiometricos">
 
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6
-								col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" formGroupName="biometrico">
+					col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="savedInfo">
 
+						<div class="alert alert-success">
+							<p>Cadena Biom&eacute;trica Capturada</p>
+							<br>
+							<blockquote>
+								<p>{{enrolFrom.get('biometricoFinal').value}}</p>
+							</blockquote>
+						</div>
+					</div>
 
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6
+								col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!savedInfo">
 						<div class="alert alert-info">
 							Realizar la captura de datos Biom&eacute;tricos.
 							<p>Se considerara una captura exitosa cuando al menos 3 de las 5 lecturas tengan el mismo valor.</p>
-							<p>Presione <strong>Iniciar Captura</strong> para realizar el proceso.</p>
+							<p>Presione
+								<strong>Iniciar Captura</strong> para realizar el proceso.</p>
 						</div>
 
+						<div class="alert alert-danger" *ngIf="biometricoForm.hasError('capturaIncorrecta')">
+							La captura de
+							<strong>Biom&eacute;tricos no fue exitosa</strong>
+						</div>
 
-
-
-						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoUno').valid,
-															'has-success' : enrolFrom.get('biometrico.biometricoUno').valid }">
+						<div class="form-group" [ngClass]="{'has-success' : bioError['biometricoUno'] }">
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Biom&eacute;trico 1</span>
@@ -353,8 +366,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoDos').valid,
-															'has-success' : enrolFrom.get('biometrico.biometricoDos').valid }">
+						<div class="form-group" [ngClass]="{'has-success' : bioError['biometricoDos'] }">
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Biom&eacute;trico 2</span>
@@ -362,8 +374,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoTres').valid,
-															'has-success' : enrolFrom.get('biometrico.biometricoTres').valid }">
+						<div class="form-group" [ngClass]="{'has-success' : bioError['biometricoTres']  }">
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Biom&eacute;trico 3</span>
@@ -371,8 +382,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoCuatro').valid,
-															'has-success' : enrolFrom.get('biometrico.biometricoCuatro').valid}">
+						<div class="form-group" [ngClass]="{'has-success' : bioError['biometricoCuatro'] }">
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Biom&eacute;trico 4</span>
@@ -380,8 +390,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group" [ngClass]="{'has-error' : !enrolFrom.get('biometrico.biometricoCinco').valid,
-															'has-success' : enrolFrom.get('biometrico.biometricoCinco').valid}">
+						<div class="form-group" [ngClass]="{'has-success' : bioError['biometricoCinco'] }">
 							<div class="col-lg-12">
 								<div class="input-group">
 									<span class="input-group-addon">Biom&eacute;trico 5</span>
@@ -401,6 +410,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</form>
+
+		</form>
+
+	</div>
 </section>

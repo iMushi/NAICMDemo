@@ -141,14 +141,15 @@ export class PrestoService {
 	}
 
 	saveEnrolamiento(personEnrol: IEmpresa): Observable<Object> {
+		console.log(personEnrol);
 		let params: HttpParams = GLOBAL.toHttpParams(personEnrol
-			, ['_id', 'empresaId', 'empresaCredId', 'image', 'enrolComplete', 'enrolActive', 'rutaImagenes']);
+			, ['_id', 'empresaId', 'empresaCredId', 'image', 'enrolComplete', 'enrolActive', 'rutaImagenes', 'biometricoFinal', 'biometrico']);
 		params = params.delete('empresa');
 		return this.http.post(GLOBAL.RESTAPINJS + 'saveEnrol', params, {withCredentials: true});
 	}
 
 	saveEventual(eventual: TEventual): Observable<any> {
-		const params: HttpParams = GLOBAL.toHttpParams(eventual);
+		const params: HttpParams = GLOBAL.toHttpParams(eventual, ['idEmpresa', 'imageBase64', 'fechaAcceso']);
 		return this.http.post(GLOBAL.RESTAPINJS + 'saveEventual', params, {withCredentials: true});
 	}
 
