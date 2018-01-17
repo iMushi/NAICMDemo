@@ -416,7 +416,7 @@ var GLOBAL = {
 // The file contents for the current environment will overwrite these during build.
 var environment = {
     production: false,
-    restUrl: 'https://aqueous-beyond-82335.herokuapp.com/api/'
+    restUrl: 'http://201.163.92.66:5000/api/'
 };
 //# sourceMappingURL=environment.js.map
 
