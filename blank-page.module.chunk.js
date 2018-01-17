@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layout/blank-page/blank-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<div style=\"text-align: center\">\n\t\t\t<h1>Sistema de Enrolamiento</h1>\n\t\t\t<br>\n\t\t\t<h2>NAICM</h2>\n\t\t</div>\n\t\t<hr>\n\t\t<div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\" style=\"text-align: center;\">\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-default\"   [routerLink]=\"['/busqueda']\" >\n\t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\n\t\t\t\t\tBuscar Persona\n\t\t\t\t</button>\n\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn btn-info\" [routerLink]=\"['/imprimir']\">\n\t\t\t\t\t<span class=\"glyphicon glyphicon-print\"></span>\n\t\t\t\t\tImprimir Acceso\n\t\t\t\t</button>\n\t\t\t</div>\n\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-success\" [routerLink]=\"['/eventuales']\">\n\t\t\t\t\t<span class=\"glyphicon glyphicon-tags\"></span>\n\t\t\t\t\tAcceso Eventual\n\t\t\t\t</button>\n\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-primary\" [routerLink]=\"['/cargamasiva']\">\n\t\t\t\t\t<span class=\"glyphicon glyphicon-hdd\"></span>\n\t\t\t\t\tCarga Masiva\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<p>&nbsp;</p>\n\n\t</div>\n\n\n</div>\n"
+module.exports = "<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<div style=\"text-align: center\">\n\t\t\t<h1>Sistema de Enrolamiento</h1>\n\t\t\t<br>\n\t\t\t<h2>NAICM</h2>\n\t\t</div>\n\t\t<hr>\n\t\t<div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\" style=\"text-align: center;\">\n\n\t\t\t<div class=\"col-lg-3 col-md-3\" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-default\"   [routerLink]=\"['/busqueda',buscaEnrol]\" >\n\t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\n\t\t\t\t\tEnrolar Persona\n\t\t\t\t</button>\n\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-3 col-md-3\" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-info\"   [routerLink]=\"['/busqueda',buscaManagement]\" >\n\t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\n\t\t\t\t\tAdministrar Enrolamiento\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<div class=\"btn-group\">\n\t\t\t\t\t<a  [routerLink]=\"['/eventual']\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-tags\"></span>&nbsp;&nbsp;&nbsp;Eventual</a>\n\t\t\t\t\t<a  class=\"btn btn-success dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\">\n\t\t\t\t\t\t<li><a [routerLink]=\"['/eventual']\">Crear Acceso Eventual</a></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/listadoEventuales']\">Accesos Creados</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg-3 col-md-3 \" style=\"margin-bottom: 10px\">\n\t\t\t\t<button class=\"btn  btn-primary\" [routerLink]=\"['/cargamasiva']\">\n\t\t\t\t\t<span class=\"glyphicon glyphicon-hdd\"></span>\n\t\t\t\t\tCarga Masiva\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<p>&nbsp;</p>\n\n\t</div>\n\n\n</div>\n"
 
 /***/ }),
 
@@ -32,6 +32,7 @@ module.exports = "<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<d
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BlankPageComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_presto_service__ = __webpack_require__("../../../../../src/app/common/presto.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_global__ = __webpack_require__("../../../../../src/app/common/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -43,9 +44,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var BlankPageComponent = (function () {
     function BlankPageComponent(_prestoService) {
         this._prestoService = _prestoService;
+        this.buscaEnrol = __WEBPACK_IMPORTED_MODULE_2__common_global__["a" /* GLOBAL */].BUSCAENROL;
+        this.buscaManagement = __WEBPACK_IMPORTED_MODULE_2__common_global__["a" /* GLOBAL */].BUSCAMANAGEMENT;
     }
     BlankPageComponent.prototype.ngOnInit = function () {
         this._prestoService.setBreadCrumb([]);
@@ -134,8 +138,8 @@ var BlankPageRouting = (function () {
 }());
 BlankPageRouting = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forChild(routes)],
-        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]]
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
+        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
 ], BlankPageRouting);
 

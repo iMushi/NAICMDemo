@@ -4,6 +4,11 @@ webpackJsonp(["main"],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"../manage-enrolamiento/manage-enrolamiento.module": [
+		"../../../../../src/app/layout/manage-enrolamiento/manage-enrolamiento.module.ts",
+		"common",
+		"manage-enrolamiento.module"
+	],
 	"./blank-page/blank-page.module": [
 		"../../../../../src/app/layout/blank-page/blank-page.module.ts",
 		"common",
@@ -14,10 +19,20 @@ var map = {
 		"common",
 		"busqueda.module"
 	],
+	"./cargamasiva/cargamasiva.module": [
+		"../../../../../src/app/layout/cargamasiva/cargamasiva.module.ts",
+		"common",
+		"cargamasiva.module"
+	],
 	"./enrolamiento/enrolamiento.module": [
 		"../../../../../src/app/layout/enrolamiento/enrolamiento.module.ts",
 		"common",
 		"enrolamiento.module"
+	],
+	"./eventual/eventual.module": [
+		"../../../../../src/app/layout/eventual/eventual.module.ts",
+		"common",
+		"eventual.module"
 	],
 	"./impresion/impresion.module": [
 		"../../../../../src/app/layout/impresion/impresion.module.ts",
@@ -28,6 +43,11 @@ var map = {
 		"../../../../../src/app/layout/layout.module.ts",
 		"common",
 		"layout.module"
+	],
+	"./listado-eventuales/listado-eventuales.module": [
+		"../../../../../src/app/layout/listado-eventuales/listado-eventuales.module.ts",
+		"common",
+		"listado-eventuales.module"
 	],
 	"./login/login.module": [
 		"../../../../../src/app/layout/login/login.module.ts",
@@ -78,8 +98,8 @@ var AppRoutingModule = (function () {
 }());
 AppRoutingModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forRoot(routes)],
-        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]]
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forRoot(routes)],
+        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
 ], AppRoutingModule);
 
@@ -193,7 +213,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_3__app_routing__["a" /* AppRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_forms__["d" /* ReactiveFormsModule */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_forms__["c" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["b" /* HttpClientModule */]
         ],
@@ -230,7 +250,6 @@ var AuthGuard = (function () {
     function AuthGuard(_router, _authService) {
         this._router = _router;
         this._authService = _authService;
-        console.log("Creando Auth Guard");
     }
     AuthGuard.prototype.canActivate = function () {
         var identity = this._authService.getIdentity();
@@ -246,7 +265,7 @@ var AuthGuard = (function () {
 }());
 AuthGuard = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _b || Object])
 ], AuthGuard);
 
 var _a, _b;
@@ -284,7 +303,6 @@ var AuthService = (function () {
     }
     AuthService.prototype.login = function (userToLogin) {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]().append("email", userToLogin.email).append("password", userToLogin.password);
-        //let headers = new HttpHeaders().append("Authorization", this.getIdentity().token);
         return this._http.post(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'login', params, { withCredentials: true });
     };
     AuthService.prototype.getIdentity = function () {
@@ -333,9 +351,15 @@ var GLOBAL = {
     MPHOTOURL: 'assets/customer-512.png',
     FPHOTOURL: 'assets/girl-512.png',
     RESTAPI: 'http://localhost:3000/enrolamiento',
+    DEFAULTPERPAGE: 10,
+    DEFAULTPERPAGEMASIVA: 5,
     DEFAULTPERSON: { empresas: [{}] },
-    //RESTAPINJS : 'http://localhost:5000/api/',
-    //RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
+    errorCargaMasiva: 'errorCargaMasiva.log',
+    cargaMasiva: 'cargaMasiva.log',
+    BUSCAENROL: 'enrolamiento',
+    BUSCAMANAGEMENT: 'management',
+    // RESTAPINJS : 'http://localhost:5000/api/',
+    // RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
     RESTAPINJS: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].restUrl,
     checkToArray: function (obj) {
         if (!Object(__WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__["a" /* isArray */])(obj)) {
@@ -355,10 +379,26 @@ var GLOBAL = {
      * @param {Object} obj
      * @returns {HttpParams}
      */
-    toHttpParams: function (obj) {
+    toHttpParams: function (obj, includes) {
         return Object.getOwnPropertyNames(obj)
-            .reduce(function (p, key) { return p.set(key, obj[key] ? obj[key] : ''); }, new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]());
-    }
+            .reduce(function (p, key) {
+            var val = '';
+            if (obj[key]) {
+                val = GLOBAL.includesAny(key, includes) ? obj[key] : obj[key].toUpperCase();
+            }
+            return p.set(key, val);
+        }, new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]());
+    },
+    dataURLtoFile: function (dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]);
+        var n = bstr.length;
+        var u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    },
+    includesAny: function (testStr, checkList) { return checkList.reduce(function (prev, curr) { return prev || testStr.includes(curr); }, false); }
 };
 //# sourceMappingURL=global.js.map
 

@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal\" id=\"modalEnrolResult\">\n\t<div class=\"modal-dialog\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n\t\t\t\t<h4 class=\"modal-title\">Resultados B&uacute;squeda</h4>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\t<table class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t<tr class=\"info\">\n\t\t\t\t\t\t<th>#</th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t<th>RFC</th>\n\t\t\t\t\t\t<th>Empresa - Contrato</th>\n\n\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t<tr *ngFor=\"let res of results\">\n\t\t\t\t\t\t<td>{{res.id}}</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<button class=\"btn btn-sm btn-circle btn-info\"\n\t\t\t\t\t\t\t\t\tdata-toggle=\"tooltip\" data-placement=\"top\" title=\"\"\n\t\t\t\t\t\t\t\t\tdata-original-title=\"Terminar Enrolamiento\" (click)=\"setPersonEnrolamiento(res._id)\"\n\t\t\t\t\t\t\t\t\t*ngIf=\"!res.enrolComplete\">\n\t\t\t\t\t\t\t\t<i class=\"glyphicon glyphicon-camera\"></i>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<button class=\"btn btn-sm btn-circle btn-info\"\n\t\t\t\t\t\t\t\t\tdata-toggle=\"tooltip\" data-placement=\"top\" title=\"\"\n\t\t\t\t\t\t\t\t\tdata-original-title=\"Imprimir Credencial\" (click)=\"setPersonImpresion(res._id)\"\n\t\t\t\t\t\t\t\t\t*ngIf=\"res.enrolComplete\">\n\t\t\t\t\t\t\t\t<i class=\"glyphicon glyphicon-print\"></i>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>{{res.nombre}} {{res.apellidoPaterno}} {{res.apellidoMaterno}}</td>\n\t\t\t\t\t\t<td>{{res.rfc}}</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t<li *ngFor=\"let emp of res.empresa\">\n\t\t\t\t\t\t\t\t\t{{emp.nombreEmpresa}} - {{emp.fechaContrato}}\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t\t<div class=\"modal-footer\">\n\t\t\t\t<button class=\"btn  btn-info\" data-dismiss=\"modal\" aria-hidden=\"true\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-stop\"></i>&nbsp;Cerrar\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n"
+module.exports = "<div class=\"modal\" id=\"modalEnrolResult\" tabindex='-1'>\n\t<div class=\"modal-dialog\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n\t\t\t\t<h4 class=\"modal-title\">Resultados B&uacute;squeda</h4>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\t<table class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t<tr class=\"info\">\n\t\t\t\t\t\t<th>#</th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t<th>RFC</th>\n\t\t\t\t\t\t<th>Empresa - Contrato</th>\n\n\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\n\t\t\t\t\t<tr *ngFor=\"let res of results | paginate: config \">\n\t\t\t\t\t\t<td>{{res.id}}</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<button class=\"btn btn-sm btn-circle btn-info\"\n\t\t\t\t\t\t\t\t\tdata-toggle=\"tooltip\" data-placement=\"top\" title=\"\"\n\t\t\t\t\t\t\t\t\tdata-original-title=\"Terminar Enrolamiento\" (click)=\"setPersonEnrolamiento(res)\"\n\t\t\t\t\t\t\t\t\t*ngIf=\"!res.enrolComplete\">\n\t\t\t\t\t\t\t\t<i class=\"glyphicon glyphicon-camera\"></i>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<button class=\"btn btn-sm btn-circle btn-info\"\n\t\t\t\t\t\t\t\t\tdata-toggle=\"tooltip\" data-placement=\"top\" title=\"\"\n\t\t\t\t\t\t\t\t\tdata-original-title=\"Imprimir Credencial\" (click)=\"setPersonEnrolamiento(res)\"\n\t\t\t\t\t\t\t\t\t*ngIf=\"res.enrolComplete\">\n\t\t\t\t\t\t\t\t<i class=\"glyphicon glyphicon-print\"></i>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td>{{res.nombre}} {{res.apellidoPaterno}} {{res.apellidoMaterno}}</td>\n\t\t\t\t\t\t<td>{{res.rfc}}</td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t<li *ngFor=\"let emp of res.empresa\">\n\t\t\t\t\t\t\t\t\t{{emp.idEmpresa.nombreEmpresa}} - {{emp.fechaContrato}}\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr></tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t\t<pagination-template #p=\"paginationApi\" [id]=\"config.id\" (pageChange)=\"onPageChange($event)\">\n\n\t\t\t\t\t<div class=\"eventualPag-pagination\">\n\t\t\t\t\t\t<ul class=\"pagination pagination-sm\">\n\t\t\t\t\t\t\t<li><a [class.disabled]=\"p.isFirstPage()\" *ngIf=\"!p.isFirstPage()\" (click)=\"p.previous()\"> &laquo; </a></li>\n\t\t\t\t\t\t\t<li  *ngFor=\"let page of p.pages\" [class.active]=\"p.getCurrent() === page.value\"   >\n\t\t\t\t\t\t\t\t<a (click)=\"p.setCurrent(page.value);\">{{page.label}}</a>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t<li><a [class.disabled]=\"p.isLastPage()\" *ngIf=\"!p.isLastPage()\" (click)=\"p.next()\">&raquo;</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\n\t\t\t\t</pagination-template>\n\t\t\t</div>\n\n\t\t\t<div class=\"modal-footer\">\n\t\t\t\t<button class=\"btn  btn-info\" data-dismiss=\"modal\" aria-hidden=\"true\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-stop\"></i>&nbsp;Cerrar\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n"
 
 /***/ }),
 
@@ -33,6 +33,7 @@ module.exports = "<div class=\"modal\" id=\"modalEnrolResult\">\n\t<div class=\"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_presto_service__ = __webpack_require__("../../../../../src/app/common/presto.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_global__ = __webpack_require__("../../../../../src/app/common/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,26 +46,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var BusquedaRapidaComponent = (function () {
     function BusquedaRapidaComponent(prestoService, _router) {
         this.prestoService = prestoService;
         this._router = _router;
+        this.config = {
+            id: 'custom',
+            itemsPerPage: __WEBPACK_IMPORTED_MODULE_3__common_global__["a" /* GLOBAL */].DEFAULTPERPAGE,
+            currentPage: 1,
+            totalItems: 1
+        };
     }
     BusquedaRapidaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.prestoService.enrolamientoBusquedaRapida.subscribe(function (res) {
-            _this.results = res;
+            var tmpRes = res;
+            if (!tmpRes.docs) {
+                return;
+            }
+            _this.results = tmpRes.docs;
+            _this.config.currentPage = tmpRes.page;
+            _this.config.totalItems = tmpRes.total;
             if (_this.results.length) {
                 setTimeout(function (_) {
-                    $('#modalEnrolResult').modal('show');
+                    $('#modalEnrolResult').modal({ keyboard: true });
                     $('#modalEnrolResult [data-toggle="tooltip"]').tooltip();
                 }, 100);
             }
         }, function (error) { return console.log(error); });
     };
-    BusquedaRapidaComponent.prototype.setPersonEnrolamiento = function (personId) {
-        console.log(personId);
-        this.prestoService.setPersonEnrolamiento(personId);
+    BusquedaRapidaComponent.prototype.setPersonEnrolamiento = function (personAEnrolar) {
+        this.prestoService.setPersonEnrolamiento(personAEnrolar);
         if (this._router.url !== '/enrolamiento') {
             this._router.navigate(['/enrolamiento']).then();
         }
@@ -77,6 +90,10 @@ var BusquedaRapidaComponent = (function () {
         }
         $('#modalEnrolResult').modal('hide');
     };
+    BusquedaRapidaComponent.prototype.onPageChange = function (number) {
+        this.config.currentPage = number;
+        this.prestoService.getNextPageByName(1);
+    };
     return BusquedaRapidaComponent;
 }());
 BusquedaRapidaComponent = __decorate([
@@ -85,7 +102,7 @@ BusquedaRapidaComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], BusquedaRapidaComponent);
 
 var _a, _b;
@@ -114,7 +131,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layout/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navBarAddon navbar-fixed-top\">\n\t<div class=\"container-fluid\">\n\t\t<div class=\"navbar-header\">\n\t\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n\t\t\t\t\tdata-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t</button>\n\t\t\t<a class=\"navbar-brand sidenavBtn\" data-toggle=\"dropdown\" aria-expanded=\"false\" (click)=\"openNav()\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"glyphicon glyphicon-th-list\"></span>\n\t\t\t</a>\n\t\t\t<a class=\"navbar-brand navbar-brandC\" [routerLink]=\"['/']\" (click)=\"closeNav()\">NAICM</a>\n\t\t</div>\n\n\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\" aria-expanded=\"true\" style=\"\">\n\t\t\t<ul class=\"nav navbar-nav\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown dropdownBtn\">\n\t\t\t\t\t<a class=\"dropdown-toggle dropdownBtn\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"false\">Men&uacute;<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\" >B&uacute;squeda</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\" >Imprimir</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/eventuales']\" (click)=\"closeNav()\" >Eventuales</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\" >Carga Masiva</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<form class=\"navbar-form navbar-left col-lg-5\" role=\"search\" onsubmit=\"return false;\" *ngIf=\"identity\">\n\t\t\t\t<div class=\"form-control-header\">\n\t\t\t\t\t<input #inputBuscar (keyup)=\"keyPressBuscar($event,inputBuscar)\" type=\"text\"\n\t\t\t\t\t\t   placeholder=\"Buscar (Nombre, Apellido)\" value=\"\">\n\t\t\t\t</div>\n\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"buscarPorNombre(inputBuscar.value)\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-search\"></i>\n\t\t\t\t</button>\n\t\t\t</form>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"!identity\">\n\t\t\t\t<li>\n\t\t\t\t\t<a style=\"display: inline-block\" [routerLink] = \"['/login']\" >\n\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-in\">&nbsp;</span>\n\t\t\t\t\t\tLogin\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\"  *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown\">\n\t\t\t\t\t<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"true\">{{identity.user.name}}<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a (click)=\"logout()\">\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-out\">&nbsp;</span>\n\t\t\t\t\t\t\tLogout</a>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</nav>\n\n<ol id=\"appBread\"  class=\"breadcrumb navbar-fixed-top\">\n\t<ng-container #appBread></ng-container>\n\n\t<ng-template #breadTpl let-options>\n\t\t<li class=\"{{options.class}}\">\n\t\t\t<a *ngIf=\"options.class === '' \" [routerLink]=\"[options.routerLink]\" (click)=\"closeNav()\">{{options.txt}}</a>\n\t\t\t<span *ngIf=\"options.class !==''\" >{{options.txt}}</span>\n\t\t</li>\n\t</ng-template>\n</ol>\n\n\n<div id=\"mySidenav\" class=\"sidenav\">\n\t<a (click)=\"closeNav()\" class=\"closebtn\">&times;</a>\n\t<a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">B&uacute;squeda</a>\n\t<a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir Acceso</a>\n\t<a [routerLink]=\"['/eventuales']\" (click)=\"closeNav()\">Eventuales</a>\n\t<a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a>\n</div>\n\n\n"
+module.exports = "<nav class=\"navbar navbar-default navBarAddon navbar-fixed-top\">\n\t<div class=\"container-fluid\">\n\t\t<div class=\"navbar-header\">\n\t\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n\t\t\t\t\tdata-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t</button>\n\t\t\t<a class=\"navbar-brand sidenavBtn\" data-toggle=\"dropdown\" aria-expanded=\"false\" (click)=\"openNav()\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"glyphicon glyphicon-th-list\"></span>\n\t\t\t</a>\n\t\t\t<a class=\"navbar-brand navbar-brandC\" [routerLink]=\"['/']\" (click)=\"closeNav()\">NAICM</a>\n\t\t</div>\n\n\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\" aria-expanded=\"true\" style=\"\">\n\t\t\t<ul class=\"nav navbar-nav\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown dropdownBtn\">\n\t\t\t\t\t<a class=\"dropdown-toggle dropdownBtn\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"false\">Men&uacute;<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">B&uacute;squeda</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/eventuales']\" (click)=\"closeNav()\">Eventuales</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<form class=\"navbar-form navbar-left col-lg-5\" role=\"search\" onsubmit=\"return false;\" *ngIf=\"identity\">\n\t\t\t\t<div class=\"form-control-header\">\n\t\t\t\t\t<input #inputBuscar (keyup)=\"keyPressBuscar($event,inputBuscar)\" type=\"text\"\n\t\t\t\t\t\t   placeholder=\"Buscar (Nombre, Apellido)\" [(ngModel)]=\"nombreSearch\" name=\"nombreSearch\">\n\t\t\t\t</div>\n\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"buscarPorNombre(inputBuscar.value)\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-search\"></i>\n\t\t\t\t</button>\n\t\t\t</form>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"!identity\">\n\t\t\t\t<li>\n\t\t\t\t\t<a style=\"display: inline-block\" [routerLink]=\"['/login']\">\n\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-in\">&nbsp;</span>\n\t\t\t\t\t\tLogin\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown\">\n\t\t\t\t\t<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"true\">{{identity.user.name}}<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a (click)=\"logout()\">\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-out\">&nbsp;</span>\n\t\t\t\t\t\t\tLogout</a>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</nav>\n\n<ol id=\"appBread\" class=\"breadcrumb navbar-fixed-top\">\n\t<ng-container #appBread></ng-container>\n\n\t<ng-template #breadTpl let-options>\n\t\t<li class=\"{{options.class}}\">\n\t\t\t<a *ngIf=\"options.class === '' \" [routerLink]=\"[options.routerLink]\" (click)=\"closeNav()\">{{options.txt}}</a>\n\t\t\t<span *ngIf=\"options.class !==''\">{{options.txt}}</span>\n\t\t</li>\n\t</ng-template>\n</ol>\n\n\n<div id=\"mySidenav\" class=\"sidenav\">\n\t<a (click)=\"closeNav()\" class=\"closebtn\">&times;</a>\n\t<a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">Enrolar Persona</a>\n\t<!--<a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir Acceso</a>-->\n\t<a [routerLink]=\"['/eventual']\" (click)=\"closeNav()\">Eventuales</a>\n\t<a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -146,10 +163,14 @@ var HeaderComponent = (function () {
         this._authService = _authService;
         this._router = _router;
         this.identity = null;
+        this.nombreSearch = '';
         this.identity = this._authService.getIdentity();
     }
     HeaderComponent.prototype.ngDoCheck = function () {
         this.identity = this._authService.getIdentity();
+        if (this.identity == null && this._router.url !== '/login') {
+            this._router.navigate(['/login']).then();
+        }
     };
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -161,22 +182,22 @@ var HeaderComponent = (function () {
         this.unsubscriber.unsubscribe();
     };
     HeaderComponent.prototype.openNav = function () {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("mainDiv").style.marginLeft = "270px";
-        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        document.getElementById('mySidenav').style.width = '250px';
+        document.getElementById('mainDiv').style.marginLeft = '270px';
+        document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
     };
     /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
     HeaderComponent.prototype.closeNav = function () {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("mainDiv").style.marginLeft = "0";
-        document.body.style.backgroundColor = "white";
+        document.getElementById('mySidenav').style.width = '0';
+        document.getElementById('mainDiv').style.marginLeft = '0';
+        document.body.style.backgroundColor = 'white';
     };
     HeaderComponent.prototype.updateBread = function (params) {
         var _this = this;
         var breadInit = [{
-                routerLink: "/",
-                txt: "NAICM",
-                class: ""
+                routerLink: '/',
+                txt: 'NAICM',
+                class: ''
             }].concat(params);
         this.appBread.clear();
         breadInit.map(function (el) {
@@ -197,13 +218,12 @@ var HeaderComponent = (function () {
             eve[_i] = arguments[_i];
         }
         if (eve[0].keyCode === 13) {
-            this.buscarPorNombre(eve[1].value);
+            this.buscarPorNombre();
         }
         return true;
     };
-    HeaderComponent.prototype.buscarPorNombre = function (value) {
-        this._prestoService.getEnrolamientoByName(value.split(",")
-            .map(function (val) { return val.trim(); }));
+    HeaderComponent.prototype.buscarPorNombre = function () {
+        this._prestoService.getEnrolamientoByName(this.nombreSearch.split(',').map(function (val) { return val.trim(); }), 1);
     };
     return HeaderComponent;
 }());
@@ -222,7 +242,7 @@ HeaderComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/layout/header/header.component.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _e || Object])
 ], HeaderComponent);
 
 var _a, _b, _c, _d, _e;
@@ -257,8 +277,11 @@ var routes = [
         children: [
             { path: '', loadChildren: './blank-page/blank-page.module#BlankPageModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
             { path: 'enrolamiento', loadChildren: './enrolamiento/enrolamiento.module#EnrolamientoModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
+            { path: 'eventual', loadChildren: './eventual/eventual.module#EventualModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
+            { path: 'listadoEventuales', loadChildren: './listado-eventuales/listado-eventuales.module#ListadoEventualesModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
             { path: 'imprimir', loadChildren: './impresion/impresion.module#ImpresionModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
-            { path: 'busqueda', loadChildren: './busqueda/busqueda.module#BusquedaModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
+            { path: 'cargamasiva', loadChildren: './cargamasiva/cargamasiva.module#CargamasivaModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
+            { path: 'busqueda/:searchType', loadChildren: './busqueda/busqueda.module#BusquedaModule', canActivate: [__WEBPACK_IMPORTED_MODULE_4__auth_auth_guard__["a" /* AuthGuard */]] },
             { path: 'login', loadChildren: './login/login.module#LoginModule' },
             { path: '**', component: __WEBPACK_IMPORTED_MODULE_3__not_found_not_found_component__["a" /* NotFoundComponent */] }
         ]
@@ -271,9 +294,9 @@ var LayoutRoutingModule = (function () {
 }());
 LayoutRoutingModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forChild(routes)],
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         declarations: [__WEBPACK_IMPORTED_MODULE_3__not_found_not_found_component__["a" /* NotFoundComponent */]],
-        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]]
+        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
 ], LayoutRoutingModule);
 
@@ -302,7 +325,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layout/layout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"mainDiv\">\n\t<app-header></app-header>\n\t<app-busqueda-rapida></app-busqueda-rapida>\n\t<div class=\"main-container\" id=\"mainContainer\">\n\t\t<router-outlet></router-outlet>\n\t</div>\n</div>\n\n\n"
+module.exports = "<div id=\"mainDiv\">\n\t<app-header></app-header>\n\t<app-busqueda-rapida></app-busqueda-rapida>\n\t<app-modal-msg></app-modal-msg>\n\t<div class=\"main-container\" id=\"mainContainer\">\n\t\t<router-outlet></router-outlet>\n\t</div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -356,12 +379,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__header_header_component__ = __webpack_require__("../../../../../src/app/layout/header/header.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_presto_service__ = __webpack_require__("../../../../../src/app/common/presto.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__busqueda_rapida_busqueda_rapida_component__ = __webpack_require__("../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ngx_pagination__ = __webpack_require__("../../../../ngx-pagination/dist/ngx-pagination.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shared_modules_shared_modules_module__ = __webpack_require__("../../../../../src/app/layout/shared-modules/shared-modules.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modal_msg_modal_msg_component__ = __webpack_require__("../../../../../src/app/layout/modal-msg/modal-msg.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__common_msg_service__ = __webpack_require__("../../../../../src/app/common/msg.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
+
 
 
 
@@ -378,20 +411,108 @@ LayoutModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
         imports: [
             __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
-            __WEBPACK_IMPORTED_MODULE_3__layout_routing_module__["a" /* LayoutRoutingModule */]
+            __WEBPACK_IMPORTED_MODULE_3__layout_routing_module__["a" /* LayoutRoutingModule */],
+            __WEBPACK_IMPORTED_MODULE_7_ngx_pagination__["a" /* NgxPaginationModule */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_forms__["c" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_9__shared_modules_shared_modules_module__["a" /* SharedModulesModule */]
         ],
         declarations: [
             __WEBPACK_IMPORTED_MODULE_2__layout_component__["a" /* LayoutComponent */],
             __WEBPACK_IMPORTED_MODULE_4__header_header_component__["a" /* HeaderComponent */],
-            __WEBPACK_IMPORTED_MODULE_6__busqueda_rapida_busqueda_rapida_component__["a" /* BusquedaRapidaComponent */]
+            __WEBPACK_IMPORTED_MODULE_6__busqueda_rapida_busqueda_rapida_component__["a" /* BusquedaRapidaComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__modal_msg_modal_msg_component__["a" /* ModalMsgComponent */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_5__common_presto_service__["a" /* PrestoService */]
+            __WEBPACK_IMPORTED_MODULE_5__common_presto_service__["a" /* PrestoService */], __WEBPACK_IMPORTED_MODULE_11__common_msg_service__["a" /* MsgService */]
         ]
     })
 ], LayoutModule);
 
 //# sourceMappingURL=layout.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/layout/modal-msg/modal-msg.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "#modalMsg .modal-dialog{\n\twidth:auto;\n}\n\n@media screen and (min-width:768px) {\n\t#modalMsg .modal-dialog{\n\t\twidth:500px;\n\t}\n}\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/layout/modal-msg/modal-msg.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal\" id=\"modalMsg\" tabindex='-1'>\n\n\t<div class=\"modal-dialog\">\n\t\t<div class=\"modal-content panel-info\">\n\t\t\t<div class=\"modal-header panel-heading\">\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n\t\t\t\t<h4 class=\"modal-title\"><i class=\"glyphicon glyphicon-info-sign\"></i>&nbsp;&nbsp;&nbsp;NAICM</h4>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\n\t\t\t\t<blockquote *ngIf=\"!!message.message\">\n\t\t\t\t\t<p>{{ message.message}}</p>\n\t\t\t\t</blockquote>\n\n\t\t\t</div>\n\t\t\t<div class=\"modal-footer\">\n\t\t\t\t<button class=\"btn  btn-info\" data-dismiss=\"modal\" aria-hidden=\"true\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-stop\"></i>&nbsp;Cerrar\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/layout/modal-msg/modal-msg.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalMsgComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_msg_service__ = __webpack_require__("../../../../../src/app/common/msg.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_takeLast__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/takeLast.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_take__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/take.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ModalMsgComponent = (function () {
+    function ModalMsgComponent(_msgService) {
+        this._msgService = _msgService;
+        this.message = { message: '' };
+    }
+    ModalMsgComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._msgService.msg$.map(function (x) { return _this.isMsg(x) ? x : false; }).subscribe(function (msg) {
+            if (!!msg) {
+                _this.message = msg;
+                setTimeout(function (_) {
+                    $('#modalMsg').modal({ keyboard: true });
+                }, 100);
+            }
+        }, function (err) { return console.log; });
+    };
+    ModalMsgComponent.prototype.isMsg = function (value) {
+        return value && (typeof value.message === "string");
+    };
+    return ModalMsgComponent;
+}());
+ModalMsgComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-modal-msg',
+        template: __webpack_require__("../../../../../src/app/layout/modal-msg/modal-msg.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/layout/modal-msg/modal-msg.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_msg_service__["a" /* MsgService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_msg_service__["a" /* MsgService */]) === "function" && _a || Object])
+], ModalMsgComponent);
+
+var _a;
+//# sourceMappingURL=modal-msg.component.js.map
 
 /***/ }),
 
@@ -438,7 +559,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var NotFoundComponent = (function () {
     function NotFoundComponent() {
-        console.log("notFound===>");
+        console.log('notFound===>');
     }
     NotFoundComponent.prototype.ngOnInit = function () {
     };
@@ -454,6 +575,73 @@ NotFoundComponent = __decorate([
 ], NotFoundComponent);
 
 //# sourceMappingURL=not-found.component.js.map
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/add/operator/takeLast.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__operator_takeLast__ = __webpack_require__("../../../../rxjs/_esm5/operator/takeLast.js");
+/** PURE_IMPORTS_START .._.._Observable,.._.._operator_takeLast PURE_IMPORTS_END */
+
+
+__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].prototype.takeLast = __WEBPACK_IMPORTED_MODULE_1__operator_takeLast__["a" /* takeLast */];
+//# sourceMappingURL=takeLast.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/operator/takeLast.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = takeLast;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__operators_takeLast__ = __webpack_require__("../../../../rxjs/_esm5/operators/takeLast.js");
+/** PURE_IMPORTS_START .._operators_takeLast PURE_IMPORTS_END */
+
+/**
+ * Emits only the last `count` values emitted by the source Observable.
+ *
+ * <span class="informal">Remembers the latest `count` values, then emits those
+ * only when the source completes.</span>
+ *
+ * <img src="./img/takeLast.png" width="100%">
+ *
+ * `takeLast` returns an Observable that emits at most the last `count` values
+ * emitted by the source Observable. If the source emits fewer than `count`
+ * values then all of its values are emitted. This operator must wait until the
+ * `complete` notification emission from the source in order to emit the `next`
+ * values on the output Observable, because otherwise it is impossible to know
+ * whether or not more values will be emitted on the source. For this reason,
+ * all values are emitted synchronously, followed by the complete notification.
+ *
+ * @example <caption>Take the last 3 values of an Observable with many values</caption>
+ * var many = Rx.Observable.range(1, 100);
+ * var lastThree = many.takeLast(3);
+ * lastThree.subscribe(x => console.log(x));
+ *
+ * @see {@link take}
+ * @see {@link takeUntil}
+ * @see {@link takeWhile}
+ * @see {@link skip}
+ *
+ * @throws {ArgumentOutOfRangeError} When using `takeLast(i)`, it delivers an
+ * ArgumentOutOrRangeError to the Observer's `error` callback if `i < 0`.
+ *
+ * @param {number} count The maximum number of values to emit from the end of
+ * the sequence of values emitted by the source Observable.
+ * @return {Observable<T>} An Observable that emits at most the last count
+ * values emitted by the source Observable.
+ * @method takeLast
+ * @owner Observable
+ */
+function takeLast(count) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__operators_takeLast__["a" /* takeLast */])(count)(this);
+}
+//# sourceMappingURL=takeLast.js.map 
+
 
 /***/ })
 

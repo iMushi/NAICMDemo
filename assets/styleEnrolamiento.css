@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
+* {
+	-webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+	color-adjust: exact !important; /*Firefox*/
+}
+
+body {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.42857143;
+	color: #2c3e50;
+}
+
+table {
+	background-color: transparent;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+h2, .h2 {
+	font-size: 32px;
+}
+
+h3, .h3 {
+	font-size: 26px;
+}
+
+h4, .h4 {
+	font-size: 19px;
+}
+
+h4, .h4, h5, .h5, h6, .h6 {
+	margin-top: 10.5px;
+	margin-bottom: 10.5px;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+	margin-top: 21px;
+	margin-bottom: 10.5px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	line-height: 1.1;
+	color: inherit;
+}
+
+
+.containerCred {
+	background-color: white;
+	border-radius: 20px;
+	box-shadow: 10px 10px 10px;
+	width: 300px;
+	height: 450px;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	border: 2px solid #ccc;
+	background: url('../../../assets/vectorbck.jpg');
+	background-size: 100% 200%;
+	background-position: center;
+	background-repeat: no-repeat
+}
+
+.header {
+	height: 20px;
+	width: 300px;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+}
+
+.mainbody {
+	top: 27px;
+	width: 300px;
+}
+
+.mainbody > img {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	height: 150px;
+	display: block;
+	vertical-align: middle;
+	background-size: 200% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.dataBody {
+
+	top: 177px;
+	height: 80px;
+	width: 300px;
+}
+
+.dataBody > table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 270px;
+	text-align: center;
+}
+
+.dataBody > table > tbody > tr > td {
+	padding: 5px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.containerCred > h1, h2, h3, h4, h5, hr {
+	margin: 0px;
+}
+
+.trSeparador {
+	height:5px;;
+}
+
+.trSeparador > td {
+	padding-right: 30px !important;
+	padding-left: 30px !important;
+}
+
+.trSeparador > td > hr {
+	margin: 0px !important;
+	border-top: 2px solid black;
+}
+
+.footer {
+	bottom: 0;
+	position: relative;
+}
