@@ -305,7 +305,7 @@
 									</h3>
 								</div>
 								<div class="panel-body panel-collapse collapse" id="collapseImagenes">
-									<div class="col-lg-3" *ngFor="let imagen of imagenes;">
+									<div class="col-lg-3" *ngFor="let imagen of imagenes">
 										<div class="thumbnail">
 											<img src="{{imagen}}" class="producto-imagen">
 										</div>
@@ -320,7 +320,7 @@
 			</div>
 		</form>
 
-		<form #formBiometrico class="form-horizontal" [formGroup]="biometricoForm" action="">
+		<form #formBiometrico class="form-horizontal" [formGroup]="biometricoForm">
 
 			<div class="panel panel-primary panelC panel-primaryC">
 				<div class="panel-heading">

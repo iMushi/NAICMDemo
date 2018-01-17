@@ -11,6 +11,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/timeInterval';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 declare const $;
 
@@ -27,6 +28,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	@ViewChild('hardwareVideo') hardwareVideo: any;
 	@ViewChild('photoCanvas') photoCanvas: any;
+
 
 	public isStreaming: boolean;
 	public currImgPhoto: string = GLOBAL.MPHOTOURL;
@@ -48,8 +50,9 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	public filesToUpload: Array<File> = [];
 
 	/***********/
-
-
+	public enrolFrom: FormGroup;
+	public biometricoForm: FormGroup;
+	@ViewChild('currImgPhoto') imgEle: ElementRef;
 	private biometricoTest = [
 		'asdfSDFAJGdadXasdfXXvvasDFAWERFDSA',
 		'ASDFLaSLDflaSDLFasodogwertQEqrLD66',
@@ -57,13 +60,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		'aafoiqiowncnqwiehudfñakdfjñlsahdfw',
 		'208293084jwadsdkjlfhRQrwqEFasdf234'
 	];
-
-
-	public enrolFrom: FormGroup;
-	public biometricoForm: FormGroup;
-
-	@ViewChild('currImgPhoto') imgEle: ElementRef;
-
 
 	constructor(private webRTC: WebRTCService,
 				private _prestoService: PrestoService,
@@ -101,7 +97,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 			direccion: new FormControl(''),
 			enrolActive: new FormControl(''),
 			rutaImagenes: new FormControl(''),
-			biometricoFinal : new FormControl(''),
+			biometricoFinal: new FormControl(''),
 			__v: new FormControl(''),
 			_id: new FormControl('', Validators.required)
 		});
@@ -143,8 +139,6 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		this.subscriber = this._prestoService.personEnrolar.subscribe(
 			res => {
 
-				console.log('=====>' , res);
-
 				// borramos Controles que previamente se crean en runtime
 				this.personEnrolar.empresa.forEach((value, index) => {
 					this.enrolFrom.removeControl(`ocupacionEmpresa_${index}`);
@@ -179,7 +173,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 				if (this.savedInfo) {
 					this.enrolFrom.disable();
-				}else {
+					this.biometricoForm = new FormGroup({});
+				} else {
 					this.biometricoForm = new FormGroup({
 						biometricoUno: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
 						biometricoDos: new FormControl('', Validators.compose([Validators.required, this.control.bind(this)])),
@@ -210,7 +205,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		);
 
 	}
-	control (control: AbstractControl): {[key: string]: boolean } {
+
+	control(control: AbstractControl): { [key: string]: boolean } {
 		if (!control.parent) {
 			return null;
 		}
@@ -248,7 +244,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 		for (const obj in bioMap) {
 			if (bioMap.hasOwnProperty(obj)) {
 				if (bioMap[obj].count <= 2) {
-					hasError = { capturaIncorrecta : true };
+					hasError = {capturaIncorrecta: true};
 				}
 				if (!!obj && bioMap[obj].count > 2) {
 					hasSuccess = true;
@@ -262,7 +258,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		const totalCaptures: number = Object.values(bioMap).reduce(
 			(prev: number, curr: any) => prev + curr.count
-		, 0 );
+			, 0);
 
 		return totalCaptures === 5 && !hasSuccess ? hasError : null;
 	}
@@ -392,9 +388,12 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	captureBiometrico() {
 		this.bioMap = {};
+		this.bioError = {};
 		let count = 0;
 		const biometricoArr = ['biometricoUno', 'biometricoDos', 'biometricoTres', 'biometricoCuatro', 'biometricoCinco'];
+
 		this.biometricoForm.reset();
+
 
 		Observable.interval(750)
 			.timeInterval()
@@ -403,8 +402,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 				timeInterval => {
 					this.biometricoForm.get(`${biometricoArr[count++]}`).setValue(
 						this.biometricoTest[
-							Math.floor(Math.random() * 4) + 1
-						]
+						Math.floor(Math.random() * 4) + 1
+							]
 					);
 				}
 			);
