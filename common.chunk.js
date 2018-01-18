@@ -384,7 +384,7 @@ var CredencialComponent = (function () {
     CredencialComponent.prototype.ngOnInit = function () {
         this.imageUrl = __WEBPACK_IMPORTED_MODULE_2__common_global__["a" /* GLOBAL */].RESTAPINJS + 'getImageEnrol/' + this.personEnrol.imgName;
         if (!this.personEnrol.imgName) {
-            this.imageUrl = 'assets/s.gif';
+            this.imageUrl = __WEBPACK_IMPORTED_MODULE_2__common_global__["a" /* GLOBAL */].BASEURL + "assets/s.gif";
         }
     };
     return CredencialComponent;
