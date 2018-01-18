@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {PrestoService} from "../../common/presto.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {PaginationInstance} from "ngx-pagination";
-import {GLOBAL} from "../../common/global";
-import {AuthService} from "../../common/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { PrestoService } from '../../common/presto.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { PaginationInstance } from 'ngx-pagination';
+import { GLOBAL } from '../../common/global';
+import { AuthService } from '../../common/auth.service';
 
 @Component({
 	selector: 'app-listado-eventuales',
@@ -33,7 +33,7 @@ export class ListadoEventualesComponent implements OnInit {
 
 	}
 
-	getEventuales (pageNumber : number){
+	getEventuales(pageNumber: number) {
 
 		this._prestoService.getEventual(pageNumber).subscribe(
 			(resp: any) => {
@@ -50,11 +50,11 @@ export class ListadoEventualesComponent implements OnInit {
 						empresa: x.idEmpresa.nombreEmpresa,
 						imageBase64: GLOBAL.RESTAPINJS + 'getImageEnrol/' + x.imageBase64,
 						fechaAcceso: x.fechaAcceso
-					}
+					};
 				});
 
 			}, (err: HttpErrorResponse) => {
-				if (err.status == 403) {
+				if (err.status === 403) {
 					this._authService.logout().subscribe();
 				}
 			}
