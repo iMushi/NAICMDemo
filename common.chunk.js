@@ -179,6 +179,7 @@ var PrestoService = (function () {
         return this.http.post(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'saveEventual', params, { withCredentials: true });
     };
     PrestoService.prototype.makeFileRequest = function (url, params, files, name) {
+        var inn = this.uploadProgress;
         return new Promise(function (resolve, reject) {
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
@@ -205,7 +206,7 @@ var PrestoService = (function () {
                 var percentComplete = Math.ceil((e.loaded / e.total) * 100);
                 console.log('====>', percentComplete);
                 this.uploadProgress.next(percentComplete);
-            }.bind(this);
+            }.bind(inn);
             xhr.open('POST', url, true);
             xhr.withCredentials = true;
             xhr.send(formData);
