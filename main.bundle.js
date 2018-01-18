@@ -153,7 +153,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'app';
-        console.log("using====>" + __WEBPACK_IMPORTED_MODULE_1__common_global__["a" /* GLOBAL */].RESTAPINJS);
+        console.log('using====>', __WEBPACK_IMPORTED_MODULE_1__common_global__["a" /* GLOBAL */]);
     }
     return AppComponent;
 }());
