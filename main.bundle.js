@@ -365,6 +365,7 @@ var GLOBAL = {
     // RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
     RESTAPINJS: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].restUrl,
     BASEURL: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].base || '',
+    noRegMsg: { message: 'No se encontraron Registros' },
     checkToArray: function (obj) {
         if (!Object(__WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__["a" /* isArray */])(obj)) {
             if (obj) {

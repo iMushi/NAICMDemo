@@ -87,6 +87,9 @@ var PrestoService = (function () {
         this.breadcrumbBS = new __WEBPACK_IMPORTED_MODULE_3_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
         this.breadEmitted$ = this.breadcrumbBS.asObservable();
     }
+    PrestoService.prototype.resetInfo = function () {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'resetInfo', {}, { withCredentials: true });
+    };
     PrestoService.prototype.getEnrolamientoByName = function (param, pageNumber) {
         var _this = this;
         this._prestoSearchBy = param;
@@ -99,6 +102,9 @@ var PrestoService = (function () {
         this.pageFunction = 'getEnrolamientoByName';
         this.http.get(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'searchEnrol', { params: params, withCredentials: true }).subscribe(function (res) {
             _this.enrolamientoResultsNombre.next(res);
+            if (!res.docs.length) {
+                _this._msgService.setMsg(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].noRegMsg);
+            }
         }, function (err) {
             if (err.status === 403) {
                 _this._authService.logout().subscribe();
@@ -119,6 +125,9 @@ var PrestoService = (function () {
         params = params.append('maxPerPage', __WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].DEFAULTPERPAGE.toString());
         this.http.get(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'searchEnrol', { params: params, withCredentials: true }).subscribe(function (res) {
             _this.enrolamientoResultsNombre.next(res);
+            if (!res.docs.length) {
+                _this._msgService.setMsg(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].noRegMsg);
+            }
         }, function (err) {
             if (err.status === 403) {
                 _this._authService.logout().subscribe();

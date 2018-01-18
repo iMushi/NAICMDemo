@@ -131,7 +131,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layout/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navBarAddon navbar-fixed-top\">\n\t<div class=\"container-fluid\">\n\t\t<div class=\"navbar-header\">\n\t\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n\t\t\t\t\tdata-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t</button>\n\t\t\t<a class=\"navbar-brand sidenavBtn\" data-toggle=\"dropdown\" aria-expanded=\"false\" (click)=\"openNav()\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"glyphicon glyphicon-th-list\"></span>\n\t\t\t</a>\n\t\t\t<a class=\"navbar-brand navbar-brandC\" [routerLink]=\"['/']\" (click)=\"closeNav()\">NAICM</a>\n\t\t</div>\n\n\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\" aria-expanded=\"true\" style=\"\">\n\t\t\t<ul class=\"nav navbar-nav\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown dropdownBtn\">\n\t\t\t\t\t<a class=\"dropdown-toggle dropdownBtn\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"false\">Men&uacute;<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">B&uacute;squeda</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/eventuales']\" (click)=\"closeNav()\">Eventuales</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<form class=\"navbar-form navbar-left col-lg-5\" role=\"search\" onsubmit=\"return false;\" *ngIf=\"identity\">\n\t\t\t\t<div class=\"form-control-header\">\n\t\t\t\t\t<input #inputBuscar (keyup)=\"keyPressBuscar($event,inputBuscar)\" type=\"text\"\n\t\t\t\t\t\t   placeholder=\"Buscar (Nombre, Apellido)\" [(ngModel)]=\"nombreSearch\" name=\"nombreSearch\">\n\t\t\t\t</div>\n\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"buscarPorNombre(inputBuscar.value)\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-search\"></i>\n\t\t\t\t</button>\n\t\t\t</form>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"!identity\">\n\t\t\t\t<li>\n\t\t\t\t\t<a style=\"display: inline-block\" [routerLink]=\"['/login']\">\n\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-in\">&nbsp;</span>\n\t\t\t\t\t\tLogin\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown\">\n\t\t\t\t\t<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"true\">{{identity.user.name}}<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a (click)=\"logout()\">\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-out\">&nbsp;</span>\n\t\t\t\t\t\t\tLogout</a>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</nav>\n\n<ol id=\"appBread\" class=\"breadcrumb navbar-fixed-top\">\n\t<ng-container #appBread></ng-container>\n\n\t<ng-template #breadTpl let-options>\n\t\t<li class=\"{{options.class}}\">\n\t\t\t<a *ngIf=\"options.class === '' \" [routerLink]=\"[options.routerLink]\" (click)=\"closeNav()\">{{options.txt}}</a>\n\t\t\t<span *ngIf=\"options.class !==''\">{{options.txt}}</span>\n\t\t</li>\n\t</ng-template>\n</ol>\n\n\n<div id=\"mySidenav\" class=\"sidenav\">\n\t<a (click)=\"closeNav()\" class=\"closebtn\">&times;</a>\n\t<a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">Enrolar Persona</a>\n\t<!--<a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir Acceso</a>-->\n\t<a [routerLink]=\"['/eventual']\" (click)=\"closeNav()\">Eventuales</a>\n\t<a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a>\n</div>\n\n\n"
+module.exports = "<nav class=\"navbar navbar-default navBarAddon navbar-fixed-top\">\n\t<div class=\"container-fluid\">\n\t\t<div class=\"navbar-header\">\n\t\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n\t\t\t\t\tdata-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t</button>\n\t\t\t<a class=\"navbar-brand sidenavBtn\" data-toggle=\"dropdown\" aria-expanded=\"false\" (click)=\"openNav()\" *ngIf=\"identity\">\n\t\t\t\t<span class=\"glyphicon glyphicon-th-list\"></span>\n\t\t\t</a>\n\t\t\t<a class=\"navbar-brand navbar-brandC\" [routerLink]=\"['/']\" (click)=\"closeNav()\">NAICM</a>\n\t\t</div>\n\n\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\" aria-expanded=\"true\" style=\"\">\n\t\t\t<ul class=\"nav navbar-nav\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown dropdownBtn\">\n\t\t\t\t\t<a class=\"dropdown-toggle dropdownBtn\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"false\">Men&uacute;<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">B&uacute;squeda</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/eventuales']\" (click)=\"closeNav()\">Eventuales</a></li>\n\t\t\t\t\t\t<li class=\"divider\"></li>\n\t\t\t\t\t\t<li><a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<form class=\"navbar-form navbar-left col-lg-5\" role=\"search\" onsubmit=\"return false;\" *ngIf=\"identity\">\n\t\t\t\t<div class=\"form-control-header\">\n\t\t\t\t\t<input #inputBuscar (keyup)=\"keyPressBuscar($event,inputBuscar)\" type=\"text\"\n\t\t\t\t\t\t   placeholder=\"Buscar (Nombre, Apellido)\" [(ngModel)]=\"nombreSearch\" name=\"nombreSearch\">\n\t\t\t\t</div>\n\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"buscarPorNombre(inputBuscar.value)\">\n\t\t\t\t\t<i class=\"glyphicon glyphicon-search\"></i>\n\t\t\t\t</button>\n\t\t\t</form>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"!identity\">\n\t\t\t\t<li>\n\t\t\t\t\t<a style=\"display: inline-block\" [routerLink]=\"['/login']\">\n\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-in\">&nbsp;</span>\n\t\t\t\t\t\tLogin\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<ul class=\"nav navbar-nav navbar-right\" *ngIf=\"identity\">\n\t\t\t\t<li class=\"dropdown\">\n\t\t\t\t\t<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n\t\t\t\t\t   aria-expanded=\"true\">{{identity.user.name}}<span class=\"caret\"></span></a>\n\t\t\t\t\t<ul class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t<li><a (click)=\"resetInfo()\">\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove-sign\">&nbsp;</span>\n\t\t\t\t\t\t\tBorrar Informaci&oacute;n</a>\n\t\t\t\t\t\t<li><a (click)=\"logout()\">\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-log-out\">&nbsp;</span>\n\t\t\t\t\t\t\tLogout</a>\n\t\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</nav>\n\n<ol id=\"appBread\" class=\"breadcrumb navbar-fixed-top\">\n\t<ng-container #appBread></ng-container>\n\n\t<ng-template #breadTpl let-options>\n\t\t<li class=\"{{options.class}}\">\n\t\t\t<a *ngIf=\"options.class === '' \" [routerLink]=\"[options.routerLink]\" (click)=\"closeNav()\">{{options.txt}}</a>\n\t\t\t<span *ngIf=\"options.class !==''\">{{options.txt}}</span>\n\t\t</li>\n\t</ng-template>\n</ol>\n\n\n<div id=\"mySidenav\" class=\"sidenav\">\n\t<a (click)=\"closeNav()\" class=\"closebtn\">&times;</a>\n\t<a [routerLink]=\"['/busqueda']\" (click)=\"closeNav()\">Enrolar Persona</a>\n\t<!--<a [routerLink]=\"['/imprimir']\" (click)=\"closeNav()\">Imprimir Acceso</a>-->\n\t<a [routerLink]=\"['/eventual']\" (click)=\"closeNav()\">Eventuales</a>\n\t<a [routerLink]=\"['/cargamasiva']\" (click)=\"closeNav()\">Carga Masiva</a>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -144,6 +144,7 @@ module.exports = "<nav class=\"navbar navbar-default navBarAddon navbar-fixed-to
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_presto_service__ = __webpack_require__("../../../../../src/app/common/presto.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_auth_service__ = __webpack_require__("../../../../../src/app/common/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_msg_service__ = __webpack_require__("../../../../../src/app/common/msg.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -157,11 +158,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HeaderComponent = (function () {
-    function HeaderComponent(_prestoService, _authService, _router) {
+    function HeaderComponent(_prestoService, _authService, _router, _msgService) {
         this._prestoService = _prestoService;
         this._authService = _authService;
         this._router = _router;
+        this._msgService = _msgService;
         this.identity = null;
         this.nombreSearch = '';
         this.identity = this._authService.getIdentity();
@@ -191,6 +194,13 @@ var HeaderComponent = (function () {
         document.getElementById('mySidenav').style.width = '0';
         document.getElementById('mainDiv').style.marginLeft = '0';
         document.body.style.backgroundColor = 'white';
+    };
+    HeaderComponent.prototype.resetInfo = function () {
+        var _this = this;
+        this._prestoService.resetInfo().subscribe(function (response) {
+            _this._msgService.setMsg(response);
+            _this._router.navigate(['/']);
+        });
     };
     HeaderComponent.prototype.updateBread = function (params) {
         var _this = this;
@@ -242,10 +252,10 @@ HeaderComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/layout/header/header.component.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_presto_service__["a" /* PrestoService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_auth_service__["a" /* AuthService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__common_msg_service__["a" /* MsgService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__common_msg_service__["a" /* MsgService */]) === "function" && _f || Object])
 ], HeaderComponent);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=header.component.js.map
 
 /***/ }),
@@ -498,7 +508,7 @@ var ModalMsgComponent = (function () {
         }, function (err) { return console.log; });
     };
     ModalMsgComponent.prototype.isMsg = function (value) {
-        return value && (typeof value.message === "string");
+        return value && (typeof value.message === 'string');
     };
     return ModalMsgComponent;
 }());
