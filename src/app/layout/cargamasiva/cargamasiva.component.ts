@@ -16,7 +16,7 @@ import { Msg } from '../../models/interface';
 })
 export class CargamasivaComponent implements OnInit {
 
-
+	public uploadBusy: Promise<any>;
 	public cargasMasiva: Array<any>;
 	public cargaMForm: FormGroup;
 	public filesToUpload: Array<any>;
@@ -90,7 +90,7 @@ export class CargamasivaComponent implements OnInit {
 
 	guardar() {
 
-		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'cargaZip', [], this.filesToUpload, [
+		this.uploadBusy = this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'cargaZip', [], this.filesToUpload, [
 			'csvCargaZip', 'csvCargaMasiva'
 		]).then(
 			(resp: Msg) => {

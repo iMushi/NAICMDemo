@@ -1,8 +1,8 @@
 <section id="mainCargaMasiva">
 
-	<form #formCargaMasiva [formGroup]="cargaMForm" class="form-horizontal">
+	<form #formCargaMasiva [formGroup]="cargaMForm" class="form-horizontal" >
 
-		<div class="panel panel-primary panelC panel-primaryC">
+		<div class="panel panel-primary panelC panel-primaryC" [ngBusy]="uploadBusy" >
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;&nbsp;Carga Masiva</h3>
 			</div>

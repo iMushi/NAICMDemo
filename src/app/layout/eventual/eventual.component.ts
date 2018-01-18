@@ -20,6 +20,7 @@ declare const $;
 
 export class EventualComponent implements OnInit {
 
+	public uploadBusy: Promise<any>;
 	public completed = false;
 	public eventualForm: FormGroup;
 	public imageUrl: string;
@@ -105,7 +106,7 @@ export class EventualComponent implements OnInit {
 			motivoAcceso: this.eventualForm.controls.motivoAcceso.value.toUpperCase()
 		};
 
-		this._prestoService.saveEventual(eventual).toPromise().then(
+		this.uploadBusy = this._prestoService.saveEventual(eventual).toPromise().then(
 			resp => {
 				return this.uploadImageEventual(resp);
 			}

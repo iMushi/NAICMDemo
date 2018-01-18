@@ -5,6 +5,7 @@ import {EventualRouting} from "./eventual-routing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModulesModule} from "../shared-modules/shared-modules.module";
 import {NgxTypeaheadModule} from "ngx-typeahead";
+import { BusyModule } from 'angular2-busy';
 
 @NgModule({
 	imports: [
@@ -13,7 +14,8 @@ import {NgxTypeaheadModule} from "ngx-typeahead";
 		FormsModule,
 		ReactiveFormsModule,
 		SharedModulesModule,
-		NgxTypeaheadModule
+		NgxTypeaheadModule,
+		BusyModule
 	],
 	declarations: [EventualComponent]
 })
