@@ -188,7 +188,7 @@ export class PrestoService {
 				const percentComplete = Math.ceil((e.loaded / e.total) * 100);
 				console.log('====>', percentComplete);
 
-				this.uploadProgress.next(percentComplete);
+				this.next(percentComplete);
 
 			}.bind(inn);
 
