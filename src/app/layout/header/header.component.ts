@@ -5,6 +5,7 @@ import { TBreaCrumb } from '../../models/interface';
 import { AuthService } from '../../common/auth.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MsgService } from '../../common/msg.service';
 
 @Component({
 	selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 	public identity = null;
 	public nombreSearch = '';
 
-	constructor(private _prestoService: PrestoService, private _authService: AuthService, private _router: Router) {
+	constructor(private _prestoService: PrestoService, private _authService: AuthService, private _router: Router,
+				private _msgService: MsgService) {
 		this.identity = this._authService.getIdentity();
 	}
 
@@ -61,6 +63,16 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 		document.getElementById('mySidenav').style.width = '0';
 		document.getElementById('mainDiv').style.marginLeft = '0';
 		document.body.style.backgroundColor = 'white';
+	}
+
+
+	resetInfo() {
+		this._prestoService.resetInfo().subscribe(
+			response => {
+				this._msgService.setMsg(response);
+				this._router.navigate(['/']);
+			}
+		);
 	}
 
 	updateBread(params: Array<TBreaCrumb>) {

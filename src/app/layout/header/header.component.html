@@ -52,6 +52,9 @@
 					<a class="dropdown-toggle" data-toggle="dropdown" role="button"
 					   aria-expanded="true">{{identity.user.name}}<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
+						<li><a (click)="resetInfo()">
+							<span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+							Borrar Informaci&oacute;n</a>
 						<li><a (click)="logout()">
 							<span class="glyphicon glyphicon-log-out">&nbsp;</span>
 							Logout</a>

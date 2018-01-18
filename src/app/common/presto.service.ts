@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { GLOBAL } from './global';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PersonaEnrolar } from '../models/PersonaEnrolar';
-import { IEmpresa, PaginatedIEmpresa, TBreaCrumb, TEventual } from '../models/interface';
+import { IEmpresa, Msg, PaginatedIEmpresa, TBreaCrumb, TEventual } from '../models/interface';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -32,6 +32,9 @@ export class PrestoService {
 	constructor(private http: HttpClient, private _authService: AuthService, private _router: Router, private _msgService: MsgService) {
 	}
 
+	resetInfo() {
+		return this.http.post<Msg>(GLOBAL.RESTAPINJS + 'resetInfo', {}, {withCredentials: true});
+	}
 
 	getEnrolamientoByName(param: string[], pageNumber: number): void {
 
@@ -48,9 +51,12 @@ export class PrestoService {
 
 		this.pageFunction = 'getEnrolamientoByName';
 
-		this.http.get(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
+		this.http.get<PaginatedIEmpresa>(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
 			res => {
 				this.enrolamientoResultsNombre.next(res);
+				if (!res.docs.length) {
+					this._msgService.setMsg(GLOBAL.noRegMsg);
+				}
 			}, (err: HttpErrorResponse) => {
 				if (err.status === 403) {
 					this._authService.logout().subscribe();
@@ -79,6 +85,9 @@ export class PrestoService {
 		this.http.get<PaginatedIEmpresa>(GLOBAL.RESTAPINJS + 'searchEnrol', {params: params, withCredentials: true}).subscribe(
 			res => {
 				this.enrolamientoResultsNombre.next(res);
+				if (!res.docs.length) {
+					this._msgService.setMsg(GLOBAL.noRegMsg);
+				}
 			}, (err: HttpErrorResponse) => {
 				if (err.status === 403) {
 					this._authService.logout().subscribe();
