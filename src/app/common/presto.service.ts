@@ -156,6 +156,8 @@ export class PrestoService {
 
 	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string | Array<string>): Promise<any> {
 
+		const inn = this.uploadProgress;
+
 		return new Promise(function (resolve, reject) {
 
 			const formData: any = new FormData();
@@ -188,7 +190,7 @@ export class PrestoService {
 
 				this.uploadProgress.next(percentComplete);
 
-			}.bind(this);
+			}.bind(inn);
 
 
 			xhr.open('POST', url, true);
