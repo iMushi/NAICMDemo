@@ -85,10 +85,10 @@ export class HeaderComponent implements OnInit, OnDestroy, DoCheck {
 	logout() {
 		this._authService.logout().subscribe(
 			logged => {
-				this._router.navigate(['/login']);
+				this._router.navigate(['/']);
 			},
 			(err: HttpErrorResponse) => {
-				this._router.navigate(['/login']);
+				this._router.navigate(['/']);
 			}
 		);
 	}
