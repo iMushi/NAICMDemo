@@ -411,7 +411,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 	imprimirCredencial() {
 		$('.divImpresion').printThis({
-			loadCSS: 'assets/styleEnrolamiento.css',
+			loadCSS: `${GLOBAL.BASEURL}assets/styleEnrolamiento.css`,
 			importStyle: false,
 			canvas: true
 		});

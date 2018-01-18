@@ -5,5 +5,6 @@
 
 export const environment = {
 	production: false,
-	restUrl : 'https://apivanti.biz:8443/api/'
+	restUrl : 'https://apivanti.biz:8443/api/',
+	base : 'NAICMDemo/'
 };

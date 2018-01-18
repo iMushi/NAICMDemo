@@ -138,7 +138,7 @@ export class EventualComponent implements OnInit {
 
 	imprimirAcceso() {
 		$('.divImpresion').printThis({
-			loadCSS: 'assets/styleEventual.css',
+			loadCSS: `${GLOBAL.BASEURL}assets/styleEventual.css`,
 			importStyle: false
 		});
 	}

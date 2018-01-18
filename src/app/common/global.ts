@@ -25,6 +25,8 @@ export const GLOBAL = {
 	// RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
 
 	RESTAPINJS: environment.restUrl,
+	BASEURL : environment.base || '',
+
 
 	checkToArray: (obj: any): Array<any> => {
 		if (!isArray(obj)) {
