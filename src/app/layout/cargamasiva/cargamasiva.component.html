@@ -3,7 +3,7 @@
 	<form #formCargaMasiva [formGroup]="cargaMForm" class="form-horizontal" >
 
 		<div class="panel panel-primary panelC panel-primaryC" [ngBusy]="{busy: uploadBusy,
-		 	message: 'Cargando...' }" >
+		 	message: ( progressCarga | async )   }" >
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;&nbsp;Carga Masiva</h3>
 			</div>
@@ -18,7 +18,7 @@
 						<div class="panel panel-primary panelC panel-primaryC">
 							<div class="panel-heading">
 								<h3 class="panel-title" data-toggle="collapse" data-parent="#acordionCargaMasiva" href="#collapseCargaMasiva">
-									<i class="glyphicon glyphicon-open-file"></i>&nbsp;&nbsp;&nbsp;Realizar Carga Masiva {{progressCarga | async }}<span class="caretC"></span></h3>
+									<i class="glyphicon glyphicon-open-file"></i>&nbsp;&nbsp;&nbsp;Realizar Carga Masiva<span class="caretC"></span></h3>
 							</div>
 							<div class="panel-body panel-collapse in" id="collapseCargaMasiva">
 
