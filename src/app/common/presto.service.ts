@@ -179,6 +179,15 @@ export class PrestoService {
 				}
 			};
 
+
+			xhr.upload.onprogress = function (e) {
+
+				const percentComplete = Math.ceil((e.loaded / e.total) * 100);
+				console.log('====>', percentComplete);
+
+			};
+
+
 			xhr.open('POST', url, true);
 			xhr.withCredentials = true;
 			xhr.send(formData);
