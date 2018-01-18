@@ -159,7 +159,7 @@ var EventualComponent = (function () {
             telefonoEmergencia: this.eventualForm.controls.telefonoEmergencia.value,
             fechaAcceso: new Date(),
             idEmpresa: this.idEmpresa,
-            imageBase64: this.eventualForm.controls.imageBase64.value,
+            imageBase64: '',
             motivoAcceso: this.eventualForm.controls.motivoAcceso.value.toUpperCase()
         };
         this.uploadBusy = this._prestoService.saveEventual(eventual).toPromise().then(function (resp) {

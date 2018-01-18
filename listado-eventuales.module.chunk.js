@@ -84,7 +84,7 @@ var ListadoEventualesComponent = (function () {
                 };
             });
         }, function (err) {
-            if (err.status == 403) {
+            if (err.status === 403) {
                 _this._authService.logout().subscribe();
             }
         });
