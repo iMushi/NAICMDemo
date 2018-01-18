@@ -205,7 +205,7 @@ var PrestoService = (function () {
             xhr.upload.onprogress = function (e) {
                 var percentComplete = Math.ceil((e.loaded / e.total) * 100);
                 console.log('====>', percentComplete);
-                this.next(percentComplete);
+                this.next('Cargando Archivo(s)... ' + percentComplete + '%');
             }.bind(inn);
             xhr.open('POST', url, true);
             xhr.withCredentials = true;
