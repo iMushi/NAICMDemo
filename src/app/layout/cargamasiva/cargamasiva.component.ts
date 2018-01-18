@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { GLOBAL } from '../../common/global';
 import { PrestoService } from '../../common/presto.service';
@@ -14,7 +14,10 @@ import { Msg } from '../../models/interface';
 	templateUrl: './cargamasiva.component.html',
 	styleUrls: ['./cargamasiva.component.css']
 })
-export class CargamasivaComponent implements OnInit {
+export class CargamasivaComponent implements OnInit, OnDestroy {
+	ngOnDestroy(): void {
+
+	}
 
 	public uploadBusy: Promise<any>;
 	public cargasMasiva: Array<any>;
@@ -24,6 +27,8 @@ export class CargamasivaComponent implements OnInit {
 		cargaZip: '',
 		cargaCSV: ''
 	};
+
+	public progressCarga = this._prestoService.uploadProgress;
 
 	subjectFile = new BehaviorSubject(true);
 	file$ = this.subjectFile.asObservable();
@@ -45,6 +50,7 @@ export class CargamasivaComponent implements OnInit {
 			csvFile: new FormControl('', Validators.required),
 			zipFile: new FormControl('', Validators.required)
 		});
+
 
 	}
 

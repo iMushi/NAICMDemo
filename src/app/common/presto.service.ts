@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { MsgService } from './msg.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 
@@ -20,11 +21,11 @@ export class PrestoService {
 	public personEnrolar = this.enrolamientoPerson.asObservable();
 	public impresionPerson = new BehaviorSubject<PersonaEnrolar>(null);
 	public impresion$ = this.impresionPerson.asObservable();
+	public uploadProgress = new Subject();
 	private subjectManageEnrolamiento = new BehaviorSubject<PaginatedIEmpresa>(null);
 	public manageEnrol$ = this.subjectManageEnrolamiento.asObservable();
 	private breadcrumbBS = new BehaviorSubject<TBreaCrumb[]>([]);
 	public breadEmitted$ = this.breadcrumbBS.asObservable();
-
 	private lastSearch: any;
 	private pageFunction: string;
 
@@ -185,7 +186,9 @@ export class PrestoService {
 				const percentComplete = Math.ceil((e.loaded / e.total) * 100);
 				console.log('====>', percentComplete);
 
-			};
+				this.uploadProgress.next(percentComplete);
+
+			}.bind(this);
 
 
 			xhr.open('POST', url, true);

@@ -2,7 +2,8 @@
 
 	<form #formCargaMasiva [formGroup]="cargaMForm" class="form-horizontal" >
 
-		<div class="panel panel-primary panelC panel-primaryC" [ngBusy]="{busy: uploadBusy, message: 'Espere, los archivos estan siendo cargados...'}" >
+		<div class="panel panel-primary panelC panel-primaryC" [ngBusy]="{busy: uploadBusy,
+		 	message: (progressCarga | async) }" >
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;&nbsp;Carga Masiva</h3>
 			</div>
