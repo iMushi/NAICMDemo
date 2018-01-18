@@ -207,9 +207,9 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.logout = function () {
         var _this = this;
         this._authService.logout().subscribe(function (logged) {
-            _this._router.navigate(['/login']);
+            _this._router.navigate(['/']);
         }, function (err) {
-            _this._router.navigate(['/login']);
+            _this._router.navigate(['/']);
         });
     };
     HeaderComponent.prototype.keyPressBuscar = function () {
