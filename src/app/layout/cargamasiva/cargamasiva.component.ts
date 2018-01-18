@@ -15,9 +15,7 @@ import { Msg } from '../../models/interface';
 	styleUrls: ['./cargamasiva.component.css']
 })
 export class CargamasivaComponent implements OnInit, OnDestroy {
-	ngOnDestroy(): void {
 
-	}
 
 	public uploadBusy: Promise<any>;
 	public cargasMasiva: Array<any>;
@@ -41,6 +39,10 @@ export class CargamasivaComponent implements OnInit, OnDestroy {
 	};
 
 	constructor(private _prestoService: PrestoService, private  _authService: AuthService, private _msgService: MsgService) {
+	}
+
+	ngOnDestroy(): void {
+
 	}
 
 	ngOnInit() {
