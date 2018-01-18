@@ -418,7 +418,7 @@ var GLOBAL = {
 var environment = {
     production: false,
     restUrl: 'https://apivanti.biz:8443/api/',
-    base: 'NAICMDemo/'
+    base: 'https://iMushi.github.io/NAICMDemo/'
 };
 //# sourceMappingURL=environment.js.map
 
