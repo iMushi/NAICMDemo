@@ -5,5 +5,5 @@
 
 export const environment = {
 	production: false,
-	restUrl : 'http://201.163.92.66:5000/api/'
+	restUrl : 'https://apivanti.biz:8443/api/'
 };
