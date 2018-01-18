@@ -427,7 +427,7 @@ var EnrolamientoComponent = (function () {
     };
     EnrolamientoComponent.prototype.imprimirCredencial = function () {
         $('.divImpresion').printThis({
-            loadCSS: 'assets/styleEnrolamiento.css',
+            loadCSS: __WEBPACK_IMPORTED_MODULE_3__common_global__["a" /* GLOBAL */].BASEURL + "assets/styleEnrolamiento.css",
             importStyle: false,
             canvas: true
         });

@@ -186,7 +186,7 @@ var EventualComponent = (function () {
     };
     EventualComponent.prototype.imprimirAcceso = function () {
         $('.divImpresion').printThis({
-            loadCSS: 'assets/styleEventual.css',
+            loadCSS: __WEBPACK_IMPORTED_MODULE_4__common_global__["a" /* GLOBAL */].BASEURL + "assets/styleEventual.css",
             importStyle: false
         });
     };

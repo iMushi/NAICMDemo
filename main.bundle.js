@@ -361,6 +361,7 @@ var GLOBAL = {
     // RESTAPINJS : 'http://localhost:5000/api/',
     // RESTAPINJS : 'https://aqueous-beyond-82335.herokuapp.com/api/',
     RESTAPINJS: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].restUrl,
+    BASEURL: __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].base || '',
     checkToArray: function (obj) {
         if (!Object(__WEBPACK_IMPORTED_MODULE_0_rxjs_util_isArray__["a" /* isArray */])(obj)) {
             if (obj) {
@@ -416,7 +417,8 @@ var GLOBAL = {
 // The file contents for the current environment will overwrite these during build.
 var environment = {
     production: false,
-    restUrl: 'https://apivanti.biz:8443/api/'
+    restUrl: 'https://apivanti.biz:8443/api/',
+    base: 'NAICMDemo/'
 };
 //# sourceMappingURL=environment.js.map
 
