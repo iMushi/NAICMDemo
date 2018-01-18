@@ -27,6 +27,8 @@ export class EventualComponent implements OnInit {
 	public imageUrl: string;
 	public isStreaming = false;
 
+	baseUrl = GLOBAL.BASEURL;
+
 	public idEmpresa: string;
 	public filesToUpload = [];
 
