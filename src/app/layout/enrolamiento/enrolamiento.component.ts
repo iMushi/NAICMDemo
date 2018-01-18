@@ -29,6 +29,8 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 	@ViewChild('hardwareVideo') hardwareVideo: any;
 	@ViewChild('photoCanvas') photoCanvas: any;
 
+	public uploadBusy: Promise<any>;
+	public progressCarga = this._prestoService.uploadProgress;
 
 	public isStreaming: boolean;
 	public currImgPhoto: string = GLOBAL.MPHOTOURL;
@@ -104,21 +106,21 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		this.enrolFrom.get('nombre').valueChanges.subscribe(
 			value => {
-				this.personEnrolar.nombre = value;
+				this.personEnrolar.nombre = value.toUpperCase();
 				this.qrModelChange();
 			}
 		);
 
 		this.enrolFrom.get('apellidoPaterno').valueChanges.subscribe(
 			value => {
-				this.personEnrolar.apellidoPaterno = value;
+				this.personEnrolar.apellidoPaterno = value.toUpperCase();
 				this.qrModelChange();
 			}
 		);
 
 		this.enrolFrom.get('rfc').valueChanges.subscribe(
 			value => {
-				this.personEnrolar.rfc = value;
+				this.personEnrolar.rfc = value.toUpperCase();
 				this.qrModelChange();
 			}
 		);
@@ -357,7 +359,7 @@ export class EnrolamientoComponent implements OnInit, OnDestroy {
 
 		const oldImageFile = this.personEnrolar.image !== '' ? this.personEnrolar.image : 'null';
 
-		this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile,
+		this.uploadBusy = this._prestoService.makeFileRequest(GLOBAL.RESTAPINJS + 'saveEnrolImage/' + this.personEnrolar._id + '/' + oldImageFile,
 			[], this.filesToUpload, 'image')
 			.then(
 				(success: IEmpresa) => {

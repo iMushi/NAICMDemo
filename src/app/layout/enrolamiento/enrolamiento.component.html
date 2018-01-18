@@ -1,4 +1,4 @@
-<section id="mainEnrolamiento">
+<section id="mainEnrolamiento" [ngBusy]="{'busy' : uploadBusy, 'message': (progressCarga | async)}">
 
 	<div class="row" class="navbar-fixed-top" [ngStyle]="{
 				'height' : completed ? '184px' : '0px',
@@ -280,9 +280,9 @@
 														<p>{{empresa.idEmpresa.nombreEmpresa}}</p>
 														<div class="input-group">
 															<span class="input-group-addon">Ocupaci&oacute;n</span>
-															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}" placeholder="Ocupaci&oacute;n" formControlName="ocupacionEmpresa_{{iEmpresa}}">
+															<input type="text" class="form-control" id="enOcupacion{{iEmpresa}}" placeholder="Ocupaci&oacute;n" formControlName="ocupacionEmpresa_{{iEmpresa}}" disabled>
 															<span class="input-group-addon">Fecha de Contrato</span>
-															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}" placeholder="Nombre Empresa" formControlName="fechaContratoEmpresa_{{iEmpresa}}">
+															<input type="text" class="form-control" id="enEmpresaFC{{iEmpresa}}" placeholder="Nombre Empresa" formControlName="fechaContratoEmpresa_{{iEmpresa}}" disabled>
 														</div>
 													</div>
 												</div>

@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EnrolamientoGuard} from '../../auth/enrolamiento.guard';
 import {CredencialModule} from '../credencial/credencial.module';
 import {SharedModulesModule} from '../shared-modules/shared-modules.module';
+import { BusyModule } from 'angular2-busy';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import {SharedModulesModule} from '../shared-modules/shared-modules.module';
 		FormsModule,
 		ReactiveFormsModule,
 		CredencialModule,
-		SharedModulesModule
+		SharedModulesModule,
+		BusyModule
 	],
 	declarations: [
 		EnrolamientoComponent

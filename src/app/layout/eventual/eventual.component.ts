@@ -21,6 +21,7 @@ declare const $;
 export class EventualComponent implements OnInit {
 
 	public uploadBusy: Promise<any>;
+	public subject = this._prestoService.uploadProgress;
 	public completed = false;
 	public eventualForm: FormGroup;
 	public imageUrl: string;

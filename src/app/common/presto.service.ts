@@ -156,7 +156,7 @@ export class PrestoService {
 
 	makeFileRequest(url: string, params: Array<string>, files: Array<File>, name: string | Array<string>): Promise<any> {
 
-		const inn = this.uploadProgress;
+		const subject = this.uploadProgress;
 
 		return new Promise(function (resolve, reject) {
 
@@ -184,14 +184,9 @@ export class PrestoService {
 
 
 			xhr.upload.onprogress = function (e) {
-
 				const percentComplete = Math.ceil((e.loaded / e.total) * 100);
-				console.log('====>', percentComplete);
-
 				this.next('Cargando Archivo(s)... ' + percentComplete + '%');
-
-			}.bind(inn);
-
+			}.bind(subject);
 
 			xhr.open('POST', url, true);
 			xhr.withCredentials = true;
