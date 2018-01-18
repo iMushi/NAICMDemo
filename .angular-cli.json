@@ -31,6 +31,7 @@
 			"environments": {
 				"dev": "environments/environment.ts",
 				"heroku": "environments/environment.heroku.ts",
+				"vanti": "environments/environment.vanti.ts",
 				"prod": "environments/environment.prod.ts"
 			}
 		}
