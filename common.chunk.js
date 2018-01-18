@@ -198,6 +198,10 @@ var PrestoService = (function () {
                     }
                 }
             };
+            xhr.upload.onprogress = function (e) {
+                var percentComplete = Math.ceil((e.loaded / e.total) * 100);
+                console.log('====>', percentComplete);
+            };
             xhr.open('POST', url, true);
             xhr.withCredentials = true;
             xhr.send(formData);
