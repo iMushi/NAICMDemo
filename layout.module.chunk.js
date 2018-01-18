@@ -97,7 +97,7 @@ var BusquedaRapidaComponent = (function () {
     return BusquedaRapidaComponent;
 }());
 BusquedaRapidaComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-busqueda-rapida',
         template: __webpack_require__("../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/busqueda-rapida/busqueda-rapida.component.css")]
@@ -228,15 +228,15 @@ var HeaderComponent = (function () {
     return HeaderComponent;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('appBread', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ViewContainerRef */] }),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ViewContainerRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ViewContainerRef */]) === "function" && _a || Object)
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('appBread', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _a || Object)
 ], HeaderComponent.prototype, "appBread", void 0);
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('breadTpl', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */] }),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */]) === "function" && _b || Object)
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('breadTpl', { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"]) === "function" && _b || Object)
 ], HeaderComponent.prototype, "breadTpl", void 0);
 HeaderComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-header',
         template: __webpack_require__("../../../../../src/app/layout/header/header.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/header/header.component.css")],
@@ -293,7 +293,7 @@ var LayoutRoutingModule = (function () {
     return LayoutRoutingModule;
 }());
 LayoutRoutingModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         declarations: [__WEBPACK_IMPORTED_MODULE_3__not_found_not_found_component__["a" /* NotFoundComponent */]],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
@@ -354,7 +354,7 @@ var LayoutComponent = (function () {
     return LayoutComponent;
 }());
 LayoutComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-layout',
         template: __webpack_require__("../../../../../src/app/layout/layout.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/layout.component.css")]
@@ -408,9 +408,9 @@ var LayoutModule = (function () {
     return LayoutModule;
 }());
 LayoutModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_3__layout_routing_module__["a" /* LayoutRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_7_ngx_pagination__["a" /* NgxPaginationModule */],
             __WEBPACK_IMPORTED_MODULE_8__angular_forms__["c" /* FormsModule */],
@@ -503,7 +503,7 @@ var ModalMsgComponent = (function () {
     return ModalMsgComponent;
 }());
 ModalMsgComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-modal-msg',
         template: __webpack_require__("../../../../../src/app/layout/modal-msg/modal-msg.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/modal-msg/modal-msg.component.css")]
@@ -566,7 +566,7 @@ var NotFoundComponent = (function () {
     return NotFoundComponent;
 }());
 NotFoundComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-not-found',
         template: __webpack_require__("../../../../../src/app/layout/not-found/not-found.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/not-found/not-found.component.css")]

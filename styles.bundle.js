@@ -27,6 +27,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "../../../../angular2-busy/build/style/busy.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../../angular2-busy/build/style/busy.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__("../../../../style-loader/addStyles.js")(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./busy.css", function() {
+			var newContent = require("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./busy.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "../../../../bootstrap/dist/css/flatly.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,6 +125,21 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n\n/* Estilos para botones redondos */\n.btn-circle {\n\twidth: 30px !important;\n\theight: 30px !important;\n\ttext-align: center !important;\n\tpadding: 6px 0 !important;\n\tfont-size: 12px !important;\n\tline-height: 1.428571429 !important;\n\tborder-radius: 15px !important;\n}\n\n.btn-circle.btn-lg {\n\twidth: 50px !important;\n\theight: 50px !important;\n\tpadding: 10px 16px !important;\n\tfont-size: 18px !important;\n\tline-height: 1.33 !important;\n\tborder-radius: 25px !important;\n}\n\n.btn-circle.btn-xl {\n\twidth: 70px !important;\n\theight: 70px !important;\n\tpadding: 10px 16px !important;\n\tfont-size: 24px !important;\n\tline-height: 1.33 !important;\n\tborder-radius: 35px !important;\n}\n\n/* Estilos para paneles Custom */\n.panel-primaryC {\n\tborder-color: transparent !important;\n}\n\n.panelC {\n\tbox-shadow: none !important;\n}\n\n.panel-primaryC > .panel-heading {\n\tbackground-color: transparent !important;\n\tcolor: #000 !important;\n}\n\n.panel-title {\n\tcursor: pointer !important;\n}\n\n.custom-pagination .pagination > li > a, .custom-pagination .pagination > li > span {\n\tborder: none !important;\n\tbackground: #3498db !important;;\n\tcursor: pointer !important;;\n\tcolor: black !important;\n}\n\n.pagination > li.active > a {\n\tbackground: #3498db !important;\n\tcolor: #fff !important;\n\tborder-bottom: 3px solid black !important;\n}\n\n.caretC{\n\tdisplay: inline-block;\n\twidth: 0;\n\theight: 0;\n\tmargin-left: 2px;\n\tvertical-align: middle;\n\tborder-top: 4px solid \\9;\n\tborder-right: 4px solid transparent;\n\tborder-left: 4px solid transparent;\n}\n\n.panel > .panel-heading > .panel-title >\n.caretC {\n\tborder-bottom: 4px dashed;\n}\n\n.panel > .panel-heading > .collapsed >\n.caretC {\n\tborder-top: 4px dashed;\n\tborder-bottom: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../../angular2-busy/build/style/busy.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".ng-busy {\n  z-index: 1002;\n}\n.ng-busy,\n.ng-busy > *,\n.ng-busy > ng-component > * {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  right: 0px;\n  bottom: 0px;\n}\n.ng-busy-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1001;\n  background: #fff;\n  opacity: .7;\n}\n.ng-busy-default-wrapper {\n  text-align: center;\n}\n.ng-busy-default-sign {\n  position: relative;\n  display: inline-block;\n  z-index: 1003;\n  padding: 12px 14px;\n  border: 1px solid #d8d8d8;\n  border-top: 0;\n  border-radius: 4px;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);\n  background: #f8f8f8;\n  color: #333;\n}\n.ng-busy-default-text {\n  display: inline-block;\n  margin-left: 6px;\n  max-width: 400px;\n  font-size: 14px;\n  text-align: left;\n}\n.ng-busy-default-spinner {\n  position: relative;\n  display: inline-block;\n  width: 25px;\n  height: 25px;\n  vertical-align: middle;\n}\n.ng-busy-default-spinner div {\n  position: absolute;\n  left: 44.5%;\n  top: 37%;\n  width: 10%;\n  height: 26%;\n  background: #666;\n  border-radius: 50px;\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n  opacity: 0;\n  -webkit-animation: busy-spinner-anim 1s linear infinite;\n          animation: busy-spinner-anim 1s linear infinite;\n}\n.ng-busy-default-spinner .bar1 {\n  -webkit-transform: rotate(0deg) translate(0, -142%);\n          transform: rotate(0deg) translate(0, -142%);\n  -webkit-animation-delay: -1s;\n          animation-delay: -1s;\n}\n.ng-busy-default-spinner .bar2 {\n  -webkit-transform: rotate(30deg) translate(0, -142%);\n          transform: rotate(30deg) translate(0, -142%);\n  -webkit-animation-delay: -0.91666667s;\n          animation-delay: -0.91666667s;\n}\n.ng-busy-default-spinner .bar3 {\n  -webkit-transform: rotate(60deg) translate(0, -142%);\n          transform: rotate(60deg) translate(0, -142%);\n  -webkit-animation-delay: -0.83333333s;\n          animation-delay: -0.83333333s;\n}\n.ng-busy-default-spinner .bar4 {\n  -webkit-transform: rotate(90deg) translate(0, -142%);\n          transform: rotate(90deg) translate(0, -142%);\n  -webkit-animation-delay: -0.75s;\n          animation-delay: -0.75s;\n}\n.ng-busy-default-spinner .bar5 {\n  -webkit-transform: rotate(120deg) translate(0, -142%);\n          transform: rotate(120deg) translate(0, -142%);\n  -webkit-animation-delay: -0.66666667s;\n          animation-delay: -0.66666667s;\n}\n.ng-busy-default-spinner .bar6 {\n  -webkit-transform: rotate(150deg) translate(0, -142%);\n          transform: rotate(150deg) translate(0, -142%);\n  -webkit-animation-delay: -0.58333333s;\n          animation-delay: -0.58333333s;\n}\n.ng-busy-default-spinner .bar7 {\n  -webkit-transform: rotate(180deg) translate(0, -142%);\n          transform: rotate(180deg) translate(0, -142%);\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.ng-busy-default-spinner .bar8 {\n  -webkit-transform: rotate(210deg) translate(0, -142%);\n          transform: rotate(210deg) translate(0, -142%);\n  -webkit-animation-delay: -0.41666667s;\n          animation-delay: -0.41666667s;\n}\n.ng-busy-default-spinner .bar9 {\n  -webkit-transform: rotate(240deg) translate(0, -142%);\n          transform: rotate(240deg) translate(0, -142%);\n  -webkit-animation-delay: -0.33333333s;\n          animation-delay: -0.33333333s;\n}\n.ng-busy-default-spinner .bar10 {\n  -webkit-transform: rotate(270deg) translate(0, -142%);\n          transform: rotate(270deg) translate(0, -142%);\n  -webkit-animation-delay: -0.25s;\n          animation-delay: -0.25s;\n}\n.ng-busy-default-spinner .bar11 {\n  -webkit-transform: rotate(300deg) translate(0, -142%);\n          transform: rotate(300deg) translate(0, -142%);\n  -webkit-animation-delay: -0.16666667s;\n          animation-delay: -0.16666667s;\n}\n.ng-busy-default-spinner .bar12 {\n  -webkit-transform: rotate(330deg) translate(0, -142%);\n          transform: rotate(330deg) translate(0, -142%);\n  -webkit-animation-delay: -0.08333333s;\n          animation-delay: -0.08333333s;\n}\n@-webkit-keyframes busy-spinner-anim {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0.25;\n  }\n}\n@keyframes busy-spinner-anim {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0.25;\n  }\n}\n", ""]);
 
 // exports
 
@@ -459,7 +501,8 @@ function updateLink(linkElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("../../../../../src/styles.css");
-module.exports = __webpack_require__("../../../../bootstrap/dist/css/flatly.css");
+__webpack_require__("../../../../bootstrap/dist/css/flatly.css");
+module.exports = __webpack_require__("../../../../angular2-busy/build/style/busy.css");
 
 
 /***/ })

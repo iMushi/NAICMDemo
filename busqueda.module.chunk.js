@@ -30,7 +30,7 @@ var BusquedaRouting = (function () {
     return BusquedaRouting;
 }());
 BusquedaRouting = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
@@ -140,7 +140,7 @@ var BusquedaComponent = (function () {
     return BusquedaComponent;
 }());
 BusquedaComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-busqueda',
         template: __webpack_require__("../../../../../src/app/layout/busqueda/busqueda.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/busqueda/busqueda.component.css")]
@@ -185,9 +185,9 @@ var BusquedaModule = (function () {
     return BusquedaModule;
 }());
 BusquedaModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* ReactiveFormsModule */],
             __WEBPACK_IMPORTED_MODULE_2__busqueda_routing__["a" /* BusquedaRouting */],

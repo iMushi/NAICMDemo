@@ -57,7 +57,7 @@ var BlankPageComponent = (function () {
     return BlankPageComponent;
 }());
 BlankPageComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-blank-page',
         template: __webpack_require__("../../../../../src/app/layout/blank-page/blank-page.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/blank-page/blank-page.component.css")]
@@ -96,9 +96,9 @@ var BlankPageModule = (function () {
     return BlankPageModule;
 }());
 BlankPageModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_2__blank_page_routing__["a" /* BlankPageRouting */]
         ],
         declarations: [
@@ -137,7 +137,7 @@ var BlankPageRouting = (function () {
     return BlankPageRouting;
 }());
 BlankPageRouting = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })

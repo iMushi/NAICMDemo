@@ -26,7 +26,7 @@ var ImpresionRouting = (function () {
     return ImpresionRouting;
 }());
 ImpresionRouting = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
@@ -106,7 +106,7 @@ var ImpresionComponent = (function () {
     return ImpresionComponent;
 }());
 ImpresionComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-impresion',
         template: __webpack_require__("../../../../../src/app/layout/impresion/impresion.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/impresion/impresion.component.css")]
@@ -147,9 +147,9 @@ var ImpresionModule = (function () {
     return ImpresionModule;
 }());
 ImpresionModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_2__impresion_routing__["a" /* ImpresionRouting */],
             __WEBPACK_IMPORTED_MODULE_4__credencial_credencial_module__["a" /* CredencialModule */]
         ],

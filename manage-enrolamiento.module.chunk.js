@@ -94,7 +94,7 @@ var ManageEnrolamientoComponent = (function () {
     return ManageEnrolamientoComponent;
 }());
 ManageEnrolamientoComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
         selector: 'app-manage-enrolamiento',
         template: __webpack_require__("../../../../../src/app/layout/manage-enrolamiento/manage-enrolamiento.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/manage-enrolamiento/manage-enrolamiento.component.css")]
@@ -137,9 +137,9 @@ var ManageEnrolamientoModule = (function () {
     return ManageEnrolamientoModule;
 }());
 ManageEnrolamientoModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_3__shared_modules_shared_modules_module__["a" /* SharedModulesModule */],
             __WEBPACK_IMPORTED_MODULE_4__manage_enrolamiento_routing__["a" /* ManageEnrolamientoRouting */],
             __WEBPACK_IMPORTED_MODULE_5_ngx_pagination__["a" /* NgxPaginationModule */]
@@ -178,7 +178,7 @@ var ManageEnrolamientoRouting = (function () {
     return ManageEnrolamientoRouting;
 }());
 ManageEnrolamientoRouting = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })

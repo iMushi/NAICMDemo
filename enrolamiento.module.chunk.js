@@ -40,7 +40,7 @@ var EnrolamientoGuard = (function () {
     return EnrolamientoGuard;
 }());
 EnrolamientoGuard = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__common_presto_service__["a" /* PrestoService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_presto_service__["a" /* PrestoService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], EnrolamientoGuard);
 
@@ -77,7 +77,7 @@ var EnrolamientoRouting = (function () {
     return EnrolamientoRouting;
 }());
 EnrolamientoRouting = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
     })
@@ -435,19 +435,19 @@ var EnrolamientoComponent = (function () {
     return EnrolamientoComponent;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('hardwareVideo'),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('hardwareVideo'),
     __metadata("design:type", Object)
 ], EnrolamientoComponent.prototype, "hardwareVideo", void 0);
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('photoCanvas'),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('photoCanvas'),
     __metadata("design:type", Object)
 ], EnrolamientoComponent.prototype, "photoCanvas", void 0);
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('currImgPhoto'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('currImgPhoto'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _a || Object)
 ], EnrolamientoComponent.prototype, "imgEle", void 0);
 EnrolamientoComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-enrolamiento',
         template: __webpack_require__("../../../../../src/app/layout/enrolamiento/enrolamiento.component.html"),
         styles: [__webpack_require__("../../../../../src/app/layout/enrolamiento/enrolamiento.component.css")],
@@ -495,9 +495,9 @@ var EnrolamientoModule = (function () {
     return EnrolamientoModule;
 }());
 EnrolamientoModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_2__enrolamiento_routing__["a" /* EnrolamientoRouting */],
             __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_forms__["d" /* ReactiveFormsModule */],
