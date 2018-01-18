@@ -15,9 +15,6 @@ export class CredencialComponent implements OnInit {
 	constructor() {
 	}
 
-
-
-
 	public imageUrl;
 
 	ngOnInit() {
