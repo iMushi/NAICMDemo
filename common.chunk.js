@@ -178,7 +178,6 @@ var PrestoService = (function () {
         })));
     };
     PrestoService.prototype.saveEnrolamiento = function (personEnrol) {
-        console.log(personEnrol);
         var params = __WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].toHttpParams(personEnrol, ['_id', 'empresaId', 'empresaCredId', 'image', 'enrolComplete', 'enrolActive', 'rutaImagenes', 'biometricoFinal', 'biometrico']);
         params = params.delete('empresa');
         return this.http.post(__WEBPACK_IMPORTED_MODULE_2__global__["a" /* GLOBAL */].RESTAPINJS + 'saveEnrol', params, { withCredentials: true });
@@ -201,7 +200,6 @@ var PrestoService = (function () {
                 }
             }
             xhr.onreadystatechange = function () {
-                console.log(xhr);
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         resolve(JSON.parse(xhr.response));
