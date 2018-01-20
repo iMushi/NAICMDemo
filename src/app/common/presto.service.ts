@@ -151,7 +151,6 @@ export class PrestoService {
 	}
 
 	saveEnrolamiento(personEnrol: IEmpresa): Observable<Object> {
-		console.log(personEnrol);
 		let params: HttpParams = GLOBAL.toHttpParams(personEnrol
 			, ['_id', 'empresaId', 'empresaCredId', 'image', 'enrolComplete', 'enrolActive', 'rutaImagenes', 'biometricoFinal', 'biometrico']);
 		params = params.delete('empresa');
@@ -181,7 +180,6 @@ export class PrestoService {
 			}
 
 			xhr.onreadystatechange = function () {
-				console.log(xhr);
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {
 						resolve(JSON.parse(xhr.response));

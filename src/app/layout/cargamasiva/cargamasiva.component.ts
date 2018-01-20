@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { GLOBAL } from '../../common/global';
 import { PrestoService } from '../../common/presto.service';
@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MsgService } from '../../common/msg.service';
 import { Msg } from '../../models/interface';
+
 
 @Component({
 	selector: 'app-cargamasiva',
@@ -38,6 +39,8 @@ export class CargamasivaComponent implements OnInit, OnDestroy {
 		totalItems: 1
 	};
 
+	@ViewChild('cargaCVS') inputCvs: ElementRef;
+
 	constructor(private _prestoService: PrestoService, private  _authService: AuthService, private _msgService: MsgService) {
 	}
 
@@ -49,11 +52,9 @@ export class CargamasivaComponent implements OnInit, OnDestroy {
 		this.getCargaMasiva(1);
 
 		this.cargaMForm = new FormGroup({
-			csvFile: new FormControl('', Validators.required),
-			zipFile: new FormControl('', Validators.required)
+			csv: new FormControl('', Validators.required),
+			zip: new FormControl('', Validators.required)
 		});
-
-
 	}
 
 	getCargaMasiva(pageNumber: number) {
@@ -119,6 +120,19 @@ export class CargamasivaComponent implements OnInit, OnDestroy {
 	fileChangeEvent(fileInput: any) {
 
 		let subject;
+		const fileType = fileInput.target.accept.replace('.', '');
+
+		if (fileType !== fileInput.target.files[0].name.split('.')[1]) {
+			fileInput.target.value = '';
+			this.cargaMForm.get(fileType).setErrors({
+				archivoIncorrecto: true
+			});
+			this.subjectFile.next(true);
+			return;
+		} else {
+			this.cargaMForm.get(fileType).setErrors(null);
+		}
+
 		this.filesSelected[fileInput.target.id] = fileInput.target.files.length ? fileInput.target.files : '';
 
 		if (!!this.filesSelected['cargaZip'] && !!this.filesSelected['cargaCSV']) {
@@ -132,19 +146,6 @@ export class CargamasivaComponent implements OnInit, OnDestroy {
 		}
 		this.subjectFile.next(subject);
 
-
-		/* let fileList = event.target.files;
-  let file = fileList[0];
-  let extension = file.name.split('.')[1].toLowerCase();
-
-  if (extension === 'jpg') {
-    alert('Good file extension!');
-  }
-  else {
-    event.target.value = '';
-    alert('Wrong file extension! File input is cleared.');
-  }
-    */
 	}
 
 	onPageChange(number: number) {
